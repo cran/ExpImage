@@ -1,7 +1,7 @@
 Package: ExpImage
 Type: Package
 Title: Tool For Analysis of Images in Experiments
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Alcinei Mistico",
            family = "Azevedo",
@@ -16,10 +16,12 @@ License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 Language: pt-BR
+Suggests: rmarkdown, knitr
+VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-08-10 02:07:22 UTC; AlcineiAzevedo
+Packaged: 2021-09-06 10:47:40 UTC; AlcineiAzevedo
 Author: Alcinei Mistico Azevedo [aut, cre]
     (<https://orcid.org/0000-0001-5196-0851>)
 Maintainer: Alcinei Mistico Azevedo <alcineimistico@hotmail.com>
 Repository: CRAN
-Date/Publication: 2021-08-10 12:00:08 UTC
+Date/Publication: 2021-09-06 11:00:02 UTC

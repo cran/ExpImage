@@ -77,6 +77,7 @@
 #'   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
 #}
 #'@export
+#' @exportS3Method print mask_pixels
 
 mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,plot=FALSE){
   TargetPixels==1
@@ -114,14 +115,8 @@ mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,plot=FALSE){
   return(im)
 }
 
-crop.image=function(im,w,h,plot=TRUE){
-  if(is.Image(im)){im@.Data=im@.Data[w,h,]}
-  if(is.matrix(im)){im=im[w,h]}
-
-  if(plot==T){
-    if(is.Image(im)){plot(im)}
-    if(is.matrix(im)){display(im)}
-
-  }
-  return(im)
+print.mask_pixels=function(x,...){
+  if(is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x),"\n")
 }

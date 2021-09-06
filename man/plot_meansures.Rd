@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_meansures.R
 \name{plot_meansures}
 \alias{plot_meansures}
-\title{Function to overlay information on image objects (Funcao para sobrepor informacoes sobre os objetos da imagem)}
+\title{Funcao sobrepor informacoes sobre os objetos da imagem}
 \usage{
 plot_meansures(img,coordx,coordy,text,col="red",cex=1,pathSave="none",plot=F)
 }
@@ -37,24 +37,25 @@ Esta funcao possibilita sobrepor informacoes sobre os objetos da
   imagem
 }
 \examples{
+\donttest{
 ####################################################################################
 #Estimar a area foliar usando um objeto de referencia.
 ###################################################################################
   #ativar pacote
-  library(EBImage)
-  library(ExpImage)
+  #library(EBImage)
+  #library(ExpImage)
   #######################################################
   #Abrir imagem das folhas
-  im=readImage(example_image(3))
+  im=read_image(example_image(3))
   plot(im)
   #Abrir paleta de cores do fundo
-  fundo=readImage(example_image(4))
+  fundo=read_image(example_image(4))
   plot(fundo)
   #Abrir paleta de cores das folhas
-  folhas=readImage(example_image(5))
+  folhas=read_image(example_image(5))
   plot(folhas)
   #Abrir paleta de cores referencia
-  ref=readImage(example_image(6))
+  ref=read_image(example_image(6))
   #Ver a imagem
   plot(ref)
 
@@ -93,6 +94,7 @@ Esta funcao possibilita sobrepor informacoes sobre os objetos da
  #Apresentando a area foliar de sobre cada uma das folhas
  plot_meansures(im,medidasref$measures[,1],coordy=medidasref$measures[,2],
  text=round(medidasref$measures[,3],2),cex = 0.9,col="blue")
+ }
 }
 \seealso{
 \code{\link{segmentation_logit}}

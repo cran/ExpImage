@@ -56,6 +56,6 @@ thinning_image <- function(x,plot=FALSE){
       if (identical(x, x2)) break
       x <- x2
     }
-if(plot==T){print(display(x))}
+if(plot==T){plot(as.Image((x)))}
     return(x)
   }

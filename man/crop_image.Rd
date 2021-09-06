@@ -5,7 +5,7 @@
 \title{Esta funcao corta a imagem retirando as laterais nao desejadas. (This function
 removes unwanted sides from the images.)}
 \usage{
-crop_image(im,w,h,plot=TRUE)
+crop_image(im,w,h,plot=TRUE,verbose=TRUE)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage (This
@@ -22,6 +22,10 @@ remain in the image ).}
 \item{plot}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem segmentada (Indicates whether the segmented image will be
 displayed (TRUE) or not (FALSE) (default)).}
+
+\item{verbose}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) os
+pontos de corte (Indicates whether the segmented image will be
+ displayed (TRUE) or not (FALSE) (default) the points crop).}
 }
 \value{
 Retorna uma imagem cortada, apresentando apenas os  pixels
@@ -32,38 +36,22 @@ Esta funcao permite cortar a imagem (This function allows you to
  crop the image).
 }
 \examples{
-\donttest{
 #library(ExpImage)
-#library(EBImage)
 #Carregar imagem de exemplo
-im=read_image(example_image(1),plot=TRUE)
+im=read_image(example_image(2),plot=TRUE)
 
-##Diminuir a resolucao (tamanho da imagem)
-im2=resize_image(im,w=1000,plot=TRUE)
 
 ##Cortar Imagem
-im3=crop_image(im2,w =200:750,h=100:650,plot = TRUE)
 
-##Aumentar brilho
-im4=edit_image(im3,brightness = 0.1)
+im3=crop_image(im,w =286:421,h=242:332,plot = TRUE)
 
-#Aumentar contraste
-im5=edit_image(im4,contrast = 1.2)
-
-#Aumentar gamma
-im6=edit_image(im5,gamma  = 1.1)
-
-
-#Alterando brilho, contraste e gamma
-imb=edit_image(im3,brightness = 0.1,contrast = 1.7,gamma  = 1.2)
-
-#Mostrando ambas as imagens simultaneamente.
-im4=join_image(im3,imb,plot=TRUE)
+# intefacie grafica
+\dontrun{
+im2=crop_image(im)
 }
-
 }
 \seealso{
-\code{\link{segmentation_logit}}
+\code{\link{edit_image}} ,  \code{\link{edit_imageGUI}}
 }
 \author{
 Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)

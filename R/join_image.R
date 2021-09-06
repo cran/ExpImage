@@ -53,6 +53,7 @@
 #'im4=join_image(im3,imb)
 #'}
 #'@export
+#' @exportS3Method print join_image
 
 
 
@@ -60,4 +61,10 @@ join_image=function(im1=NULL,im2=NULL,im3=NULL,im4=NULL,im5=NULL,plot=TRUE){
   im=combine(im1,im2,im3,im4,im5)
   if(plot==T){plot(im, all=T)}
   return(im)
+}
+
+print.join_image=function(x,...){
+  if(is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x),"\n")
 }

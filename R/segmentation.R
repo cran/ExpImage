@@ -79,8 +79,8 @@ segmentation=function(img.band,treshold="otsu",selectHigher=TRUE,fillHull=FALSE,
                       fillBack=FALSE,TargetPixels="all", plot=FALSE){
   #library(EBImage)
   if(isFALSE(is.matrix(TargetPixels))){
-    b=img.band
-    if(treshold=="otsu"){ts=otsu(b);message(
+    b=(img.band)
+    if(treshold=="otsu"){ts=EBImage::otsu(b);message(
       paste("The treshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
     if(treshold!="otsu"){ts=treshold}
     if(isTRUE(selectHigher)){MatrizSegentada=b>ts}
@@ -109,6 +109,6 @@ segmentation=function(img.band,treshold="otsu",selectHigher=TRUE,fillHull=FALSE,
 
 
 
-  if(plot==T){(display(MatrizSegentada))}
+  if(plot==T){plot(as.Image((MatrizSegentada)))}
   return(MatrizSegentada)
 }

@@ -32,6 +32,6 @@ skeletonize_image <- function(x,plot=FALSE){
     skel <- skel | s
     x <- erode(x, kern)
   }
-  if(plot==T){print(display(skel))}
+  if(plot==T){plot(as.Image((skel)))}
   return(skel)
 }

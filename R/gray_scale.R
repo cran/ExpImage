@@ -8,12 +8,29 @@
 #' @param im    :This object must contain an image in EBImage format (Este
 #'   objeto deve conter uma imagem no formato do EBImage).
 #' @param method    : Indicates the method for obtaining the gray scale (Este
-#'   objeto indica o metodo para a obtencao da escala de cinza).:\cr "r" =
-#'   extrair a banda de vermelho\cr "g" = extrair a banda de verde\cr "b" =
-#'   extrair a banda de azul\cr "rg" = considera a media da banda de vermelho e
-#'   verde: (r+g)/2\cr "rb" = considera a media da banda de vermelho e azul:
-#'   (r+b)/2\cr "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
+#'   objeto indica o metodo para a obtencao da escala de cinza).:\cr
+#'    "r" = extrair a banda de vermelho\cr
+#'    "g" = extrair a banda de verde\cr
+#'     "b" = extrair a banda de azul\cr
+#'    "rg" = considera a media da banda de vermelho e verde: (r+g)/2\cr
+#'    "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
+#'    "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
 #'   "gbb" = considera a media das 3 bandas: (r+g+b)/3\cr
+#'    "BI"=sqrt((r^2+g^2+b^2)/3)\cr
+#'    "BIM"=sqrt((2r+2g+2b)/3)\cr
+#'    "SCI"=(r-g)/(r+g)\cr
+#'    "GLI"=(2g-r-b)/(2g+r+b)\cr
+#'    "HI"=(2r-g-b)/(g-b)\cr
+#'    "NGRDI"=(g-r)/(g+r)\cr
+#'    "SI"=(r-b)/(r+b)\cr
+#'    "VARI"=(g-r)/(g+r-b)\cr
+#'    "HUE"=atan(2(b-g-r)/30.5(g-r))\cr
+#'    "MGVRI"=(g^2-r^2)/(g^2+r^2)\cr
+#'    "GLI"=(2g-r-b)/(2g+r+b)\cr
+#'    "MPRI"=(g-r)/(g+r)\cr
+#'    "RGVBI"=(g-(br))/(g^2(br))\cr
+#'    "ExG"=(2*g-r-b)\cr
+#'    "VEG"=(g/(g^0.66667*b^0.66667))\cr
 #'
 #' @param plot    :This object must contain an image in EBImage format (Indica
 #'   se sera apresentada (TRUE) ou nao (FALSE) (default) a imagem segmentada).
@@ -37,6 +54,7 @@
 #'b=gray_scale(im,method = "b",plot=TRUE)
 #}
 #'@export
+#' @exportS3Method print gray_scale
 
 
 gray_scale=function(im,method="r",plot=FALSE){
@@ -61,13 +79,35 @@ gray_scale=function(im,method="r",plot=FALSE){
   if(method=="rb"){imm=(r+b)/2}
   if(method=="gb"){imm=(g+b)/2}
   if(method=="rgb"){imm=(r+g+b)/3}
+  if(method=="r/rgb"){imm=normatizar(r/((c(r))+(c(g))+(c(b))))}
+  if(method=="g/rgb"){imm=normatizar(g/((c(r))+(c(g))+(c(b))))}
+  if(method=="b/rgb"){imm=normatizar(b/((c(r))+(c(g))+(c(b))))}
+  if(method=="BI"){imm=sqrt((r^2+g^2+b^2)/3)}
+  if(method=="BIM"){imm=sqrt((r*2+g*2+b*2)/3)}
+  if(method=="SCI"){imm=(r-g)/(r+g)}
+  if(method=="GLI"){imm=(2*g-r-b)/(2*g+r+b)}
+  if(method=="HI"){imm=(2*r-g-b)/(g-b)}
+  if(method=="NGRDI"){imm=(g-r)/(g+r)}
+  if(method=="SI"){imm=(r-b)/(r+b)}
+  if(method=="VARI"){imm=(g-r)/(g+r-b)}
+  if(method=="HUE"){imm=atan(2*(b-g-r)/30.5*(g-r))}
+  if(method=="MGVRI"){imm=(g^2-r^2)/(g^2+r^2)}
+  if(method=="GLI"){imm=(2*g-r-b)/(2*g+r+b)}
+  if(method=="MPRI"){imm=(g-r)/(g+r)}
+  if(method=="RGVBI"){imm=(g-(b*r))/(g^2*(b*r))}
+  if(method=="ExG"){imm=(2*g-r-b)}
+  if(method=="VEG"){imm=(g/(g^0.66667*b^0.66667))}
 
-  if(method=="r/rgb"){imm=normatizar(r/(max(c(r))+max(c(g))+max(c(b))))}
-  if(method=="g/rgb"){imm=normatizar(g/(max(c(r))+max(c(g))+max(c(b))))}
-  if(method=="b/rgb"){imm=normatizar(b/(max(c(r))+max(c(g))+max(c(b))))}
+  if(plot==T){plot(as.Image((imm)))}
 
-  if(plot==T){print(display(imm))}
+  return(normalize(imm))
 
-  return(imm)
+}
 
+
+
+print.gray_scale=function(x,...){
+  if(is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x),"\n")
 }

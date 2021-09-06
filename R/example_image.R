@@ -21,6 +21,7 @@
 #'  \item 9 = Imagem com a paleta de cores das partes doentes da folha de
 #'  tomateiro
 #'  \item 10 = Imagem de uma plantula
+#'  \item 11 = Imagem aerea de um rebanho (https://www.istockphoto.com/)
 #'  }
 
 #' @return Returns the address of the example images (Retorna o endereco das
@@ -33,9 +34,9 @@
 #}
 #'@export
 example_image=function(ex) {
-  if((ex<1)|(ex>10)){stop("Image not available for this number", call. = FALSE)}
+  if((ex<1)|(ex>12)){stop("Image not available for this number", call. = FALSE)}
   Imagens=c("Feijao.jpg","Ovos1.jpg","imagem.jpg","fundo.jpg","folhas.jpg","Referencia.jpg",
-            "FolhaTomate.jpg","TomateFolha.jpg","TomateDoenca.jpg","Plantula.jpg")
+            "FolhaTomate.jpg","TomateFolha.jpg","TomateDoenca.jpg","Plantula.jpg","gado.jpg","alface.jpg")
 
   #system.file(paste0("images/", Imagens[ex]), package = "ExpImage")
   system.file("images",Imagens[ex],package="ExpImage")

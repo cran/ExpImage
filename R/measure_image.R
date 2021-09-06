@@ -151,7 +151,7 @@
 #'text=round(medidas3$measures[,3],2),cex = 0.9,col="blue",plot=TRUE)
 #'}
 #'@export
-
+# @exportS3Method print measure_image
 
 measure_image=function(img,noise=0,id=NULL,length= NULL,width =NULL){
   MatrizSegentada2=img
@@ -267,3 +267,5 @@ RES[,4:9]= RES[,4:9]*((length+width)*2 )/ ((nrow(MatrizSegentada2)+ncol(MatrizSe
   return(list(ObjectNumber=ObjectNumber,measures=RES))
 
 }
+
+

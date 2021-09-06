@@ -70,7 +70,7 @@ im4=join_image(im3,imb)
 }
 }
 \seealso{
-\code{\link{segmentation_logit}}
+\code{\link{edit_imageGUI}}
 }
 \author{
 Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)

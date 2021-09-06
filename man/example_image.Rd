@@ -24,6 +24,7 @@ cada exemplo sao):
  \item 9 = Imagem com a paleta de cores das partes doentes da folha de
  tomateiro
  \item 10 = Imagem de uma plantula
+ \item 11 = Imagem aerea de um rebanho (https://www.istockphoto.com/)
  }}
 }
 \value{

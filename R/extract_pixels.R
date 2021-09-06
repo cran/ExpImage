@@ -90,6 +90,7 @@
 #'   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
 #}
 #'@export
+#' @exportS3Method print extract_pixels
 
 
 
@@ -110,4 +111,11 @@ extract_pixels=function(im,target,valueTarget=TRUE,valueSelect=c(r=1,g=1,b=1),pl
 
   if(plot==T){plot(im)}
   return(im)
+}
+
+
+print.extract_pixels=function(x,...){
+  if(is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x),"\n")
 }

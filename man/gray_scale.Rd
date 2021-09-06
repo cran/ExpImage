@@ -12,12 +12,29 @@ gray_scale(im,method="r",plot=FALSE)
 objeto deve conter uma imagem no formato do EBImage).}
 
 \item{method}{: Indicates the method for obtaining the gray scale (Este
-objeto indica o metodo para a obtencao da escala de cinza).:\cr "r" =
-extrair a banda de vermelho\cr "g" = extrair a banda de verde\cr "b" =
-extrair a banda de azul\cr "rg" = considera a media da banda de vermelho e
-verde: (r+g)/2\cr "rb" = considera a media da banda de vermelho e azul:
-(r+b)/2\cr "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
-"gbb" = considera a media das 3 bandas: (r+g+b)/3\cr}
+objeto indica o metodo para a obtencao da escala de cinza).:\cr
+ "r" = extrair a banda de vermelho\cr
+ "g" = extrair a banda de verde\cr
+  "b" = extrair a banda de azul\cr
+ "rg" = considera a media da banda de vermelho e verde: (r+g)/2\cr
+ "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
+ "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
+"gbb" = considera a media das 3 bandas: (r+g+b)/3\cr
+ "BI"=sqrt((r^2+g^2+b^2)/3)\cr
+ "BIM"=sqrt((2r+2g+2b)/3)\cr
+ "SCI"=(r-g)/(r+g)\cr
+ "GLI"=(2g-r-b)/(2g+r+b)\cr
+ "HI"=(2r-g-b)/(g-b)\cr
+ "NGRDI"=(g-r)/(g+r)\cr
+ "SI"=(r-b)/(r+b)\cr
+ "VARI"=(g-r)/(g+r-b)\cr
+ "HUE"=atan(2(b-g-r)/30.5(g-r))\cr
+ "MGVRI"=(g^2-r^2)/(g^2+r^2)\cr
+ "GLI"=(2g-r-b)/(2g+r+b)\cr
+ "MPRI"=(g-r)/(g+r)\cr
+ "RGVBI"=(g-(br))/(g^2(br))\cr
+ "ExG"=(2*g-r-b)\cr
+ "VEG"=(g/(g^0.66667*b^0.66667))\cr}
 
 \item{plot}{:This object must contain an image in EBImage format (Indica
 se sera apresentada (TRUE) ou nao (FALSE) (default) a imagem segmentada).}

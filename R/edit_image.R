@@ -27,7 +27,7 @@
 
 #' @return Returns a cropped image with selected pixels(Retorna uma imagem cortada, apresentando apenas os  pixels
 #'   selecionados).
-#' @seealso  \code{\link{segmentation_logit}}
+#' @seealso  \code{\link{edit_imageGUI}}
 
 #' @examples
 #'\donttest{
@@ -60,7 +60,8 @@
 #'#Mostrando ambas as imagens simultaneamente.
 #'im4=join_image(im3,imb)
 #'}
-#'@export
+#' @export
+#' @exportS3Method print edit_image
 
 
 
@@ -76,8 +77,16 @@ edit_image=function(im,brightness=0,contrast=1,gamma =1,plot=T){
     im=im+brightness
     im=im*contrast
     im=im^gamma
-    if(plot==T){display(im)}
+    if(plot==T){plot(as.Image(im))}
   }
 
   return(im)
+}
+
+
+
+print.edit_image=function(x,...){
+  if(is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x),"\n")
 }

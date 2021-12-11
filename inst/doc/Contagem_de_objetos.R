@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 
 ## -----------------------------------------------------------------------------
@@ -25,6 +25,9 @@ g=gray_scale(im2,method = "g",plot=T)
 b=gray_scale(im2,method = "b",plot=T)
 
 ## -----------------------------------------------------------------------------
+plot_indexes(im,NumberCores=2)
+
+## -----------------------------------------------------------------------------
 MatrizSegmentada=segmentation(b,treshold = 0.20,fillHull = F,selectHigher = T,plot=T)
 MatrizSegmentada=segmentation(b,treshold = 0.40,fillHull = F,selectHigher = T,plot=T)
 MatrizSegmentada=segmentation(b,treshold = 0.60,fillHull = F,selectHigher = T,plot=T)
@@ -34,11 +37,11 @@ MatrizSegmentada=segmentation(b,treshold = 0.80,fillHull = F,selectHigher = T,pl
 MatrizSegmentada=segmentation(r,treshold = "otsu",fillHull = F,selectHigher = T,plot=T)
 
 ## -----------------------------------------------------------------------------
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = F,selectHigher = F,plot=T)
+MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = F,selectHigher = F,plot=T)
 
 
 ## -----------------------------------------------------------------------------
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = T,selectHigher = F,plot=T)
+MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = T,selectHigher = F,plot=T)
 
 
 ## -----------------------------------------------------------------------------

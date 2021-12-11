@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 
 ## -----------------------------------------------------------------------------
@@ -19,6 +19,9 @@ im=read_image(end1,plot=TRUE)
 r=gray_scale(im,method = "r",plot=T)
 g=gray_scale(im,method = "g",plot=T)
 b=gray_scale(im,method = "b",plot=T)
+
+## -----------------------------------------------------------------------------
+plot_indexes(im,NumberCores=2)
 
 ## -----------------------------------------------------------------------------
 Seg=segmentation(b,treshold = 0.65,selectHigher = TRUE,fillHull = TRUE,plot = TRUE)

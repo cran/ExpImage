@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 
 ## -----------------------------------------------------------------------------
@@ -14,7 +14,7 @@ end=example_image(11)
 im=read_image(end,plot=TRUE)
 
 ## -----------------------------------------------------------------------------
-plot_indexes(im)
+plot_indexes(im,NumberCores=2)
 
 ## -----------------------------------------------------------------------------
 #Criando o objeto com o índice
@@ -22,6 +22,7 @@ im2=gray_scale(im,method = "ExG",plot=T)
 
 
 ## -----------------------------------------------------------------------------
+max(c(im2@.Data))
 im3=segmentation(im2,treshold = "otsu",selectHigher = FALSE,plot=TRUE)
 
 

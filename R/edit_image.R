@@ -35,7 +35,7 @@
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(1))
 #'##mostrar imagem
-#'plot(im)
+#'plot_image(im)
 #'
 #'
 #'##Diminuir a resolucao (tamanho da imagem)
@@ -66,18 +66,18 @@
 
 
 edit_image=function(im,brightness=0,contrast=1,gamma =1,plot=T){
-  if(is.Image(im)){
+  if( EBImage::is.Image(im)){
     im@.Data=im@.Data+brightness
     im@.Data=im@.Data*contrast
     im@.Data=im@.Data^gamma
-    if(plot==T){plot(im)}
+    if(plot==T){plot_image(im)}
   }
 
   if(is.matrix(im)){
     im=im+brightness
     im=im*contrast
     im=im^gamma
-    if(plot==T){plot(as.Image(im))}
+    if(plot==T){plot_image( EBImage::as.Image(im))}
   }
 
   return(im)
@@ -86,7 +86,7 @@ edit_image=function(im,brightness=0,contrast=1,gamma =1,plot=T){
 
 
 print.edit_image=function(x,...){
-  if(is.Image(x)){cat("Is an image object","\n")}
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
   if(is.matrix(x)){cat("Is an matrix object","\n")}
   cat("Dimensions of Object:",dim(x),"\n")
 }

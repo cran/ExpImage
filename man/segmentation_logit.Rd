@@ -4,15 +4,8 @@
 \alias{segmentation_logit}
 \title{Funcao para a segmentacao de imagens.}
 \usage{
-segmentation_logit(
-  im,
-  foreground,
-  background,
-  sample = 2000,
-  fillHull = TRUE,
-  TargetPixels = "all",
-  plot = FALSE
-)
+segmentation_logit(im,foreground,background,return="image",
+   sample=2000, fillHull=TRUE,TargetPixels="all",plot=TRUE)
 }
 \arguments{
 \item{im}{:Este objeto deve ser obrigatoriamente uma imagem colorida (RGB)
@@ -27,6 +20,11 @@ list. Cada paleta de cor desve estar no formato de imagens do EBImage.}
 com os tons do fundo. Caso haja mais de uma paleta de cores, suas
 reespectivas imagens devem ser colocadas dentro de um objeto do tipo list.
 Cada paleta de cor desve estar no formato de imagens do EBImage.}
+
+\item{return}{Texto indicando o objeto a ser exportado pela funcao. Para
+este argumento podemos considerar: \cr
+  "image" = sera exportada uma matriz referente a imagem segmentada.\cr
+  "model" = Sera exportado o modelo para a predicao.\cr}
 
 \item{sample}{: Deve ser um valor numerico indicando quantos pixels dos
 imagens do foreground e do background serao utilizados no ajuste do modelo
@@ -51,52 +49,11 @@ Imagem segmentada
 \description{
 Esta funcao possibilita a segmentacao de imagens por meio de do
  ajuste de um modelo linear generalizado com a funcao logit de ligacao.
- @usage  segmentation_logit(im,foreground,background,sample=2000,
- fillHull=TRUE,TargetPixels="all",plot=FALSE)
 }
 \examples{
-\donttest{
-
-#################################################################
-#Estimar a area foliar usando um objeto de referencia.
-##################################################################
-  #ativar pacote
-  #library(EBImage)
-  #library(ExpImage)
-  #######################################################
-  #Abrir imagem das folhas
-  im=read_image(example_image(3))
-  plot(im)
-  #Abrir paleta de cores do fundo
-  fundo=read_image(example_image(4))
-  plot(fundo)
-  #Abrir paleta de cores das folhas
-  folhas=read_image(example_image(5))
-  plot(folhas)
-  #Abrir paleta de cores referencia
-  ref=read_image(example_image(6))
-  #Ver a imagem
-  plot(ref)
-
-  #################################################################
-  #Segmentacao para separar as folhas do restante
-  folhas.seg=segmentation_logit(im,foreground=folhas,
-  background=list(fundo,ref),sample=2000,fillHull=TRUE,plot=TRUE)
-
-  #Segmentacao para separar o objeto de referencia do restante
-  ref.seg=segmentation_logit(im,foreground=ref,
-  background=list(fundo,folhas),sample=2000,fillHull=TRUE,plot=TRUE)
-
-  #Identificar area de cada folha
-
-  medidas=measure_image(folhas.seg,noise = 1000)
-  #numero de objetos e medias
-  medidas
-
-  #Plotar resultados das areas em pixel e salvar em imagem jpg
-  plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
-  text=round(medidas$measures[,3],1),col="blue",cex = 0.9,pathSave ="none" ,plot=TRUE)
-  }
+\dontrun{
+im=read_image(example_image(7),plot=TRUE)
+segmentation_logitGUI(im)  }
 }
 \seealso{
 \code{\link{glm}} ,\code{\link{segmentation}}

@@ -4,11 +4,17 @@
 \alias{plot_indexes}
 \title{Function to plot multiple indices (funcao para plotar varios indices)}
 \usage{
-plot_indexes(im)
+plot_indexes(im,NumberCores="all")
 }
 \arguments{
 \item{im}{:This object must contain an image in EBImage format (Este
 objeto deve conter uma imagem no formato do EBImage).}
+
+\item{NumberCores}{Indica o numero de cores a serem utilizados no processamento.
+Pode ser um valor numerico. Se for 'ALL' sera considerado o numero maximo de
+ cores do PC. (Indicates the number of colors to be used in processing.
+ It can be a numerical value. If it is 'ALL' it will be considered the
+ maximum number of PC cores).}
 }
 \description{
 Function to plot multiple indices (funcao para plotar varios
@@ -18,7 +24,7 @@ Function to plot multiple indices (funcao para plotar varios
 \donttest{
 #Carregar imagem de exemplo
 im=read_image(example_image(2))
-plot_indexes(im)
+plot_indexes(im,NumberCores=2)
 }
 }
 \seealso{

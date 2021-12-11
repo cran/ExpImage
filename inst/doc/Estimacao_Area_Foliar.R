@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-# library(EBImage)
+library(EBImage)
 library(ExpImage)
 
 ## -----------------------------------------------------------------------------
@@ -45,7 +45,8 @@ medidas
 #Convertendo a area dos objetos para cm2
 
 #Identificando a area do objeto de referência (maior area)
-# A area conhecida do objeto de referência tem 8.5 x 5.5 cm e sua area segmentada esta no objeto ref.seg
+# A area conhecida do objeto de referência tem 8.5 x 5.5 cm 
+#e sua areasegmentada esta no objeto ref.seg
 
 medidasref=measure_image(img = folhas.seg,noise =1000,id=ref.seg,length =8.5,width =5.5 )
 #numero de objetos e medias

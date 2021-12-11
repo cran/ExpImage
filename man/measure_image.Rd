@@ -5,7 +5,8 @@
 \title{Function to obtain measurements associated with objects in binary images
 (Funcao para obter medidas associadas aos objetos em imagens binarias).}
 \usage{
-measure_image(img,noise=0,id=NULL,length= NULL,width =NULL)
+measure_image(img,noise=0,id=NULL,length= NULL,width =NULL, splitConnected=FALSE,
+tolerance = 1, ext = 1,  plot= TRUE)
 }
 \arguments{
 \item{img}{:Este objeto deve ser obrigatoriamente uma matriz binaria,
@@ -24,6 +25,22 @@ a palavra "all".}
 centimetros.}
 
 \item{width}{:Altura do objeto de referencia ou da imagem em centimetros.}
+
+\item{splitConnected}{:Variavel do tipo logico. Se TRUE objetos encostados
+serao considerados diferentes.}
+
+\item{tolerance}{The minimum height of the object in the units of image
+intensity between its highest point (seed) and the point where it contacts
+another object (checked for every contact pixel). If the height is smaller
+than the tolerance, the object will be combined with one of its neighbors,
+which is the highest. Tolerance should be chosen according to the range of
+x. Default value is 1, which is a reasonable value if x comes from distmap.}
+
+\item{ext}{Radius of the neighborhood in pixels for the detection of
+neighboring objects. Higher value smoothes out small objects.}
+
+\item{plot}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
+imagem segmentada}
 }
 \value{
 Retorna as cordendas de cada objeto, sua area, perimetro, ...
@@ -42,7 +59,7 @@ Esta funcao possibilita a obtencao de medidas associadas aos
 #Carregar imagem de exemplo
 im=read_image(example_image(2))
 ##mostrar imagem
-plot(im)
+plot_image(im)
 
 #Selecionando o melhor indice para a segmentacao da folha
 r=gray_scale(im,method = "r",plot=TRUE)
@@ -52,7 +69,7 @@ b=gray_scale(im,method = "b",plot=TRUE)
 
 #O canal azul possibilita maior contraste
 #O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = TRUE,
+MatrizSegmentada=segmentation(b,threshold = 0.40,fillHull = TRUE,
 selectHigher = FALSE,plot=TRUE)
 
 im2=extract_pixels(im,target =MatrizSegmentada,valueTarget =1,
@@ -66,7 +83,7 @@ b=gray_scale(im2,method = "b",plot=TRUE)
 
 #O canal Azul proporciona melhor segmentacao
 #O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-MatrizSegmentada2=segmentation(b,treshold = 0.50,fillHull = TRUE,
+MatrizSegmentada2=segmentation(b,threshold = 0.60,fillHull = TRUE,
 selectHigher = TRUE,plot = TRUE)
 
 Medidas=measure_image(MatrizSegmentada2)
@@ -95,17 +112,17 @@ b=gray_scale(im,method ="b",plot=TRUE)
 
 #A banda de azul foi a que melhor discriminou #O limiar pode ser um valor
 #escolhido aleatoriamente (por exemplo: 0.6)
-MatrizSegmentada=segmentation(b,treshold = 0.6,fillHull = FALSE,
+MatrizSegmentada=segmentation(b,threshold = 0.6,fillHull = FALSE,
 selectHigher =FALSE,plot=TRUE)
 
 #O limiar tambem pode ser estabelecido pelo metodo de otsu
-MatrizSegmentada2=segmentation(b,treshold = "otsu",fillHull = TRUE,
+MatrizSegmentada2=segmentation(b,threshold = "otsu",fillHull = TRUE,
 selectHigher =FALSE,plot=TRUE)
 
 #Obter medidas de cada objeto
 medidas=measure_image(MatrizSegmentada2)
 #ver o numero de objetos e medias medidas
-
+medidas$ObjectNumber
 
 #Obter medidas de cada objeto excluindo o ruido
 medidas=measure_image(MatrizSegmentada2,noise = 1000) #numero de objetos
@@ -118,17 +135,16 @@ Estimativas=medidas$measures
 #col="blue" ,plot = TRUE)
 
 
-#plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
-#text=round(medidas$measures[,11],2),cex = 0.9,pathSave ="teste.jpg",
-#col="blue" ,plot=TRUE)
+plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
+text=round(medidas$measures[,3],2),cex = 0.9,col="blue" ,plot=TRUE)
 ##############################################################################
 #Convertendo a area dos objetos para cm2
 
 #Conhecendo o identificador do objeto de referencia
 
-#plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
-#text=rownames(medidas$measures),cex= 0.9,pathSave ="teste.jpg",
-#col="blue",plot=TRUE )
+plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
+text=rownames(medidas$measures),cex= 0.9,
+col="blue",plot=TRUE )
 #como pode-se ver, o objeto de referencia e o de numero 30
 # A area conhecida do objeto de referencia tem 8.5 x 5.5 cm.
 #Isso nos leva a 46.75

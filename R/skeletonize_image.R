@@ -8,7 +8,7 @@
 #'#'@author Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)
 #'@return Retorna uma imagem com os objetos skeletonizados.
 #'@seealso  \code{\link{thinning_image}}
-#'@import EBImage
+
 #'@importFrom stats binomial glm predict
 #'@importFrom grDevices dev.off  jpeg
 #'@export
@@ -20,18 +20,27 @@
 #' T2=thinning_image(im2,plot = TRUE)
 #}
 #'@export
-
+#' @exportS3Method print skeletonize_image
 
 skeletonize_image <- function(x,plot=FALSE){
   s <- matrix(1, nrow(x), ncol(x))
   skel <- matrix(0, nrow(x), ncol(x))
-  kern <- makeBrush(3, shape="diamond")
+  kern <-  EBImage::makeBrush(3, shape="diamond")
   while(max(s)==1){
-    k <- opening(x, kern)
+    k <- EBImage::opening(x, kern)
     s <- x-k
     skel <- skel | s
-    x <- erode(x, kern)
+    x <- EBImage::erode(x, kern)
   }
-  if(plot==T){plot(as.Image((skel)))}
+  if(plot==T){plot(EBImage::as.Image((skel)))}
   return(skel)
+}
+
+
+
+
+print.skeletonize_image=function(x,...){
+  if( EBImage::is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x@.Data),"\n")
 }

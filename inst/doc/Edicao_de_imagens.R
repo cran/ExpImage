@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 
 ## -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ imb
 r=gray_scale(imb,method = "r",plot=TRUE)
 
 #Segmentação
-seg=segmentation(r,treshold =0.41,selectHigher = TRUE,fillHull = T,plot = TRUE )
+seg=segmentation(r,treshold =0.2,selectHigher = TRUE,fillHull = T,plot = TRUE )
 
 #Remoção do background
 imc=extract_pixels(imb,target = seg,valueTarget = 1,valueSelect = c(0,0,0),plot = TRUE)

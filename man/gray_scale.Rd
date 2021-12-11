@@ -19,7 +19,7 @@ objeto indica o metodo para a obtencao da escala de cinza).:\cr
  "rg" = considera a media da banda de vermelho e verde: (r+g)/2\cr
  "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
  "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
-"gbb" = considera a media das 3 bandas: (r+g+b)/3\cr
+"rgb" = considera a media das 3 bandas: (r+g+b)/3\cr
  "BI"=sqrt((r^2+g^2+b^2)/3)\cr
  "BIM"=sqrt((2r+2g+2b)/3)\cr
  "SCI"=(r-g)/(r+g)\cr
@@ -52,7 +52,7 @@ Function to get a grayscale image from a color image (Esta
 #Carregar imagem de exemplo
 im=read_image(example_image(2))
 ##mostrar imagem
-plot(im)
+plot_image(im)
 
 
 #Extraindo as camadas R, G e B

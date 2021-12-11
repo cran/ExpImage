@@ -4,14 +4,14 @@
 \alias{segmentation}
 \title{Image segmentation function (Funcao para a segmentacao de imagens).}
 \usage{
-segmentation(img.band,treshold="otsu",selectHigher=TRUE,
-  fillHull=FALSE,fillBack=FALSE,TargetPixels="all",plot=FALSE)
+segmentation(img.band,threshold="otsu",selectHigher=TRUE,
+  fillHull=FALSE,fillBack=FALSE,TargetPixels="all",plot=FALSE,treshold=NULL)
 }
 \arguments{
 \item{img.band}{:Este objeto deve ser obrigatoriamente uma matriz contendo
 valores entre 0 a 1 correspondente a imagem em escala de cinza).}
 
-\item{treshold}{: E um valor numerico entre 0 e 1 a ser considerado como
+\item{threshold}{: E um valor numerico entre 0 e 1 a ser considerado como
 limiar. O usuario pode tambem usar o argumento "ostu", caso queira
 considerar o limiar estabelecido por essa metodologia.}
 
@@ -34,6 +34,9 @@ matriz contendo o valor 1 para os pixeis de interesse e 0 para os demais.}
 
 \item{plot}{:Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem segmentada.}
+
+\item{treshold}{O nome deste argumento foi corrigido para `threshold`. Agora
+ele  nao tem mais funcionalidade.}
 }
 \value{
 Imagem segmentada
@@ -52,7 +55,7 @@ Esta funcao possibilita a segmentacao de imagens por meio de um
 #Carregar imagem de exemplo
 im=read_image(example_image(2))
 ##mostrar imagem
-plot(im)
+plot_image(im)
 
 
 #Selecionando o melhor indice para a segmentacao da folha
@@ -63,7 +66,7 @@ b=gray_scale(im,method = "b",plot=TRUE)
 
 #O canal azul possibilita maior contraste
 #O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = TRUE,
+MatrizSegmentada=segmentation(b,threshold = 0.39,fillHull = TRUE,
 selectHigher = FALSE,plot=TRUE)
 
 im2=extract_pixels(im,target =MatrizSegmentada,valueTarget =1,
@@ -77,7 +80,7 @@ b=gray_scale(im2,method = "b",plot=TRUE)
 
 #O canal Azul proporciona melhor segmentacao
 #O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-MatrizSegmentada2=segmentation(b,treshold = 0.50,fillHull = TRUE,
+MatrizSegmentada2=segmentation(b,threshold = 0.50,fillHull = TRUE,
 selectHigher = TRUE,plot = TRUE)
 
 Medidas=measure_image(MatrizSegmentada2)

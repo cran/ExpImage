@@ -15,7 +15,7 @@
 #'    "rg" = considera a media da banda de vermelho e verde: (r+g)/2\cr
 #'    "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
 #'    "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
-#'   "gbb" = considera a media das 3 bandas: (r+g+b)/3\cr
+#'   "rgb" = considera a media das 3 bandas: (r+g+b)/3\cr
 #'    "BI"=sqrt((r^2+g^2+b^2)/3)\cr
 #'    "BIM"=sqrt((2r+2g+2b)/3)\cr
 #'    "SCI"=(r-g)/(r+g)\cr
@@ -44,7 +44,7 @@
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(2))
 #'##mostrar imagem
-#'plot(im)
+#'plot_image(im)
 #'
 
 #'
@@ -63,7 +63,7 @@ gray_scale=function(im,method="r",plot=FALSE){
 
   normatizar=function(MAT){
     MAT=MAT-min(c(MAT))
-    id=1/max(MAT)
+    id=1/max(c(MAT))
     MAT=MAT*id
     return(MAT)
   }
@@ -79,9 +79,9 @@ gray_scale=function(im,method="r",plot=FALSE){
   if(method=="rb"){imm=(r+b)/2}
   if(method=="gb"){imm=(g+b)/2}
   if(method=="rgb"){imm=(r+g+b)/3}
-  if(method=="r/rgb"){imm=normatizar(r/((c(r))+(c(g))+(c(b))))}
-  if(method=="g/rgb"){imm=normatizar(g/((c(r))+(c(g))+(c(b))))}
-  if(method=="b/rgb"){imm=normatizar(b/((c(r))+(c(g))+(c(b))))}
+  if(method=="r/rgb"){imm=(r/((c(r))+(c(g))+(c(b))))}
+  if(method=="g/rgb"){imm=(g/((c(r))+(c(g))+(c(b))))}
+  if(method=="b/rgb"){imm=(b/((c(r))+(c(g))+(c(b))))}
   if(method=="BI"){imm=sqrt((r^2+g^2+b^2)/3)}
   if(method=="BIM"){imm=sqrt((r*2+g*2+b*2)/3)}
   if(method=="SCI"){imm=(r-g)/(r+g)}
@@ -98,16 +98,16 @@ gray_scale=function(im,method="r",plot=FALSE){
   if(method=="ExG"){imm=(2*g-r-b)}
   if(method=="VEG"){imm=(g/(g^0.66667*b^0.66667))}
 
-  if(plot==T){plot(as.Image((imm)))}
+  if(plot==T){plot_image(EBImage::as.Image( EBImage::normalize(imm)))}
 
-  return(normalize(imm))
+  return(EBImage::normalize(imm))
 
 }
 
 
 
 print.gray_scale=function(x,...){
-  if(is.Image(x)){cat("Is an image object","\n")}
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
   if(is.matrix(x)){cat("Is an matrix object","\n")}
   cat("Dimensions of Object:",dim(x),"\n")
 }

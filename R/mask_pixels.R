@@ -3,7 +3,7 @@
 #'
 #' @description Esta funcao permite criar mascara sobre os pixels
 #'   correspondentes ao background ou foreground
-#' @usage mask_pixels(im,TargetPixels,TargetPixels2=NULL,plot=FALSE)
+#' @usage mask_pixels(im,TargetPixels,TargetPixels2=NULL,Contour=FALSE,plot=FALSE)
 
 #' @param im    :Este objeto deve conter uma imagem no formato do EBImage.
 #' @param TargetPixels    : Este objeto deve ser obrigatoriamente uma matriz
@@ -13,7 +13,8 @@
 #'   apenas uma mascara a ser destacada sobre a imagem. Se quiser usar duas
 #'   mascaras, neste objeto deve ter obrigatoriamente uma matriz binaria,
 #'   contendo os valores 0 (pixels do background) ou 1 (pixels do foreground)).
-
+#' @param Contour Valor logico. Se for FALSE (default) sera a parte de interesse sera preenchida.
+#' Se for TRUE a area de interesse sera contornada.
 #' @param plot    :Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 #'   imagem segmentada.
 
@@ -27,7 +28,7 @@
 #'###########################################################################
 #'
 #'   im=read_image(example_image(ex=7))
-#'   plot(im)
+#'   plot_image(im)
 #'
 #'   #Selecionando o melhor indice para a segmentacao da folha
 #'   r=gray_scale(im,method = "r",plot=TRUE)
@@ -35,11 +36,11 @@
 #'   b=gray_scale(im,method = "b",plot=TRUE)
 #'
 #'   #O limiar pode ser um valor escolhido aleatoriamente
-#'   MatrizSegentada=segmentation(b,treshold = 0.5,fillHull = FALSE,plot=TRUE)
+#'   MatrizSegentada=segmentation(b,threshold = 0.5,fillHull = FALSE,plot=TRUE)
 #'
 
 #'   #O limiar tambem pode ser estabelecido pelo metodo de otsu
-#'   MatrizSegentada2=segmentation(b,treshold = "otsu",fillHull = TRUE
+#'   MatrizSegentada2=segmentation(b,threshold = "otsu",fillHull = TRUE
 #'   ,selectHigher= FALSE, plot=TRUE)
 #'
 #'
@@ -53,7 +54,7 @@
 #'   g=gray_scale(im2,method = "g",plot=TRUE)
 #'   b=gray_scale(im2,method = "b",plot=TRUE)
 #'
-#'   MatrizSegmentada3=segmentation(g,treshold = 0.3,selectHigher = FALSE,
+#'   MatrizSegmentada3=segmentation(g,threshold = 0.3,selectHigher = FALSE,
 #'   fillHull =TRUE,plot=TRUE)
 #'
 #'
@@ -67,7 +68,7 @@
 #'   ,plot=TRUE)
 #'
 #'   im3=mask_pixels(im2,TargetPixels=DoencaSeg==1)
-#'    plot(im3)
+#'    plot_image(im3)
 #'
 #'   ii=join_image(im,im3,plot=TRUE)
 #'
@@ -79,13 +80,14 @@
 #'@export
 #' @exportS3Method print mask_pixels
 
-mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,plot=FALSE){
-  TargetPixels==1
+mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,Contour=FALSE,plot=FALSE){
+ # TargetPixels==1
 
   r=im@.Data[,,1]
   g=im@.Data[,,2]
   b=im@.Data[,,3]
 
+  if(isTRUE(Contour)){TargetPixels=contour_image(TargetPixels)==1}
   r[TargetPixels]=1
   g[TargetPixels]=0
   b[TargetPixels]=0
@@ -95,11 +97,11 @@ mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,plot=FALSE){
   im@.Data[,,3]=b
 
   if(isFALSE(is.null(TargetPixels2))){
-    TargetPixels2==1
+    #TargetPixels2==1
     r=im@.Data[,,1]
     g=im@.Data[,,2]
     b=im@.Data[,,3]
-
+    if(isTRUE(Contour)){TargetPixels2=contour_image(TargetPixels2)==1}
     r[TargetPixels2]=0
     g[TargetPixels2]=0
     b[TargetPixels2]=1
@@ -109,14 +111,14 @@ mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,plot=FALSE){
     im@.Data[,,3]=b
   }
 
-  if(plot==T){plot(im)}
+  if(plot==T){plot_image(im)}
 
 
   return(im)
 }
 
 print.mask_pixels=function(x,...){
-  if(is.Image(x)){cat("Is an image object","\n")}
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
   if(is.matrix(x)){cat("Is an matrix object","\n")}
   cat("Dimensions of Object:",dim(x),"\n")
 }

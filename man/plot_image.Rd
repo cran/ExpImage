@@ -2,22 +2,41 @@
 % Please edit documentation in R/plot_image.R
 \name{plot_image}
 \alias{plot_image}
-\title{Esta funcao corta a imagem retirando as laterais nao desejadas. (This function
-removes unwanted sides from the images.)}
+\title{Esta funcao plota imagens. (This function plot the images.)}
 \usage{
-plot_image(im)
+plot_image(im,r=1,g=2,b=3,col=0)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage ou na forma
 de uma matriz, no caso de imagem em escala de cinza (This
  object must contain an image in EBImage format).}
+
+\item{r}{Indica o canal correspondente a cor vermelha para imagens com
+extensao '.tif'. O defaut e 1. (Indicates the channel corresponding to
+red color for images with the extension '.tif'. The default is 1.)}
+
+\item{g}{Indica o canal correspondente a cor verde para imagens com
+extensao '.tif'. O defaut e 2. (Indicates the channel corresponding to
+green color for images with the extension '.tif'. The default is 2.)}
+
+\item{b}{Indica o canal correspondente a cor azul para imagens com
+extensao '.tif'. O defaut e 3. (Indicates the channel corresponding to
+blue color for images with the extension '.tif'. The default is 3.)}
+
+\item{col}{Pode ser um valor numerico variando entre 0 e 6 ou uma paleta de cores
+obtida pela funcao `colorRampPalette`. Se for 0 sera considerada a representacao
+da imagem monocromatica em escala de cinza. Valores entre 1 e 6 indicam outras
+paletas de cores para a representacao. (It can be a numerical value ranging from
+0 to 6 or a color palette 'obtained by the `colorRampPalette` function. If it is
+0, the representation of the monochromatic image in gray scale will be considered.
+Values between 1 and 6 indicate other color palettes for the representation. )}
 }
 \value{
 Apresenta a imagem contida no objeto im.
 }
 \description{
-Esta funcao permite cortar a imagem (This function allows you to
- crop the image).
+Esta funcao permite plotar a imagem (This function allows you to
+ view the image).
 }
 \examples{
 
@@ -25,7 +44,14 @@ Esta funcao permite cortar a imagem (This function allows you to
 #library(EBImage)
 #Carregar imagem de exemplo
 im=read_image(example_image(2),plot=TRUE)
+im=resize_image(im,w =300,plot = FALSE)
 plot_image(im)
+
+#Representado imagens em escalas de cinza
+im2 = gray_scale(im,"r")
+plot_image(im2)
+#Utilizando uma paleta de cores para a melhor visualizacao
+plot_image(im2,col=2)
 
 }
 \seealso{

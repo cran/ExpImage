@@ -5,7 +5,7 @@
 \title{Esta funcao corta a imagem retirando as laterais nao desejadas. (This function
 removes unwanted sides from the images.)}
 \usage{
-crop_image(im,w,h,plot=TRUE,verbose=TRUE)
+crop_image(im,w=NULL,h=NULL,plot=TRUE,verbose=TRUE)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage (This
@@ -49,6 +49,7 @@ im3=crop_image(im,w =286:421,h=242:332,plot = TRUE)
 \dontrun{
 im2=crop_image(im)
 }
+
 }
 \seealso{
 \code{\link{edit_image}} ,  \code{\link{edit_imageGUI}}

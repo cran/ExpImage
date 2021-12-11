@@ -29,6 +29,11 @@ Obrigado por utilizar o pacote `ExpImage`. Este pacote foi desenvolvido a fim de
 
 Porém se houver problemas na instalação sugerimos que consulte mais opções de instalação no site: https://bioconductor.org/packages/release/bioc/html/EBImage.html
 
+Para instalar o pacote ´ExpImage´ basta utilizar o seguinte comando:
+
+`install.packages("ExpImage")`
+
+
 Convidamos a todos os usuários do ExpImage que venha conhecer nossos materiais didáticos sobre este e outros pacotes nos seguintes links: 
 
 https://www.youtube.com/channel/UCDGyvLCJnv9RtTY1YMBMVNQ
@@ -38,10 +43,10 @@ https://www.expstat.com/
 # Abrindo as imagens no R 
 
 ## Ativação dos pacotes
-Após a instalação dos pacotes é necessário fazer sua ativação
+Após a instalação dos pacotes é necessário fazer sua ativação:
 
 ```{r}
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 ```
 
@@ -82,6 +87,12 @@ b=gray_scale(im,method = "b",plot=T)
 ```
 
 Como foi possível observar, a banda de azul possibilita um bom contraste da plântula do fundo. Logo, vamos escolher um valor de limiar pela tentativa e erro.
+
+Outra opção de explorar outros possíveis índices é por meio do seguinte comando:
+
+```{r}
+plot_indexes(im,NumberCores=2)
+```
 
 ## Segmentação da parte radicular
 
@@ -137,4 +148,4 @@ im4=mask_pixels(im,TargetPixels=PA==1,plot=F,)
 im4=join_image(im,im4,plot=T)
 ```
 
-A unidade de medidas dos comprimentos está em pixels, mas podem ser convertido para cm² quando se tem um objeto de referencia na imagem ou se sabe a área da imagem escaneada. 
+A unidade de medidas dos comprimentos está em pixels, mas podem ser convertido para cm quando se tem um objeto de referencia na imagem ou se sabe a área da imagem escaneada. 

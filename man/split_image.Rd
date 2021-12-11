@@ -5,8 +5,8 @@
 \title{This function splits the image into several others (Esta funcao divide a
 imagem em varias outras de acordo com os objetos que contem)}
 \usage{
-split_image(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
-  colorBack=c(0,0,0) ,ext=1,saveImage=TRUE,
+split_image(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=1,ext=1,
+  splitConnected=FALSE,colorBack=c(0,0,0) ,saveImage=TRUE,
   plot=T,col="red",cex=1,fileName="test.jpg")
 }
 \arguments{
@@ -31,12 +31,15 @@ than the tolerance, the object will be combined with one of its neighbors,
 which is the highest. Tolerance should be chosen according to the range of
 x. Default value is 1, which is a reasonable value if x comes from distmap.}
 
+\item{ext}{Radius of the neighborhood in pixels for the detection of
+neighboring objects. Higher value smoothes out small objects.}
+
+\item{splitConnected}{:Variavel do tipo logico. Se TRUE objetos encostados
+serao considerados diferentes.}
+
 \item{colorBack}{Deve ser um vetor com tres valores variando entre 0 a 1.
 Estes valores indicam reespectivamente os valores de r, g e b que
 substituirao os pixels indesejados nas imagens divididas.}
-
-\item{ext}{Radius of the neighborhood in pixels for the detection of
-neighboring objects. Higher value smoothes out small objects.}
 
 \item{saveImage}{Se for TRUE serao salvas as imagens dividas.}
 
@@ -66,7 +69,7 @@ im=read_image(example_image(3))
 plot(im)
 
 g=gray_scale(im,"g",plot=TRUE)
-Seg=segmentation(img.band = g,treshold = "otsu",selectHigher = FALSE,
+Seg=segmentation(img.band = g,threshold = "otsu",selectHigher = FALSE,
 fillHull = TRUE,plot = TRUE)
 
 split_image(im=im,Seg=Seg,noise = 200,CutImage = FALSE,tolerance = 1,

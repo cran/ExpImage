@@ -1,4 +1,4 @@
-#' Funcao sobrepor informacoes sobre os objetos da imagem
+#' Funcao para sobrepor informacoes sobre os objetos da imagem
 #'
 #' @description Esta funcao possibilita sobrepor informacoes sobre os objetos da
 #'   imagem
@@ -34,17 +34,17 @@
 #'   #######################################################
 #'   #Abrir imagem das folhas
 #'   im=read_image(example_image(3))
-#'   plot(im)
+#'   plot_image(im)
 #'   #Abrir paleta de cores do fundo
 #'   fundo=read_image(example_image(4))
-#'   plot(fundo)
+#'   plot_image(fundo)
 #'   #Abrir paleta de cores das folhas
 #'   folhas=read_image(example_image(5))
-#'   plot(folhas)
+#'   plot_image(folhas)
 #'   #Abrir paleta de cores referencia
 #'   ref=read_image(example_image(6))
 #'   #Ver a imagem
-#'   plot(ref)
+#'   plot_image(ref)
 #'
 #'   #################################################################
 #'   #Segmentacao para separar as folhas do restante
@@ -90,17 +90,17 @@
 
 
 plot_meansures=function(img,coordx,coordy,text,col="red",cex=1,pathSave="none",plot=F){
-  plot(as.Image(img))
+  plot_image(EBImage::as.Image(img))
   text(coordx,coordy,text,col=col,cex=cex)
 
   if(pathSave!="none"){
     jpeg(pathSave)
-    plot(as.Image(img))
+    plot( EBImage::as.Image(img))
     text(coordx,coordy,text,col=col,cex=cex)
     dev.off()
 
     if(plot==T){
-    plot(as.Image(img))
+    plot_image(EBImage::as.Image(img))
     text(coordx,coordy,text,col=col,cex=cex)
 }
 

@@ -20,14 +20,14 @@
 #' @return Return multiple images joined (Retorna a uniao de varias imagens).
 #' @seealso  \code{\link{crop_image}}, \code{\link{edit_image}}
 #' @author Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)
-#' @importFrom EBImage combine
+
 #' @examples
 #'\donttest{
 #'
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(1))
 #'##mostrar imagem
-#'plot(im)
+#'plot_image(im)
 #'
 #'
 #'##Diminuir a resolucao (tamanho da imagem)
@@ -58,13 +58,13 @@
 
 
 join_image=function(im1=NULL,im2=NULL,im3=NULL,im4=NULL,im5=NULL,plot=TRUE){
-  im=combine(im1,im2,im3,im4,im5)
+  im=EBImage::combine(im1,im2,im3,im4,im5)
   if(plot==T){plot(im, all=T)}
   return(im)
 }
 
 print.join_image=function(x,...){
-  if(is.Image(x)){cat("Is an image object","\n")}
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
   if(is.matrix(x)){cat("Is an matrix object","\n")}
   cat("Dimensions of Object:",dim(x),"\n")
 }

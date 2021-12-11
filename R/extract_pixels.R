@@ -31,7 +31,7 @@
 #'   over the unwanted pixels (Retorna uma imagem com a cor indicada na variavel
 #'   valueSelect sobre os pixels indesejaveis).
 #' @seealso  \code{\link{segmentation_logit}}
-#' @importFrom EBImage readImage
+
 
 #' @examples
 #\donttest{
@@ -39,8 +39,8 @@
 #'#Estimar a area atacada por doenca no tomateiro
 #'###########################################################################
 #'
-#'   im=read_image(example_image(ex=7))
-#'   plot(im)
+#'   im=read_image(example_image(ex=7),plot=TRUE)
+#'
 #'
 #'   #Selecionando o melhor indice para a segmentacao da folha
 #'   r=gray_scale(im,method = "r",plot=TRUE)
@@ -48,11 +48,11 @@
 #'   b=gray_scale(im,method = "b",plot=TRUE)
 #'
 #'   #O limiar pode ser um valor escolhido aleatoriamente
-#'   MatrizSegentada=segmentation(b,treshold = 0.5,fillHull = FALSE,plot=TRUE)
+#'   MatrizSegentada=segmentation(b,threshold = 0.5,fillHull = FALSE,plot=TRUE)
 #'
 
 #'   #O limiar tambem pode ser estabelecido pelo metodo de otsu
-#'   MatrizSegentada2=segmentation(b,treshold = "otsu",fillHull = TRUE,selectHigher
+#'   MatrizSegentada2=segmentation(b,threshold = "otsu",fillHull = TRUE,selectHigher
 #'   = FALSE,plot=TRUE)
 #'
 #'   #Selecionar na imagem apenas os pixeis desejaveis (Folha)
@@ -66,7 +66,7 @@
 #'    g=gray_scale(im2,method = "g",plot=TRUE)
 #'   b=gray_scale(im2,method = "b",plot=TRUE)
 #'
-#'   MatrizSegmentada3=segmentation(g,treshold = 0.3,selectHigher = FALSE,
+#'   MatrizSegmentada3=segmentation(g,threshold = 0.3,selectHigher = FALSE,
 #'   fillHull =TRUE,plot=TRUE)
 #'
 #'
@@ -80,7 +80,7 @@
 #'   ,plot=TRUE)
 #'
 #'   im3=mask_pixels(im2,TargetPixels=DoencaSeg==1)
-#'    plot(im3)
+#'    plot_image(im3)
 #'
 #'   ii=join_image(im,im3,plot=TRUE)
 #'
@@ -109,13 +109,13 @@ extract_pixels=function(im,target,valueTarget=TRUE,valueSelect=c(r=1,g=1,b=1),pl
   im@.Data[,,2]=g
   im@.Data[,,3]=b
 
-  if(plot==T){plot(im)}
+  if(plot==T){plot_image(im)}
   return(im)
 }
 
 
 print.extract_pixels=function(x,...){
-  if(is.Image(x)){cat("Is an image object","\n")}
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
   if(is.matrix(x)){cat("Is an matrix object","\n")}
   cat("Dimensions of Object:",dim(x),"\n")
 }

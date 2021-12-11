@@ -4,11 +4,11 @@
 #'   limiar. Para isso, pode-se escolher um valor arbtrario ou considerar o
 #'   valor estabelecido pelo metodo otsu.
 #' @usage
-#'   segmentation(img.band,treshold="otsu",selectHigher=TRUE,
-#'   fillHull=FALSE,fillBack=FALSE,TargetPixels="all",plot=FALSE)
+#'   segmentation(img.band,threshold="otsu",selectHigher=TRUE,
+#'   fillHull=FALSE,fillBack=FALSE,TargetPixels="all",plot=FALSE,treshold=NULL)
 #' @param img.band    :Este objeto deve ser obrigatoriamente uma matriz contendo
 #'   valores entre 0 a 1 correspondente a imagem em escala de cinza).
-#' @param treshold    : E um valor numerico entre 0 e 1 a ser considerado como
+#' @param threshold    : E um valor numerico entre 0 e 1 a ser considerado como
 #'   limiar. O usuario pode tambem usar o argumento "ostu", caso queira
 #'   considerar o limiar estabelecido por essa metodologia.
 #' @param selectHigher    :Este argumento deve receber as palavras TRUE ou
@@ -26,6 +26,8 @@
 #'   matriz contendo o valor 1 para os pixeis de interesse e 0 para os demais.
 #' @param plot    :Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 #'   imagem segmentada.
+#' @param   treshold O nome deste argumento foi corrigido para `threshold`. Agora
+#'  ele  nao tem mais funcionalidade.
 #' @return Imagem segmentada
 #' @seealso  \code{\link{segmentation_logit}}
 #' @author Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)
@@ -39,7 +41,7 @@
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(2))
 #'##mostrar imagem
-#'plot(im)
+#'plot_image(im)
 #'
 
 #'
@@ -51,7 +53,7 @@
 #'
 #'#O canal azul possibilita maior contraste
 #'#O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-#'MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = TRUE,
+#'MatrizSegmentada=segmentation(b,threshold = 0.39,fillHull = TRUE,
 #'selectHigher = FALSE,plot=TRUE)
 #'
 #'im2=extract_pixels(im,target =MatrizSegmentada,valueTarget =1,
@@ -65,7 +67,7 @@
 #'
 #'#O canal Azul proporciona melhor segmentacao
 #'#O limiar pode ser um valor escolhido aleatoriamente (por exemplo: 0.6)
-#'MatrizSegmentada2=segmentation(b,treshold = 0.50,fillHull = TRUE,
+#'MatrizSegmentada2=segmentation(b,threshold = 0.50,fillHull = TRUE,
 #'selectHigher = TRUE,plot = TRUE)
 #'
 #'Medidas=measure_image(MatrizSegmentada2)
@@ -75,14 +77,17 @@
 #'im3=mask_pixels(im,MatrizSegmentada2==1,plot=TRUE)
 #'}
 
-segmentation=function(img.band,treshold="otsu",selectHigher=TRUE,fillHull=FALSE,
-                      fillBack=FALSE,TargetPixels="all", plot=FALSE){
+
+segmentation=function(img.band,threshold="otsu",selectHigher=TRUE,fillHull=FALSE,
+                      fillBack=FALSE,TargetPixels="all", plot=FALSE,treshold=NULL){
+
+  if(!is.null(treshold)) {threshold= treshold}
   #library(EBImage)
   if(isFALSE(is.matrix(TargetPixels))){
     b=(img.band)
-    if(treshold=="otsu"){ts=EBImage::otsu(b);message(
-      paste("The treshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
-    if(treshold!="otsu"){ts=treshold}
+    if(threshold=="otsu"){ts=EBImage::otsu(b);message(
+      paste("The threshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
+    if(threshold!="otsu"){ts=threshold}
     if(isTRUE(selectHigher)){MatrizSegentada=b>ts}
     if(isFALSE(selectHigher)){MatrizSegentada=b<ts}
   }
@@ -90,17 +95,17 @@ segmentation=function(img.band,treshold="otsu",selectHigher=TRUE,fillHull=FALSE,
 
   if(isTRUE(is.matrix(TargetPixels))){
     b=img.band
-    if(treshold=="otsu"){ts=suppressWarnings(otsu(matrix(b[TargetPixels],ncol=2)))
-    message(paste("The treshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
-    if(treshold!="otsu"){ts=treshold}
+    if(threshold=="otsu"){ts=suppressWarnings( EBImage::otsu(matrix(b[TargetPixels],ncol=2)))
+    message(paste("The threshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
+    if(threshold!="otsu"){ts=threshold}
     MatrizSegentada=TargetPixels*1
     if(isTRUE(selectHigher)){MatrizSegentada=b>ts}
     if(isFALSE(selectHigher)){MatrizSegentada=b<ts}  }
 
 
 
-  if(isTRUE(fillHull)){MatrizSegentada=bwlabel(MatrizSegentada);MatrizSegentada=fillHull(MatrizSegentada)}
-  if(isTRUE(fillBack)){MatrizSegentada=bwlabel(MatrizSegentada);MatrizSegentada=fillHull(MatrizSegentada==0);MatrizSegentada==0}
+  if(isTRUE(fillHull)){MatrizSegentada=EBImage::bwlabel(MatrizSegentada);MatrizSegentada=EBImage::fillHull(MatrizSegentada)}
+  if(isTRUE(fillBack)){MatrizSegentada=EBImage::bwlabel(MatrizSegentada);MatrizSegentada=EBImage::fillHull(MatrizSegentada==0);MatrizSegentada==0}
 
   MatrizSegentada[MatrizSegentada>0]=1
   MatrizSegentada=MatrizSegentada*1
@@ -109,6 +114,6 @@ segmentation=function(img.band,treshold="otsu",selectHigher=TRUE,fillHull=FALSE,
 
 
 
-  if(plot==T){plot(as.Image((MatrizSegentada)))}
+  if(plot==T){plot_image(EBImage::as.Image((MatrizSegentada)))}
   return(MatrizSegentada)
 }

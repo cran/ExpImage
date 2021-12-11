@@ -23,7 +23,7 @@
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(1))
 #'##mostrar imagem
-#'plot(im)
+#'plot_image(im)
 #'
 #'
 #'##Diminuir a resolucao (tamanho da imagem)
@@ -53,7 +53,7 @@
 
 
 resize_image=function(im, w, h,plot=TRUE){
-  im2=resize(im,w,h)
-if(plot==T){plot(im2)}
+  im2=EBImage::resize(im,w,h)
+if(plot==T){plot_image(im2)}
   return(im2)
 }

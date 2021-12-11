@@ -15,8 +15,6 @@
 #' @return Returns a edited image (Retorna uma imagem editada).
 #' @seealso  \code{\link{edit_image}}
 
-#'@import EBImage
-#'@importFrom EBImage is.Image display combine bwlabel readImage
 #'@importFrom stats binomial glm predict
 #'@importFrom grDevices dev.off  jpeg
 #'@export
@@ -30,7 +28,7 @@
 #'im2=edit_imageGUI(im)
 #'}
 
-#' @exportS3Method print ExpImage
+#' @exportS3Method print edit_imageGUI
 #'
 
 
@@ -50,7 +48,7 @@ if(nc>=nr){
  im2= resize_image(im,h=desY)
  a=round(desY/2-nrow(im2@.Data[,,1])/2,0)
  G@.Data[a:(a-1+nrow(im2@.Data)),(66):722,]=im2@.Data
-plot(G)
+plot_image(G)
  }
 if(nc<nr){
   im2= resize_image(im,w=desX)
@@ -58,7 +56,7 @@ if(nc<nr){
   G@.Data[38:673,a:(a-1+ncol(im2@.Data)),]=im2@.Data
 
 
-  plot(G)
+  plot_image(G)
   }
 
 
@@ -168,7 +166,7 @@ if(nc<nr){
   G@.Data[38:673,a:(a-1+ncol(im3@.Data)),]=im3@.Data
 }
 
-plot(G)
+plot_image(G)
 
 }
 
@@ -187,3 +185,9 @@ if(Verbose==TRUE){
 return(im4)
 }
 
+
+print.edit_imageGUI=function(x,...){
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x@.Data),"\n")
+}

@@ -2,79 +2,75 @@
 #'
 #' @description Function to plot multiple indices (funcao para plotar varios
 #'  indices).
-#' @usage plot_indexes(im)
+#' @usage plot_indexes(im,NumberCores="all")
 #' @param im    :This object must contain an image in EBImage format (Este
 #'   objeto deve conter uma imagem no formato do EBImage).
+#' @param NumberCores Indica o numero de cores a serem utilizados no processamento.
+#'   Pode ser um valor numerico. Se for 'ALL' sera considerado o numero maximo de
+#'    cores do PC. (Indicates the number of colors to be used in processing.
+#'    It can be a numerical value. If it is 'ALL' it will be considered the
+#'    maximum number of PC cores).
 #' @seealso  \code{\link{gray_scale}}
 #' @importFrom graphics par
+#' @importFrom parallel clusterExport stopCluster parLapply
 
 #' @examples
 #' \donttest{
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(2))
-#'plot_indexes(im)
+#'plot_indexes(im,NumberCores=2)
 #'}
 
 #'@export
 
 
-plot_indexes=function(im){
+plot_indexes=function(im,NumberCores="all"){
   #Separar a imagem em bandas
+im=EBImage::resize(im,w =200 )
+
+lin=nrow(im@.Data[,,1])
+col=ncol(im@.Data[,,1])
+lay=length(im@.Data[1,1,])
 
 
-  op <- par(mfrow = c(5,5))
-  on.exit(par(op))
-  gs=gray_scale(im,method = "r",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"r",col="red",cex=2)
-  gs=gray_scale(im,method = "g",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"g",col="red",cex=2)
-  gs=gray_scale(im,method = "b",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"b",col="red",cex=2)
-  gs=gray_scale(im,method = "rg",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"rg",col="red",cex=2)
-  gs=gray_scale(im,method = "rb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"rb",col="red",cex=2)
-  gs=gray_scale(im,method = "gb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"gb",col="red",cex=2)
-  gs=gray_scale(im,method = "rgb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"rgb",col="red",cex=2)
-  gs=gray_scale(im,method = "r/rgb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"r/rgb",col="red",cex=2)
-  gs=gray_scale(im,method = "g/rgb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"g/rgb",col="red",cex=2)
-  gs=gray_scale(im,method = "b/rgb",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"b/rgb",col="red",cex=2)
-  gs=gray_scale(im,method = "BI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"BI",col="red",cex=2)
-  gs=gray_scale(im,method = "BIM",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"BIM",col="red",cex=2)
-  gs=gray_scale(im,method = "SCI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"SCI",col="red",cex=2)
-  gs=gray_scale(im,method = "GLI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"GLI",col="red",cex=2)
-  gs=gray_scale(im,method = "HI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"HI",col="red",cex=2)
-  gs=gray_scale(im,method = "NGRDI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"NGRDI",col="red",cex=2)
-  gs=gray_scale(im,method = "SI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"SI",col="red",cex=2)
-  gs=gray_scale(im,method = "VARI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"VARI",col="red",cex=2)
-  gs=gray_scale(im,method = "HUE",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"HUE",col="red",cex=2)
-  gs=gray_scale(im,method = "MGVRI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"MGVRI",col="red",cex=2)
-  gs=gray_scale(im,method = "GLI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"GLI",col="red",cex=2)
-  gs=gray_scale(im,method = "MPRI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"MPRI",col="red",cex=2)
-  gs=gray_scale(im,method = "RGVBI",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"RGVBI",col="red",cex=2)
-  gs=gray_scale(im,method = "ExG",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"ExG",col="red",cex=2)
-  gs=gray_scale(im,method = "VEG",plot=TRUE)
-  text(nrow(gs)/2,ncol(gs)/2,"VEG",col="red",cex=2)
+method=c("r","g","b","rg","rb","gb","rgb","r/rgb","g/rgb","b/rgb",
+         "BI","BIM","SCI","GLI","HI",
+         "NGRDI","SI","VARI","HUE","MGVRI","GLI","MPRI","RGVBI","ExG","VEG")
 
+if(NumberCores=="all"){NumberCores=detectCores()}
+
+if (NumberCores > detectCores()) {
+  message(paste0(" O numero de cores maximo (Maximum number of cores): ", detectCores()))
+  NumberCores = detectCores()
+}
+
+cl <- parallel::makeCluster(NumberCores)
+clusterExport(cl,
+              varlist = c("gray_scale","im","method"),
+              envir=environment())
+on.exit(stopCluster(cl))
+
+
+r <- parLapply(cl = cl,1:25, function(x){gray_scale(im,method =method[x],plot = F)})
+
+
+op <- par(mfrow = c(5,5))
+#on.exit(par(op))
+for(i in 1:25){
+  plot_image((r[i][[1]]))
+  text(lin/2,col/2,method[i],col="red",cex=2)
+  #print(method[i])
+}
+par(mfrow = c(1,1))
 #dev.off()
 }
+
+
+
+
+
+
+
+
+
 

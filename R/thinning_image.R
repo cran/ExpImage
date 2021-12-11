@@ -6,7 +6,7 @@
 #'@author Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)
 #'@return Retorna uma imagem com o thinning dos objetos.
 #'@seealso  \code{\link{thinning_image}}
-#'@import EBImage
+
 #'@export
 #' @examples
 #\donttest{
@@ -15,7 +15,7 @@
 #' T1=skeletonize_image(im2,plot = TRUE)
 #' T2=thinning_image(im2,plot = TRUE)
 #}
-
+#' @exportS3Method print thinning_image
 
 
 thinning_image <- function(x,plot=FALSE){
@@ -47,15 +47,24 @@ thinning_image <- function(x,plot=FALSE){
                 3, 3, byrow=TRUE)
 
     repeat{
-      key1 <- round(filter2(x, m))
+      key1 <- round(EBImage::filter2(x, m))
       flag1 <- matrix(l1[key1+1], nrow(key1), ncol(key1))
       x1 <- x*flag1
-      key2 <- round(filter2(x1, m))
+      key2 <- round(EBImage::filter2(x1, m))
       flag2 <- matrix(l2[key2+1], nrow(key2), ncol(key2))
       x2 <- x1*flag2
       if (identical(x, x2)) break
       x <- x2
     }
-if(plot==T){plot(as.Image((x)))}
+if(plot==T){plot_image(EBImage::as.Image((x)))}
     return(x)
   }
+
+
+
+
+print.thinning_image=function(x,...){
+  if(EBImage::is.Image(x)){cat("Is an image object","\n")}
+  if(is.matrix(x)){cat("Is an matrix object","\n")}
+  cat("Dimensions of Object:",dim(x@.Data),"\n")
+}

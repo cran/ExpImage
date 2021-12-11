@@ -48,8 +48,8 @@ Function to exclude pixels from the background or foreground in
 #Estimar a area atacada por doenca no tomateiro
 ###########################################################################
 
-  im=read_image(example_image(ex=7))
-  plot(im)
+  im=read_image(example_image(ex=7),plot=TRUE)
+
 
   #Selecionando o melhor indice para a segmentacao da folha
   r=gray_scale(im,method = "r",plot=TRUE)
@@ -57,10 +57,10 @@ Function to exclude pixels from the background or foreground in
   b=gray_scale(im,method = "b",plot=TRUE)
 
   #O limiar pode ser um valor escolhido aleatoriamente
-  MatrizSegentada=segmentation(b,treshold = 0.5,fillHull = FALSE,plot=TRUE)
+  MatrizSegentada=segmentation(b,threshold = 0.5,fillHull = FALSE,plot=TRUE)
 
   #O limiar tambem pode ser estabelecido pelo metodo de otsu
-  MatrizSegentada2=segmentation(b,treshold = "otsu",fillHull = TRUE,selectHigher
+  MatrizSegentada2=segmentation(b,threshold = "otsu",fillHull = TRUE,selectHigher
   = FALSE,plot=TRUE)
 
   #Selecionar na imagem apenas os pixeis desejaveis (Folha)
@@ -74,7 +74,7 @@ Function to exclude pixels from the background or foreground in
    g=gray_scale(im2,method = "g",plot=TRUE)
   b=gray_scale(im2,method = "b",plot=TRUE)
 
-  MatrizSegmentada3=segmentation(g,treshold = 0.3,selectHigher = FALSE,
+  MatrizSegmentada3=segmentation(g,threshold = 0.3,selectHigher = FALSE,
   fillHull =TRUE,plot=TRUE)
 
 
@@ -88,7 +88,7 @@ Function to exclude pixels from the background or foreground in
   ,plot=TRUE)
 
   im3=mask_pixels(im2,TargetPixels=DoencaSeg==1)
-   plot(im3)
+   plot_image(im3)
 
   ii=join_image(im,im3,plot=TRUE)
 

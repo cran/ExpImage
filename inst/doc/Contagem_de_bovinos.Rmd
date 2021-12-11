@@ -29,6 +29,10 @@ Obrigado por utilizar o pacote `ExpImage`. Este pacote foi desenvolvido a fim de
 
 Porém se houver problemas na instalação sugerimos que consulte mais opções de instalação no site: https://bioconductor.org/packages/release/bioc/html/EBImage.html
 
+Para instalar o pacote ´ExpImage´ basta utilizar o seguinte comando:
+
+`install.packages("ExpImage")`
+
 Convidamos a todos os usuários do ExpImage que venha conhecer nossos materiais didáticos sobre este e outros pacotes nos seguintes links: 
 
 https://www.youtube.com/channel/UCDGyvLCJnv9RtTY1YMBMVNQ
@@ -41,7 +45,7 @@ https://www.expstat.com/
 Após a instalação dos pacotes é necessário fazer sua ativação
 
 ```{r}
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 ```
 
@@ -72,7 +76,7 @@ im=read_image(end,plot=TRUE)
 Vamos verificar qual é o melhor índice para fazer a segmentação.
 
 ```{r}
-plot_indexes(im)
+plot_indexes(im,NumberCores=2)
 ```
 
 O Índice ExG é uma ótima opção para a segmentação, pois os bovinos se destacaram bastante em relação ao solo.
@@ -86,6 +90,7 @@ im2=gray_scale(im,method = "ExG",plot=T)
 Agora podemos fazer a segmentação. Para isso utilizaremos o algorítimo de otsu a fim de selecionar os pixels de menores valores (foregrounds)
 
 ```{r}
+max(c(im2@.Data))
 im3=segmentation(im2,treshold = "otsu",selectHigher = FALSE,plot=TRUE)
 
 ```

@@ -34,7 +34,7 @@ Esta funcao permite mudar o tamanho de uma imagem, modificando o
 #Carregar imagem de exemplo
 im=read_image(example_image(1))
 ##mostrar imagem
-plot(im)
+plot_image(im)
 
 
 ##Diminuir a resolucao (tamanho da imagem)

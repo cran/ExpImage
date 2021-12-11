@@ -2,8 +2,8 @@
 #' imagem em varias outras de acordo com os objetos que contem)
 #'
 #' @description Esta funcao permite dividir a imagem e obter medidas dos objetos
-#' @usage split_image(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
-#'   colorBack=c(0,0,0) ,ext=1,saveImage=TRUE,
+#' @usage split_image(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=1,ext=1,
+#'   splitConnected=FALSE,colorBack=c(0,0,0) ,saveImage=TRUE,
 #'   plot=T,col="red",cex=1,fileName="test.jpg")
 #'
 #' @param im Este objeto deve conter uma imagem no formato do EBImage.
@@ -21,11 +21,14 @@
 #'   than the tolerance, the object will be combined with one of its neighbors,
 #'   which is the highest. Tolerance should be chosen according to the range of
 #'   x. Default value is 1, which is a reasonable value if x comes from distmap.
+#' @param ext Radius of the neighborhood in pixels for the detection of
+#'   neighboring objects. Higher value smoothes out small objects.
+#' @param splitConnected :Variavel do tipo logico. Se TRUE objetos encostados
+#' serao considerados diferentes.
+
 #' @param colorBack Deve ser um vetor com tres valores variando entre 0 a 1.
 #'   Estes valores indicam reespectivamente os valores de r, g e b que
 #'   substituirao os pixels indesejados nas imagens divididas.
-#' @param ext Radius of the neighborhood in pixels for the detection of
-#'   neighboring objects. Higher value smoothes out small objects.
 #' @param saveImage Se for TRUE serao salvas as imagens dividas.
 #' @param plot Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 #'   imagem segmentada
@@ -50,7 +53,7 @@
 #'plot(im)
 #'
 #'g=gray_scale(im,"g",plot=TRUE)
-#'Seg=segmentation(img.band = g,treshold = "otsu",selectHigher = FALSE,
+#'Seg=segmentation(img.band = g,threshold = "otsu",selectHigher = FALSE,
 #'fillHull = TRUE,plot = TRUE)
 #'
 #'split_image(im=im,Seg=Seg,noise = 200,CutImage = FALSE,tolerance = 1,
@@ -60,14 +63,15 @@
 
 
 
-split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
-                     colorBack=c(0,0,0) ,ext=1,saveImage=TRUE,
+split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=1,
+                     ext=1,splitConnected=FALSE,colorBack=c(0,0,0) ,saveImage=TRUE,
                      plot=T,col="red",cex=1,
                      fileName="test.jpg"){
   r=colorBack[1]
   g=colorBack[2]
   b=colorBack[3]
-  SepSeg=watershed(Seg, tolerance=tolerance, ext=ext)
+  if(isFALSE(splitConnected)){SepSeg=EBImage::watershed(Seg, tolerance=tolerance, ext=ext)}
+  if(isTRUE(splitConnected)){SepSeg=EBImage::watershed( EBImage::distmap(Seg), tolerance=tolerance, ext=ext)}
   a=0
   implot=im
   RES=NULL
@@ -81,7 +85,7 @@ split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
       a=a+1
       imsep=extract_pixels(im,SepSeg==i,plot = F,valueSelect = c(r,g,b))
       if(saveImage==T){
-        if(CutImage==F){writeImage(imsep,files=paste(a,fileName,sep="_"))}
+        if(CutImage==F){EBImage::writeImage(imsep,files=paste(a,fileName,sep="_"))}
         if(CutImage==T){
           seg=(SepSeg==i)*1
 
@@ -97,7 +101,7 @@ split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
 
 
 
-          writeImage(imsep2,files=paste(a,fileName,sep="_"))
+          EBImage::writeImage(imsep2,files=paste(a,fileName,sep="_"))
         }
       }
 
@@ -105,7 +109,7 @@ split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
 
 
 
-      res=measure_image(SepSeg==i )
+      res=measure_image(SepSeg==i ,splitConnected = F,plot=F)
       RES=rbind(RES,(res$measures))
 
       SegplotR[SepSeg==i]=runif(1,0,1)
@@ -130,7 +134,7 @@ split_image=function(im,Seg,noise=0,CutImage=TRUE,lim=10,tolerance=0,
 
 
   if(plot==T){
-    plot(implot)
+    plot_image(implot)
     text(RES[,1],RES[,2],1:nrow(RES),cex=cex,col=col)
   }
 

@@ -29,6 +29,10 @@ Obrigado por utilizar o pacote `ExpImage`. Este pacote foi desenvolvido a fim de
 
 Porém se houver problemas na instalação sugerimos que consulte mais opções de instalação no site: https://bioconductor.org/packages/release/bioc/html/EBImage.html
 
+Para instalar o pacote ´ExpImage´ basta utilizar o seguinte comando:
+
+`install.packages("ExpImage")`
+
 Convidamos a todos os usuários do ExpImage que venha conhecer nossos materiais didáticos sobre este e outros pacotes nos seguintes links: 
 
 https://www.youtube.com/channel/UCDGyvLCJnv9RtTY1YMBMVNQ
@@ -41,7 +45,7 @@ https://www.expstat.com/
 Após a instalação dos pacotes é necessário fazer sua ativação
 
 ```{r}
-# library(EBImage)
+ library(EBImage)
 library(ExpImage)
 ```
 
@@ -92,6 +96,13 @@ b=gray_scale(im2,method = "b",plot=T)
 
 Como foi possível observar, quando se utilizou a banda de azul foi possível obter melhor contraste entre a folha e o fundo. Logo, podemos considerar essa banda como a melhor para fazer o processo de segmentação.
 
+Outra opção de explorar outros possíveis índices é por meio do seguinte comando:
+
+```{r}
+plot_indexes(im,NumberCores=2)
+```
+
+
 A segmentação pode ser feita considerando-se um limiar. Ou seja, um valor a partir do qual os pixels serão consideradas como background ou foreground. O melhor valor de limiar pode ser obtido pela tentativa e erro:
 
 ```{r}
@@ -101,7 +112,7 @@ MatrizSegmentada=segmentation(b,treshold = 0.60,fillHull = F,selectHigher = T,pl
 MatrizSegmentada=segmentation(b,treshold = 0.80,fillHull = F,selectHigher = T,plot=T)
 ```
 
-Como foi possível observar, dependendo do valor de limiar escolhido, pode não aparecer toda a semente ou ter muitos ruídos.
+Como foi possível observar, dependendo do valor de limiar escolhido, pode não aparecer toda a folha ou ter muitos ruídos.
 
 Outra opção é considerar um treshold obtido pelo método de otsu da seguinte forma:
 
@@ -112,14 +123,14 @@ MatrizSegmentada=segmentation(r,treshold = "otsu",fillHull = F,selectHigher = T,
 Mas neste caso o melhor é considerar o limiar de 0.30
 
 ```{r}
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = F,selectHigher = F,plot=T)
+MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = F,selectHigher = F,plot=T)
 
 ```
 
 Como é possível ver, foi feita a segmentacao separando o que é folha e o que não é. Dessa forma, podemos separar o que é "folha + ovos" e o que não é, preechendo os espaços em branco dentro da folha da seguinte forma:
 
 ```{r}
-MatrizSegmentada=segmentation(b,treshold = 0.30,fillHull = T,selectHigher = F,plot=T)
+MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = T,selectHigher = F,plot=T)
 
 ```
 
@@ -141,7 +152,7 @@ b=gray_scale(im3,method = "b",plot=T)
 
 Como pode-se observar, o canal "azul" continua sendo melhor para a segmentação dos ovos.
 
-Logo, vamos fazer outra segmentação para obter os pixeis correspondentes apenas àos ovos
+Logo, vamos fazer outra segmentação para obter os pixeis correspondentes apenas aos ovos
 
 ```{r}
 MatrizSegmentada2=segmentation(b,treshold = 0.50,fillHull = T,selectHigher = T,plot = T)

@@ -34,8 +34,29 @@ ebimage <- function(){
                              ask = FALSE,
                              quiet = TRUE)
   }
+  #require(raster)
 }
 
+
+IM3=function(m){
+  #m=(ImagemSeg>0)*1
+
+  mm=array(NA,dim = c(nrow(m),ncol(m),3))
+  mm[,,1]=m
+  mm[,,2]=m
+  mm[,,3]=m
+  mmm=EBImage::as.Image(mm)
+  EBImage::colorMode(mmm)=2
+
+  return(mmm)
+}
+
+
+extract_band=function(im2,band,norm){
+  print("extract")
+  aa=raster(im2,band)
+  t(as.matrix(aa))/norm
+}
 #bwlabel=EBImage::bwlabel
 #combine=EBImage::combine
 #dilate=EBImage::dilate

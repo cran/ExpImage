@@ -4,8 +4,15 @@
 \alias{shape_file.create}
 \title{Funcao para criar as coordenadas dos objetos/parcelas na imagem}
 \usage{
-shape_file.create(im,rows=10,cols=6,rectangular=TRUE,colLines="white",
-ColPlot="red",ColNumber="red",SelectSeveral=FALSE,Matrix=NULL)
+shape_file.create(im,
+                         rows=10,
+                         cols=6,
+                         rectangular=TRUE,
+                         colLines="white",
+                         ColPlot="red",
+                         ColNumber="red",
+                         SelectSeveral=FALSE,
+                         Matrix=NULL)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem no formato do EBImage.}

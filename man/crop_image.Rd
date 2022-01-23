@@ -5,11 +5,11 @@
 \title{Esta funcao corta a imagem retirando as laterais nao desejadas. (This function
 removes unwanted sides from the images.)}
 \usage{
-crop_image(im,w=NULL,h=NULL,plot=TRUE,verbose=TRUE)
+crop_image(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,verbose=FALSE)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage (This
-object must contain an image in EBImage format ).}
+object must contain an image in EBImage format).}
 
 \item{w}{Deve ser um vetor contendo os numeros das colunas que permanecerao na
 imagem (It must be a vector containing the column numbers that will remain
@@ -18,6 +18,9 @@ in the image).}
 \item{h}{Deve ser um vetor contendo os numeros das linhas que permanecerao na
 imagem (It must be a vector containing the numbers of the lines that will
 remain in the image ).}
+
+\item{segmentation}{matrix binaria obtida por uma segmentacao
+(Binary matrix obtained of a segmentation)}
 
 \item{plot}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem segmentada (Indicates whether the segmented image will be

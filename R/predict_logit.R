@@ -76,8 +76,11 @@ predict_logit=function(im,modelo,fillHull=TRUE,
   if(fillHull==TRUE){ImagemSeg=EBImage::bwlabel(ImagemSeg);ImagemSeg=EBImage::fillHull(ImagemSeg)}
 
 
-  ImagemSeg=(ImagemSeg>0)*1
-  if(plot==T){(  plot_image(EBImage::as.Image((ImagemSeg))))}
+  ImagemSeg=EBImage::as.Image((ImagemSeg>0)*1)
+  if(plot==T){
+    mm=mask_pixels(im,ImagemSeg,Contour = T,col.TargetPixels = "red",plot = F)
+    ImagemSeg=IM3(ImagemSeg)
+    join_image(ImagemSeg,mm)}
 
 
   return(ImagemSeg)}

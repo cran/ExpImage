@@ -3,16 +3,19 @@
 #'
 #' @description Esta funcao permite criar mascara sobre os pixels
 #'   correspondentes ao background ou foreground
-#' @usage mask_pixels(im,TargetPixels,TargetPixels2=NULL,Contour=FALSE,plot=FALSE)
+#' @usage mask_pixels(im,TargetPixels,TargetPixels2=NULL,col.TargetPixels="rand",
+#' Contour=FALSE,plot=FALSE)
 
 #' @param im    :Este objeto deve conter uma imagem no formato do EBImage.
-#' @param TargetPixels    : Este objeto deve ser obrigatoriamente uma matriz
-#'   binaria, contendo os valores 0 (pixels do background) ou 1 (pixels do
+#' @param TargetPixels    : Este objeto deve ser  uma matriz
+#'   binaria ou uma lista com varias matrizes. Em cada matriz deve conter os valores 0 (pixels do background) ou 1 (pixels do
 #'   foreground)).
-#' @param TargetPixels2    : Este objeto pode ter o valor "NULL" caso haja
-#'   apenas uma mascara a ser destacada sobre a imagem. Se quiser usar duas
-#'   mascaras, neste objeto deve ter obrigatoriamente uma matriz binaria,
-#'   contendo os valores 0 (pixels do background) ou 1 (pixels do foreground)).
+#' @param TargetPixels2    : Este objeto deve ser  uma matriz
+#'   binaria ou uma lista com varias matrizes. Em cada matriz deve conter os valores 0 (pixels do background) ou 1 (pixels do
+#'   foreground)).
+#' @param col.TargetPixels : Se for a palavra "rand" serao valores escolhidos para cada matriz.
+#' Pode tambem ser um vetor contendo os nomes das cores. Neste caso, o tamanho de vetor deve ser igual
+#' ao numero de matrizes.
 #' @param Contour Valor logico. Se for FALSE (default) sera a parte de interesse sera preenchida.
 #' Se for TRUE a area de interesse sera contornada.
 #' @param plot    :Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
@@ -77,45 +80,71 @@
 #'
 #'   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
 #}
-#'@export
+#' @export
 #' @exportS3Method print mask_pixels
 
-mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,Contour=FALSE,plot=FALSE){
+mask_pixels=function(im,TargetPixels,TargetPixels2=NULL,col.TargetPixels="rand",Contour=FALSE,plot=FALSE){
  # TargetPixels==1
+
+  if(!is.list(TargetPixels)){TargetPixels=list(TargetPixels)}
+  if(!is.list(TargetPixels2)){TargetPixels2=list(TargetPixels2)}
+
+  TargetPixels=c(TargetPixels,TargetPixels2)
+n=length(TargetPixels)
+
+  if(col.TargetPixels[1]=="rand"){
+    rr=runif(n,0,1)
+    gg=runif(n,0,1)
+    bb=runif(n,0,1)
+  }
+
+  # if(col.TargetPixels!="rand"){
+  #   if(length(col.TargetPixels)!=length(TargetPixels)){
+  #     warning("O numero de cores no vetor `col.TargetPixels` deve ser igual ao numero de imagens binarias \n The number of colors in the vector `col.TargetPixels` must equal the number of binary images ")
+  #     rr=runif(1,0,1)
+  #     gg=runif(1,0,1)
+  #     bb=runif(1,0,1)
+  #   }
+  #
+  # }
+
+
+  a=0
+
+  for( i in 1:n) {
+    if(!is.null(TargetPixels[[i]][[1]])){
+    a=a+1
+    if(col.TargetPixels[1]!="rand"){
+        cc=c(grDevices::col2rgb(col.TargetPixels[a])/255)
+        rr=cc[1]
+        gg=cc[2]
+        bb=cc[3]
+
+      }
+
 
   r=im@.Data[,,1]
   g=im@.Data[,,2]
   b=im@.Data[,,3]
-
-  if(isTRUE(Contour)){TargetPixels=contour_image(TargetPixels)==1}
-  r[TargetPixels]=1
-  g[TargetPixels]=0
-  b[TargetPixels]=0
+ID=EBImage::as.Image(TargetPixels[[i]])
+  ID=ID@.Data==1
+  if(isTRUE(Contour)){ID=contour_image(ID==1,plot=F)==1}
+  r[ID]=rr
+  g[ID]=gg
+  b[ID]=bb
 
   im@.Data[,,1]=r
   im@.Data[,,2]=g
   im@.Data[,,3]=b
 
-  if(isFALSE(is.null(TargetPixels2))){
-    #TargetPixels2==1
-    r=im@.Data[,,1]
-    g=im@.Data[,,2]
-    b=im@.Data[,,3]
-    if(isTRUE(Contour)){TargetPixels2=contour_image(TargetPixels2)==1}
-    r[TargetPixels2]=0
-    g[TargetPixels2]=0
-    b[TargetPixels2]=1
-
-    im@.Data[,,1]=r
-    im@.Data[,,2]=g
-    im@.Data[,,3]=b
   }
-
-  if(plot==T){plot_image(im)}
-
-
+  }
+if(plot==T){plot_image(im)}
   return(im)
 }
+
+
+
 
 print.mask_pixels=function(x,...){
   if(EBImage::is.Image(x)){cat("Is an image object","\n")}

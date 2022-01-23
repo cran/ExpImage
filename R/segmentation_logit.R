@@ -128,9 +128,19 @@ segmentation_logit=function(im,foreground,background,return="image", sample=2000
   if(fillHull==TRUE){ImagemSeg=EBImage::bwlabel(ImagemSeg);ImagemSeg=EBImage::fillHull(ImagemSeg)}
 
 
-  ImagemSeg=(ImagemSeg>0)*1
+  ImagemSeg=EBImage::as.Image((ImagemSeg>0)*1)
 
-  if(plot==T){(  plot_image(EBImage::as.Image((ImagemSeg))))}
+
+
+  if(plot==T){
+    iim=mask_pixels(im = im,TargetPixels = ImagemSeg,
+                    Contour =T,
+                    col.TargetPixels = "red",plot = F)
+    m = (ImagemSeg@.Data>0)*1
+   # print(m)
+    ImagemSeg2=IM3(m)
+    a=join_image(list(im,ImagemSeg2),plot=T)
+    }
  if(return=="image") {return(ImagemSeg)}
   if(return=="model") {return(modelo1)}
 }

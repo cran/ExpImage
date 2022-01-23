@@ -167,6 +167,9 @@
 measure_image=function(img,noise=0,id=NULL,length= NULL,
                        width =NULL,splitConnected=FALSE,tolerance=1, ext=1,
                        plot=TRUE){
+  ebimage()
+  doParalell=FALSE
+  NumberCores=3
   MatrizSegentada2=img
   MatrizSegentada3=EBImage::bwlabel(MatrizSegentada2)
 
@@ -210,31 +213,65 @@ measure_image=function(img,noise=0,id=NULL,length= NULL,
 
   res=as.numeric(dimnames(res)$MatrizSegentada4)[ID]
 
+  nn=length(unique(c(MatrizSegentada4)))-1
   RES=NULL
    if(isTRUE(splitConnected)){
 
-  FFF=function(MatrizSegentada4,i){
-
-    coord=EBImage::computeFeatures.moment(MatrizSegentada4==i)
-    Medidas=EBImage::computeFeatures.shape(MatrizSegentada4==i)
-    r=c(coord[1:2],Medidas,coord[-c(1:2)])
-    r
-  }
-
-
-  NumberCores=detectCores()-1
-  cl <- parallel::makeCluster(NumberCores)
-  clusterExport(cl,
-                varlist = c("FFF","MatrizSegentada4","computeFeatures.shape","computeFeatures.moment"),
-                envir=environment())
-  on.exit(stopCluster(cl))
+     pb <- progress::progress_bar$new(total = nn)
+     FFF=function(MatrizSegentada4,i,pb){
+       pb$tick()
+       coord=EBImage::computeFeatures.moment(MatrizSegentada4==i)
+       Medidas=EBImage::computeFeatures.shape(MatrizSegentada4==i)
+       r=c(coord[1:2],Medidas,coord[-c(1:2)])
+       r
+     }
 
 
 
-  r <- parLapply(cl = cl,res, function(i){FFF(MatrizSegentada4,i)})
 
- RES=matrix(unlist(r),ncol=11,byrow = TRUE)
-   }
+     if(doParalell==T){
+
+       # NumberCores=min(parallel::detectCores(),NumberCores)
+       # cl <- parallel::makePSOCKcluster(NumberCores) # 6 cpu cores out of 8
+       #
+       # doParallel::registerDoParallel(cl)
+       if(NumberCores=="all"){NumberCores=parallel::detectCores()}
+
+       if (NumberCores > parallel::detectCores()) {
+         message(paste0(" O numero de cores maximo (Maximum cores number): ", parallel::detectCores()))
+         NumberCores = parallel::detectCores()
+       }
+       cl <- parallel::makeCluster(NumberCores)
+       parallel::clusterExport(cl,
+                     varlist = c("FFF","MatrizSegentada4","pb"),
+                     envir=environment())
+       on.exit(stopCluster(cl))
+
+       r <- parallel::parLapply(cl = cl,res, function(i){FFF(MatrizSegentada4,i,pb)})
+
+
+     }
+
+     if(doParalell==F){
+
+
+       coord=EBImage::computeFeatures.moment(MatrizSegentada4)
+       Medidas=EBImage::computeFeatures.shape(MatrizSegentada4)
+
+     RES=cbind(coord[,1:2],Medidas,coord[,3:5])
+
+      # colnames(RES)=c( "x"    ,  "y" ,"area" ,"perimeter", "radius.mean"
+           #             ,"radius.sd", "radius.min", "radius.max","majoraxis" ,"eccentricity"  ,   "theta")
+
+
+
+}
+
+
+     }
+
+
+
 
   if(isFALSE(splitConnected)){
     coord=EBImage::computeFeatures.moment( EBImage::bwlabel(MatrizSegentada4!=0))
@@ -251,16 +288,16 @@ measure_image=function(img,noise=0,id=NULL,length= NULL,
 
 
      if(is.matrix(RES)){
-  colnames(RES)=c( "m.cx"    ,  "m.cy" ,"s.area" ,"s.perimeter", "s.radius.mean"
-                   ,"s.radius.sd", "s.radius.min", "s.radius.max","m.majoraxis" ,"m.eccentricity"  ,   "m.theta")
+  colnames(RES)=c( "x"    ,  "y" ,"area" ,"perimeter", "radius.mean"
+                   ,"radius.sd", "radius.min", "radius.max","majoraxis" ,"eccentricity"  ,   "theta")
   rownames(RES)=1:nrow(RES)
 
 
   }
 
   if(!is.matrix(RES)){
-    names(RES)=c( "m.cx"    ,  "m.cy" ,"s.area" ,"s.perimeter", "s.radius.mean"
-                     ,"s.radius.sd", "s.radius.min", "s.radius.max","m.majoraxis" ,"m.eccentricity"  ,   "m.theta")
+    names(RES)=c( "x"    ,  "y" ,"area" ,"perimeter", "radius.mean"
+                  ,"radius.sd", "radius.min", "radius.max","majoraxis" ,"eccentricity"  ,   "theta")
 
 
 
@@ -339,8 +376,9 @@ RES[,4:9]= RES[,4:9]*((length+width)*2 )/ ((nrow(MatrizSegentada2)+ncol(MatrizSe
 
   #Verificando numero de objetos
   ObjectNumber=nrow(RES)
-
-  return(list(ObjectNumber=ObjectNumber,measures=RES))
+LIST=list(ObjectNumber=ObjectNumber,measures=RES)
+class(LIST)="measurements"
+  return(LIST)
 
 }
 

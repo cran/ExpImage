@@ -1,6 +1,6 @@
 #' Excluir as bordas do objetos/parcelas do shapefile
 #'
-#' @description Esta funcao exluir as bordas (bordadura) dos objetos/parcelas selecionadas pela
+#' @description Esta funcao exclui as bordas (bordadura) dos objetos/parcelas selecionadas pela
 #' funcao shape_file.create.
 #' @usage shape_file.BorderExtract(im, ShapeFile,p.rows=0.5,p.cols=0.5,col1="red",col2="white")
 #' @param im    :Este objeto deve conter uma imagem no formato do EBImage/ExpImage.

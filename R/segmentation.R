@@ -85,7 +85,7 @@ segmentation=function(img.band,threshold="otsu",selectHigher=TRUE,fillHull=FALSE
   #library(EBImage)
   if(isFALSE(is.matrix(TargetPixels))){
     b=(img.band)
-    if(threshold=="otsu"){ts=EBImage::otsu(b);message(
+    if(threshold=="otsu"){ts=EBImage::otsu(b);print(
       paste("The threshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
     if(threshold!="otsu"){ts=threshold}
     if(isTRUE(selectHigher)){MatrizSegentada=b>ts}
@@ -96,11 +96,14 @@ segmentation=function(img.band,threshold="otsu",selectHigher=TRUE,fillHull=FALSE
   if(isTRUE(is.matrix(TargetPixels))){
     b=img.band
     if(threshold=="otsu"){ts=suppressWarnings( EBImage::otsu(matrix(b[TargetPixels],ncol=2)))
-    message(paste("The threshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
+    print(paste("The threshold by Otsu melhod is (O valor do limiar pelo etodo otsu e):",round(ts,4)))}
     if(threshold!="otsu"){ts=threshold}
-    MatrizSegentada=TargetPixels*1
+   #MatrizSegentada=TargetPixels*1
     if(isTRUE(selectHigher)){MatrizSegentada=b>ts}
-    if(isFALSE(selectHigher)){MatrizSegentada=b<ts}  }
+    if(isFALSE(selectHigher)){MatrizSegentada=b<ts}
+
+    MatrizSegentada[TargetPixels==0]=0
+    }
 
 
 

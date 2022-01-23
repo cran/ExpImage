@@ -97,6 +97,7 @@ plot_indexes(im,NumberCores=2)
 ## Segmentação da parte radicular
 
 ```{r}
+plot_image(b,col = 3)
 Seg=segmentation(b,treshold = 0.65,selectHigher = TRUE,fillHull = TRUE,plot = TRUE)
 ```
 
@@ -113,7 +114,7 @@ sum(radicula)
 
 Para a melhor visualização do eixo obtido pelo thinning podemos apresenta-lo sobre a imagem:
 ```{r}
-im2=mask_pixels(im,TargetPixels=radicula==1,plot=F)
+im2=mask_pixels(im,TargetPixels=radicula==1,col.TargetPixels = "red",plot=F)
 im3=join_image(im,im2,plot=T)
 ```
 
@@ -122,6 +123,7 @@ im3=join_image(im,im2,plot=T)
 Vamos escolher um novo limiar para conseguir separar o que é parte aérea.
 
 ```{r}
+plot_image(b,col = 3)
 Seg2=segmentation(b,treshold = 0.5,selectHigher = FALSE,fillHull = TRUE,plot=TRUE)
 ```
 

@@ -37,6 +37,7 @@ MatrizSegmentada=segmentation(b,treshold = 0.80,fillHull = F,selectHigher = T,pl
 MatrizSegmentada=segmentation(r,treshold = "otsu",fillHull = F,selectHigher = T,plot=T)
 
 ## -----------------------------------------------------------------------------
+plot_image(b,col = 3)
 MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = F,selectHigher = F,plot=T)
 
 

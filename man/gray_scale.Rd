@@ -20,6 +20,13 @@ objeto indica o metodo para a obtencao da escala de cinza).:\cr
  "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
  "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
 "rgb" = considera a media das 3 bandas: (r+g+b)/3\cr
+"r/g"=r/g\cr
+"r/b"=r/b\cr
+"g/r"=g/r\cr
+"g/b"=g/b\cr
+"b/r"=b/r\cr
+"b/g"=b/g\cr
+"S"=((R+G+B)-3*B)/(R+G+B)
  "BI"=sqrt((r^2+g^2+b^2)/3)\cr
  "BIM"=sqrt((2r+2g+2b)/3)\cr
  "SCI"=(r-g)/(r+g)\cr

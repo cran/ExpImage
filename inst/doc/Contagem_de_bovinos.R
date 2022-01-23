@@ -42,6 +42,6 @@ im4$measures[,1:3]
 im4$ObjectNumber
 
 ## -----------------------------------------------------------------------------
-plot_meansures(im,im4$measures[,1],im4$measures[,2],text ="o",
+plot_meansures(im,measurements = im4,pch=1,
                cex =2 )
 

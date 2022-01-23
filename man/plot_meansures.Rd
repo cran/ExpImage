@@ -4,7 +4,8 @@
 \alias{plot_meansures}
 \title{Funcao para sobrepor informacoes sobre os objetos da imagem}
 \usage{
-plot_meansures(img,coordx,coordy,text,col="red",cex=1,pathSave="none",plot=F)
+plot_meansures(img,coordx=NULL,coordy=NULL,text=NULL,measurements=NULL,
+variable=NULL,pch=NULL,col="red",cex=1,pathSave="none",plot=F)
 }
 \arguments{
 \item{img}{:Este objeto deve conter uma imagem no formato do EBImage.}
@@ -18,13 +19,33 @@ objetos.}
 \item{text}{: deve ser um vetor com as informacoes (numeros ou texto) a
 serem sobrepostos em cada objeto.}
 
+\item{measurements}{: Objeto obtido pela funcao `measure_image`.}
+
+\item{variable}{: Pode ser um nome associado a uma das variaveis estimadas pela
+funcao `measure_image`:
+\itemize{ \item "id" = Identificacao dos objetos.
+ \item "area" = Area dos objetos.
+  \item "perimeter" = Perimetro dos objetos.
+   \item "radius.mean" = Raio medio.
+    \item "radius.sd" = Desvio padrao dos objetos.
+     \item "radius.min" = Raio minimo dos objetos.
+      \item "radius.max" = Raio maximo dos objetos.
+       \item "major.axis" = Maior eixo dos objetos.
+        \item "eccentricity" = Excentrecidade dos objetos.
+         \item "theta" = Angulo theta dos objetos.
+         }}
+
+\item{pch}{: Podem ser valores numericos indicando diferentes simbolos.}
+
 \item{col}{: E a cor do texto que pretende-se colocar sobre a imagem}
 
 \item{cex}{: E o tamanho do texto que pretende-se colocar sobre a imagem}
 
 \item{pathSave}{: Se tiver preenchido por "none" nao sera salva a imagem
-resultante (default). Alternativamente, basta colocar o nome de um objeto
-(com extensao .jpg) que a imagem sera salva na pasta de trabalho.}
+
+
+  resultante (default). Alternativamente, basta colocar o nome de um objeto
+  (com extensao .jpg) que a imagem sera salva na pasta de trabalho.}
 
 \item{plot}{:Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem segmentada.}

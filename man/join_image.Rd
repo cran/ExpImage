@@ -4,23 +4,28 @@
 \alias{join_image}
 \title{Join images(Juntar imagens)}
 \usage{
-join_image(im1,im2,im3,im4,im5,plot=TRUE)
+join_image(im1=NULL,im2=NULL,im3=NULL,im4=NULL,im5=NULL,bk=c(1,1,1), ncol=NULL,plot=TRUE)
 }
 \arguments{
-\item{im1}{:Object containing an array or image in EBImage format (Objeto
-contendo um array ou imagem no formato do EBImage).}
+\item{im1}{:Object containing an array, image in EBImage format or list of images
+(Objeto contendo um array, imagem, ou lista de imagens no formato do EBImage).}
 
-\item{im2}{:Object containing an array or image in EBImage format (Objeto
-contendo um array ou imagem no formato do EBImage).}
+\item{im2}{:Object containing an array, image in EBImage format or list of images
+(Objeto contendo um array, imagem, ou lista de imagens no formato do EBImage).}
 
-\item{im3}{:Object containing an array or image in EBImage format (Objeto
-contendo um array ou imagem no formato do EBImage) or "NULL" (default).}
+\item{im3}{:Object containing an array, image in EBImage format or list of images
+(Objeto contendo um array, imagem, ou lista de imagens no formato do EBImage).}
 
-\item{im4}{:Object containing an array or image in EBImage format (Objeto
-contendo um array ou imagem no formato do EBImage) or "NULL" (default).}
+\item{im4}{:Object containing an array, image in EBImage format or list of images
+(Objeto contendo um array, imagem, ou lista de imagens no formato do EBImage).}
 
-\item{im5}{:Object containing an array or image in EBImage format (Objeto
-contendo um array ou imagem no formato do EBImage) or "NULL" (default).}
+\item{im5}{:Object containing an array, image in EBImage format or list of images
+(Objeto contendo um array, imagem, ou lista de imagens no formato do EBImage).}
+
+\item{bk}{:Vector white rgb values for background(Vetor contendo os valores de rgb
+que serao considerados no background)}
+
+\item{ncol}{:Number of columns where images will appear in the chart (Numero de colunas em que as imagens aparecerao no grafico)}
 
 \item{plot}{:Indicates whether the image will be displayed (TRUE) or not
 (FALSE) (default) (Indica se sera apresentada (TRUE) ou nao (FALSE)
@@ -34,34 +39,52 @@ This function joins images by placing them side by side (Esta funcao junta image
 }
 \examples{
 \donttest{
-
-#Carregar imagem de exemplo
-im=read_image(example_image(1))
-##mostrar imagem
-plot_image(im)
-
-
-##Diminuir a resolucao (tamanho da imagem)
-im2=resize_image(im,w=1000,plot=TRUE)
-
-##Cortar Imagem
-im3=crop_image(im2,w =200:750,h=100:650,plot = TRUE)
+im1=read_image(example_image(2),plot=TRUE)
 
 ##Aumentar brilho
-im4=edit_image(im3,brightness = 0.1)
+im2=edit_image(im1,brightness = 0.1)
 
 #Aumentar contraste
-im5=edit_image(im4,contrast = 1.2)
+im3=edit_image(im1,contrast = 1.2)
 
 #Aumentar gamma
-im6=edit_image(im5,gamma  = 1.1)
-
+im4=edit_image(im1,gamma  = 1.1)
 
 #Alterando brilho, contraste e gamma
-imb=edit_image(im3,brightness = 0.1,contrast = 1.7,gamma  = 1.2)
+im5=edit_image(im3,brightness = 0.1,contrast = 1.7,gamma  = 1.2)
 
-#Mostrando ambas as imagens simultaneamente.
-im4=join_image(im3,imb)
+#Juntando imagens em um objeto raster e plotando
+join_image(im1,im2,im3,im4,im5)
+
+#Juntando imagens em um objeto raster e plotando com uma lista
+List1=list(im1,im2,im3,im4,im5)
+join_image(List1)
+
+
+
+im1b=read_image(example_image(7),plot=TRUE)
+
+##Aumentar brilho
+im2b=edit_image(im1b,brightness = 0.1)
+
+#Aumentar contraste
+im3b=edit_image(im1b,contrast = 1.2)
+
+#Aumentar gamma
+im4b=edit_image(im1b,gamma  = 1.1)
+
+#Alterando brilho, contraste e gamma
+im5b=edit_image(im3b,brightness = 0.1,contrast = 1.7,gamma  = 1.2)
+
+#Juntando imagens em um objeto raster e plotando
+join_image(im1b,im2b,im3b,im4b,im5b)
+
+#Juntando imagens em um objeto raster e plotando com uma lista
+List2=list(im1b,im2b,im3b,im4b,im5b)
+join_image(List2)
+
+#Juntando imagens presentes em duas listas
+join_image(List1,List2)
 }
 }
 \seealso{

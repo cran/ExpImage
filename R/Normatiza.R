@@ -83,6 +83,6 @@ Normatiza=function(DadosEntrada, DadosBase=NULL, LimiteInferior=0, LimiteSuperio
 
 
   }
-  class(Normatiza)="matrix"
+  #class(Normatiza)="matrix"
   return(as.matrix(Normatiza))
 }

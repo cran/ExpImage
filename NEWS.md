@@ -1,3 +1,23 @@
+# ExpImage 0.4.0
+## Minor improvements
+* The `join_image()` functions was improved.
+* The `resize_image()` functions was improved.
+* The `plot_image()` functions was improved.
+* The `measure_image()` functions was improved.
+* The `gray_scale()` functions was improved.
+* The `split_image()` functions was improved.
+* The `read_image()` functions was improved.
+
+## New functions
+* New function `as_image()`
+* New function `info_image()`
+* New function `setwd_script()`
+* New function `join_bands()`
+* New function `compare_image()`
+* New function `histogram_image()`
+* New function `clustering_Kmeans()`
+* New function `index_bands()`
+* New function `linearize_image()`
 
 # ExpImage 0.3.0
 ## Minor improvements

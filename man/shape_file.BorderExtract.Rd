@@ -20,7 +20,7 @@ shape_file.BorderExtract(im, ShapeFile,p.rows=0.5,p.cols=0.5,col1="red",col2="wh
 \item{col2}{Nome da cor das linhas da parcela correspondente a area de interesse. Default e "white".}
 }
 \description{
-Esta funcao exluir as bordas (bordadura) dos objetos/parcelas selecionadas pela
+Esta funcao exclui as bordas (bordadura) dos objetos/parcelas selecionadas pela
 funcao shape_file.create.
 }
 \examples{

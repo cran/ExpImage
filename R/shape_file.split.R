@@ -59,7 +59,7 @@ write_image(im2,files = nome)
 Nomes=c(Nomes,nome)
  }
 
-print("Arquivos criados:")
+print("Arquivos criados (files created):")
 print(Nomes)
 
 return(Nomes)

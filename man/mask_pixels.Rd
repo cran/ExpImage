@@ -5,19 +5,23 @@
 \title{Creates a mask over the background or foreground (Cria uma mascara sobre o
 background ou foreground)}
 \usage{
-mask_pixels(im,TargetPixels,TargetPixels2=NULL,Contour=FALSE,plot=FALSE)
+mask_pixels(im,TargetPixels,TargetPixels2=NULL,col.TargetPixels="rand",
+Contour=FALSE,plot=FALSE)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem no formato do EBImage.}
 
-\item{TargetPixels}{: Este objeto deve ser obrigatoriamente uma matriz
-binaria, contendo os valores 0 (pixels do background) ou 1 (pixels do
+\item{TargetPixels}{: Este objeto deve ser  uma matriz
+binaria ou uma lista com varias matrizes. Em cada matriz deve conter os valores 0 (pixels do background) ou 1 (pixels do
 foreground)).}
 
-\item{TargetPixels2}{: Este objeto pode ter o valor "NULL" caso haja
-apenas uma mascara a ser destacada sobre a imagem. Se quiser usar duas
-mascaras, neste objeto deve ter obrigatoriamente uma matriz binaria,
-contendo os valores 0 (pixels do background) ou 1 (pixels do foreground)).}
+\item{TargetPixels2}{: Este objeto deve ser  uma matriz
+binaria ou uma lista com varias matrizes. Em cada matriz deve conter os valores 0 (pixels do background) ou 1 (pixels do
+foreground)).}
+
+\item{col.TargetPixels}{: Se for a palavra "rand" serao valores escolhidos para cada matriz.
+Pode tambem ser um vetor contendo os nomes das cores. Neste caso, o tamanho de vetor deve ser igual
+ao numero de matrizes.}
 
 \item{Contour}{Valor logico. Se for FALSE (default) sera a parte de interesse sera preenchida.
 Se for TRUE a area de interesse sera contornada.}

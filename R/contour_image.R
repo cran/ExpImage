@@ -34,13 +34,14 @@ Contorno2=function(img2,imagem=TRUE){
   t[,-1]=t3
   return((t))
 }
-
+img=as.matrix(img)
 m2=Contorno2(img2 = img)
 m3=Contorno2(img2 = t(img))
 
 m4=m2+t(m3)
 m5=1*(m4!=0)
-plot_image(m5)
+m5=EBImage::as.Image(m5)
+if(plot==TRUE) {plot_image(m5)}
 m5
 }
 

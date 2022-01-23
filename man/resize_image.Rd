@@ -4,7 +4,7 @@
 \alias{resize_image}
 \title{Function to change image size (Funcao para mudar o tamanho da imagem)}
 \usage{
-resize_image(im, w, h,plot=TRUE)
+resize_image(im, w, h,plot=FALSE)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem no formato do EBImage ou na

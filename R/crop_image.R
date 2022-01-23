@@ -2,15 +2,17 @@
 #' removes unwanted sides from the images.)
 #'@description Esta funcao permite cortar a imagem (This function allows you to
 #'  crop the image).
-#'@usage crop_image(im,w=NULL,h=NULL,plot=TRUE,verbose=TRUE)
+#'@usage crop_image(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,verbose=FALSE)
 #'@param im Este objeto deve conter uma imagem no formato do EBImage (This
-#'  object must contain an image in EBImage format ).
+#'  object must contain an image in EBImage format).
 #'@param w Deve ser um vetor contendo os numeros das colunas que permanecerao na
 #'  imagem (It must be a vector containing the column numbers that will remain
 #'  in the image).
 #'@param h Deve ser um vetor contendo os numeros das linhas que permanecerao na
 #'  imagem (It must be a vector containing the numbers of the lines that will
 #'  remain in the image ).
+#'@param segmentation matrix binaria obtida por uma segmentacao
+#'(Binary matrix obtained of a segmentation)
 #'@param plot Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 #'  imagem segmentada (Indicates whether the segmented image will be
 #'  displayed (TRUE) or not (FALSE) (default)).
@@ -22,11 +24,12 @@
 #'  selecionados (Returns a cropped image showing only selected pixels).
 #'@seealso  \code{\link{edit_image}} ,  \code{\link{edit_imageGUI}}
 #'@importFrom stats binomial glm predict dist aggregate
-#'@importFrom grDevices dev.off  jpeg colorRampPalette
+#'@importFrom grDevices dev.off  jpeg colorRampPalette rgb
 #'@importFrom graphics  lines locator
-#'@importFrom utils setTxtProgressBar txtProgressBar
+#'@importFrom utils setTxtProgressBar txtProgressBar unstack
+#'@importFrom raster raster
 #'@export
-#' @examples
+#'@examples
 #\donttest{
 #'#library(ExpImage)
 #'#Carregar imagem de exemplo
@@ -47,18 +50,24 @@
 
 
 
-crop_image=function(im,w=NULL,h=NULL,plot=TRUE,verbose=TRUE){
+crop_image=function(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,verbose=FALSE){
+n=1
+  nr=dim(im)[1]
+  nc=dim(im)[2]
+  l=length(dim(im))
+  if(is.null(segmentation)){
+  if(!is.null(w)|!is.null(h)){
+    if(is.null(w)){w=1:nr}
+    if(is.null(h)){h=1:nc}
 
-
-  if((is.null(w)==F)|(is.null(h)==F)){
     if((mode(w)!="numeric")|is.null(h)) {stop("Vectors must be numeric.")}
     if((mode(h)!="numeric")|is.null(w)) {stop("Vectors must be numeric.")}
-      if(EBImage::is.Image(im)){im@.Data=im@.Data[w,h,]}
-      if(is.matrix(im)){im=im[w,h]}
+      if(l==3){im@.Data=im@.Data[w,h,]}
+      if(l==2){im=im[w,h]}
    }
 
    if(is.null(w)&is.null(h)){
-     print("Clique sobre a imagem para cortar (Click on the image to crop)")
+     print("Clique em dois vertices opostos para cortar (Click on two opposite vertices to crop)")
      if(EBImage::is.Image(im)){plot_image(im)}
      if(is.matrix(im)){plot_image(EBImage::as.Image((im)))}
      c=NULL
@@ -74,11 +83,39 @@ crop_image=function(im,w=NULL,h=NULL,plot=TRUE,verbose=TRUE){
        w=round(min(c[,1]),0):round(max(c[,1]),0)
        h=round(min(c[,2]),0):round(max(c[,2]),0)
 
-     if(EBImage::is.Image(im)){im@.Data=im@.Data[w,h,]}
-     if(is.matrix(im)){im=im[w,h]}
-
+       if(l==3){im@.Data=im@.Data[w,h,]}
+       if(l==2){im=im[w,h]}
      }
+}
 
+
+if(!is.null(segmentation)){
+    m=segmentation
+    r=(1:nrow(m))[(rowSums(m)!=0)]
+    w=(min(r)-n):(max(r)+n)
+
+    c=(1:ncol(m))[(colSums(m)!=0)]
+    h=(min(c)-n):(max(c)+n)
+
+    if(l==3){im@.Data=im@.Data[w,h,]}
+    if(l==2){im=im[w,h]}
+    }
+
+
+
+
+
+
+
+
+  mm=rbind(
+  w=c(round(min(w),0),round(max(w),0)),
+  h=c(round(min(h),0),round(max(h),0))
+  )
+
+  rownames(mm)=c("min","max")
+
+  if(verbose==TRUE){print(mm)}
 
 
   if(plot==T){

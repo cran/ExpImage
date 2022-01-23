@@ -2,8 +2,15 @@
 #'
 #' @description Esta funcao cria um arquivo com as coordenadas dos vertices de cada objeto/parcela
 #' de interesse na imagem.
-#' @usage shape_file.create(im,rows=10,cols=6,rectangular=TRUE,colLines="white",
-#' ColPlot="red",ColNumber="red",SelectSeveral=FALSE,Matrix=NULL)
+#' @usage shape_file.create(im,
+#'                          rows=10,
+#'                          cols=6,
+#'                          rectangular=TRUE,
+#'                          colLines="white",
+#'                          ColPlot="red",
+#'                          ColNumber="red",
+#'                          SelectSeveral=FALSE,
+#'                          Matrix=NULL)
 #' @param im    :Este objeto deve conter uma imagem no formato do EBImage.
 #' @param rows Numbers of rows (Numero de linhas).
 #' @param cols Numbers of columns (Numero de colunas).
@@ -54,6 +61,7 @@ shape_file.create=function(im,rows=10,
 
 #Colunas
     n=colu1
+    message("Clique sobre os quatro pontos delimitadores (Click on the four bounding points)")
     pa <- unlist(locator(type="p",n = 1, col="red",pch=19))
     pb <- unlist(locator(type="p",n = 1, col="red",pch=19))
     lines(rbind(pa,pb), col=col1)

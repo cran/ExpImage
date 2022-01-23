@@ -28,6 +28,9 @@ MatrizSegmentada0.8=segmentation(g,treshold = 0.80,fillHull = F,selectHigher = F
 100*(sum(MatrizSegmentada0.3)/sum(MatrizSegmentada0.8))
 
 ## -----------------------------------------------------------------------------
-im3=mask_pixels(im,TargetPixels=MatrizSegmentada0.3==1,plot=F)
-im4=join_image(im,im3,plot=T)
+im3=mask_pixels(im,TargetPixels=MatrizSegmentada0.3==1,col.TargetPixels = "red",plot=F)
+
+im3b=mask_pixels(im,TargetPixels=MatrizSegmentada0.3==1,Contour =TRUE,col.TargetPixels = "red",plot=F)
+
+im4=join_image(im,im3,im3b,plot=T)
 

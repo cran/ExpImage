@@ -1,7 +1,7 @@
 #'Esta funcao plota imagens. (This function plot the images.)
 #'@description Esta funcao permite plotar a imagem (This function allows you to
 #'  view the image).
-#' @usage plot_image(im,r=1,g=2,b=3,col=0)
+#' @usage plot_image(im,r=1,g=2,b=3,band=NULL,col=0)
 #' @param im Este objeto deve conter uma imagem no formato do EBImage ou na forma
 #'de uma matriz, no caso de imagem em escala de cinza (This
 #'  object must contain an image in EBImage format).
@@ -14,6 +14,9 @@
 #'@param b Indica o canal correspondente a cor azul para imagens com
 #'   extensao '.tif'. O defaut e 3. (Indicates the channel corresponding to
 #'   blue color for images with the extension '.tif'. The default is 3.)
+#'@param band Indica a banda que se deseja plotar. Neste caso nao se precisa
+#'considerar as bandas de R, G e B simultaneamente.
+
 #'@param col Pode ser um valor numerico variando entre 0 e 6 ou uma paleta de cores
 #'obtida pela funcao `colorRampPalette`. Se for 0 sera considerada a representacao
 #'da imagem monocromatica em escala de cinza. Valores entre 1 e 6 indicam outras
@@ -53,35 +56,56 @@
 
 
 
-plot_image=function(im,r=1,g=2,b=3,col=0){
+plot_image=function(im,r=1,g=2,b=3,band=NULL,col=0){
+  Rows=Cols=Value=0
 if(is.null(class(im)[1])){
   class(im)="aaa"
 }
 
   if(class(im)[1]=="RasterStack"){
-    plotRGB(im,r=r,g=g,b=b)}
+    if(is.null(band)){plotRGB(im,r=r,g=g,b=b)}
+    if(!is.null(band)){im=EBImage::as.Image(im@.Data[,,band])}
+    }
 
   if(class(im)[1]!="RasterStack"){
+    if(!is.null(band)){im=EBImage::as.Image(im@.Data[,,band])
+    im@colormode=as.integer(0)}
 
   if(EBImage::is.Image(im)|is.matrix(im)){
-    im2=EBImage::as.Image(im)
-    if( EBImage::colorMode(im2)>0){
+    #if(EBImage::is.Image(im)){im=im@.Data}
+
+
+   if(is.matrix(im)) {im=EBImage::as.Image(im)}
+
+    if( (im@colormode)>0){
+      im2=EBImage::as.Image(im@.Data[,,c(r,g,b)])
+      im2@colormode<-as.integer(2)
 
         plot(im2)
 
     }
 
-    if(EBImage::colorMode(im2)==0){
+    if((im@colormode)==0){
+      im2=EBImage::as.Image(im)
       if(col==0){
         plot(im2)
       }
       if(col>0){
-
+im=EBImage::as.Image(im)
+im=EBImage::flip(im)
+im=as.matrix(im@.Data)
         paleta=colorRamp_Palette(col)
 
-        nc=ncol(im)
-        nr=nrow(im)
-        graphics::image(x=1:nr,y=1:nc,z=im,col=paleta(100))
+imm=linearize_image(im)
+
+
+
+        IM=data.frame(Rows=imm[,1],Cols=imm[,2],Value=imm[,3])
+        ggplot2::ggplot( data=IM,
+                         ggplot2::aes( x=Rows, y=Cols, fill=Value)) +
+          ggplot2::geom_raster(interpolate= TRUE)  +
+          ggplot2::scale_fill_gradientn(colours = paleta(100))    +
+          ggplot2::theme_void()
       }
     }
 

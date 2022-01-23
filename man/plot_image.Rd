@@ -4,7 +4,7 @@
 \alias{plot_image}
 \title{Esta funcao plota imagens. (This function plot the images.)}
 \usage{
-plot_image(im,r=1,g=2,b=3,col=0)
+plot_image(im,r=1,g=2,b=3,band=NULL,col=0)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage ou na forma
@@ -22,6 +22,9 @@ green color for images with the extension '.tif'. The default is 2.)}
 \item{b}{Indica o canal correspondente a cor azul para imagens com
 extensao '.tif'. O defaut e 3. (Indicates the channel corresponding to
 blue color for images with the extension '.tif'. The default is 3.)}
+
+\item{band}{Indica a banda que se deseja plotar. Neste caso nao se precisa
+considerar as bandas de R, G e B simultaneamente.}
 
 \item{col}{Pode ser um valor numerico variando entre 0 e 6 ou uma paleta de cores
 obtida pela funcao `colorRampPalette`. Se for 0 sera considerada a representacao

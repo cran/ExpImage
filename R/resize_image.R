@@ -2,7 +2,7 @@
 #'
 #' @description Esta funcao permite mudar o tamanho de uma imagem, modificando o
 #'   peso ocupado na memoria e em sua resolucao.
-#' @usage resize_image(im, w, h,plot=TRUE)
+#' @usage resize_image(im, w, h,plot=FALSE)
 #' @param im    :Este objeto deve conter uma imagem no formato do EBImage ou na
 #'   forma de uma matriz.
 #' @param w    : e o numero de linhas que pretende-se obter na imagem de saida.
@@ -52,8 +52,14 @@
 
 
 
-resize_image=function(im, w, h,plot=TRUE){
+resize_image=function(im, w, h,plot=FALSE){
+  if(im@colormode>0){
+    cm=im@colormode
+    im@colormode=as.integer(2)
+  }
   im2=EBImage::resize(im,w,h)
 if(plot==T){plot_image(im2)}
+
+  if(im2@colormode>0){  im2@colormode=as.integer(cm)}
   return(im2)
 }

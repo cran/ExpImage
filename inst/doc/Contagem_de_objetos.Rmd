@@ -120,9 +120,10 @@ Outra opção é considerar um treshold obtido pelo método de otsu da seguinte 
 MatrizSegmentada=segmentation(r,treshold = "otsu",fillHull = F,selectHigher = T,plot=T)
 ```
 
-Mas neste caso o melhor é considerar o limiar de 0.30
+Mas neste caso o melhor é considerar o limiar de 0.40
 
 ```{r}
+plot_image(b,col = 3)
 MatrizSegmentada=segmentation(b,treshold = 0.4,fillHull = F,selectHigher = F,plot=T)
 
 ```

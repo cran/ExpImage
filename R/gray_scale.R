@@ -16,6 +16,13 @@
 #'    "rb" = considera a media da banda de vermelho e azul: (r+b)/2\cr
 #'    "gb" = considera a media da banda de verde e azul: (g+b)/2\cr
 #'   "rgb" = considera a media das 3 bandas: (r+g+b)/3\cr
+#'   "r/g"=r/g\cr
+#'   "r/b"=r/b\cr
+#'   "g/r"=g/r\cr
+#'   "g/b"=g/b\cr
+#'   "b/r"=b/r\cr
+#'   "b/g"=b/g\cr
+#'   "S"=((R+G+B)-3*B)/(R+G+B)
 #'    "BI"=sqrt((r^2+g^2+b^2)/3)\cr
 #'    "BIM"=sqrt((2r+2g+2b)/3)\cr
 #'    "SCI"=(r-g)/(r+g)\cr
@@ -72,12 +79,22 @@ gray_scale=function(im,method="r",plot=FALSE){
   g=im@.Data[,,2]
   b=im@.Data[,,3]
 
+  if(method=="gray"){imm=0.299*r + 0.587*g + 0.114*b}#
+
   if(method=="r"){imm=r}
   if(method=="g"){imm=g}
   if(method=="b"){imm=b}
   if(method=="rg"){imm=(r+g)/2}
   if(method=="rb"){imm=(r+b)/2}
   if(method=="gb"){imm=(g+b)/2}
+
+  if(method=="r/g"){imm=r/g}#
+  if(method=="r/b"){imm=r/b}#
+  if(method=="g/r"){imm=g/r}#
+  if(method=="g/b"){imm=g/b}#
+  if(method=="b/r"){imm=b/r}#
+  if(method=="b/g"){imm=b/g}#
+
   if(method=="rgb"){imm=(r+g+b)/3}
   if(method=="r/rgb"){imm=(r/((c(r))+(c(g))+(c(b))))}
   if(method=="g/rgb"){imm=(g/((c(r))+(c(g))+(c(b))))}
@@ -89,6 +106,7 @@ gray_scale=function(im,method="r",plot=FALSE){
   if(method=="HI"){imm=(2*r-g-b)/(g-b)}
   if(method=="NGRDI"){imm=(g-r)/(g+r)}
   if(method=="SI"){imm=(r-b)/(r+b)}
+  if(method=="S"){imm=((r+g+b)-3*b)/(r+g+b)}#
   if(method=="VARI"){imm=(g-r)/(g+r-b)}
   if(method=="HUE"){imm=atan(2*(b-g-r)/30.5*(g-r))}
   if(method=="MGVRI"){imm=(g^2-r^2)/(g^2+r^2)}

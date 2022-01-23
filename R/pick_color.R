@@ -80,6 +80,6 @@ if(sum(c[1,]==c[2,])==2){
 
  }
 }
-class(D)="pick_color"
+#class(D)="pick_color"
 return(D)
 }

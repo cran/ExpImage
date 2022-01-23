@@ -24,6 +24,7 @@ b=gray_scale(im,method = "b",plot=T)
 plot_indexes(im,NumberCores=2)
 
 ## -----------------------------------------------------------------------------
+plot_image(b,col = 3)
 Seg=segmentation(b,treshold = 0.65,selectHigher = TRUE,fillHull = TRUE,plot = TRUE)
 
 ## -----------------------------------------------------------------------------
@@ -33,10 +34,11 @@ radicula=thinning_image(Seg,plot = TRUE)
 sum(radicula)
 
 ## -----------------------------------------------------------------------------
-im2=mask_pixels(im,TargetPixels=radicula==1,plot=F)
+im2=mask_pixels(im,TargetPixels=radicula==1,col.TargetPixels = "red",plot=F)
 im3=join_image(im,im2,plot=T)
 
 ## -----------------------------------------------------------------------------
+plot_image(b,col = 3)
 Seg2=segmentation(b,treshold = 0.5,selectHigher = FALSE,fillHull = TRUE,plot=TRUE)
 
 ## -----------------------------------------------------------------------------

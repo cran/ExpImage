@@ -118,7 +118,7 @@ im4$ObjectNumber
 Para conferir se este número de animais está correto podemos marcar na imagem as coordenadas de cada animal, considerando só dados das duas primeiras colunas do conjunto de dados.
 
 ```{r}
-plot_meansures(im,im4$measures[,1],im4$measures[,2],text ="o",
+plot_meansures(im,measurements = im4,pch=1,
                cex =2 )
 ```
 

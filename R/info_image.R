@@ -26,7 +26,7 @@ MegaPixels=Pixels/1000000
 Mode=mode(im)
 Size=c(utils::object.size(im)/1024^2)
 names(Size)="MB"
-print("----------------------------------------------")
+#print("----------------------------------------------")
 
 list(Class=Class,Length=Length,MegaPixels=MegaPixels,Mode=Mode,SizeMemory=Size)
 }

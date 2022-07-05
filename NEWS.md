@@ -1,3 +1,16 @@
+# ExpImage 0.5.0
+## New functions
+* New function `calibration_palette()`
+* New function `color_palette()`
+* New function `pick_count()`
+* New function `pick_length`
+* New function `Square_Image`
+
+## Minor improvements
+* The `clustering_Kmeans()` functions was improved.
+* The `info_image()` functions was improved.
+* The `resize_image()` functions was improved.
+
 # ExpImage 0.4.0
 ## Minor improvements
 * The `join_image()` functions was improved.

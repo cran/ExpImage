@@ -4,7 +4,7 @@
 \alias{clustering_Kmeans}
 \title{Image segmentation by clustering using the Kmeans method (Segmentacao de imagens pela clusterização pelo metodo Kmeans).}
 \usage{
-clustering_Kmeans(im,bands="all",ncluster=2,col="rand",plot=TRUE)
+clustering_Kmeans(im,bands="all",ncluster=2,mask=NULL,col="rand",plot=TRUE)
 }
 \arguments{
 \item{im}{:Image that will be segmented (Imagem que sera segmentada).}
@@ -13,6 +13,8 @@ clustering_Kmeans(im,bands="all",ncluster=2,col="rand",plot=TRUE)
 (Numero indicando as bandas que serao utilizadas na segmentacao, default e "all").}
 
 \item{ncluster}{: Desired number of classes (Numero de classes desejado).}
+
+\item{mask}{: Mask obtained by the segmentation process, default=NULL (Mascara obtida pelo processo de segmentacao).}
 
 \item{col}{: Vector with the desired colors in the segmentation. If it's "rand" it will be random colors
 (Vetor com as cores desejadas na segmentacao. Se for "rand" serao cores aleatorias).}

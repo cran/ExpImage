@@ -2,12 +2,13 @@
 #'
 #' @description This function segments images through clustering by the Kmeans method
 #' (Esta funcao segmenta imagens por meio da clusterização pelo metodo Kmeans).
-#' @usage clustering_Kmeans(im,bands="all",ncluster=2,col="rand",plot=TRUE)
+#' @usage clustering_Kmeans(im,bands="all",ncluster=2,mask=NULL,col="rand",plot=TRUE)
 
 #' @param im    :Image that will be segmented (Imagem que sera segmentada).
 #' @param bands    :Number indicating the bands that will be used in the segmentation, default and "all"
 #'  (Numero indicando as bandas que serao utilizadas na segmentacao, default e "all").
 #' @param ncluster    : Desired number of classes (Numero de classes desejado).
+#' @param mask    : Mask obtained by the segmentation process, default=NULL (Mascara obtida pelo processo de segmentacao).
 #' @param col    : Vector with the desired colors in the segmentation. If it's "rand" it will be random colors
 #' (Vetor com as cores desejadas na segmentacao. Se for "rand" serao cores aleatorias).
 #' @param plot    : Logical value, if TRUE, the image will be displayed
@@ -32,7 +33,7 @@
 
 
 
-clustering_Kmeans=function(im,bands="all",ncluster=2,col="rand",plot=TRUE){
+clustering_Kmeans=function(im,bands="all",ncluster=2,mask=NULL,col="rand",plot=TRUE){
 COL=col
 if(length(col)==1){
 if(col=="rand"){COL=grDevices::rgb(red =runif(n =ncluster,min = 0,max = 1),green = runif(n =ncluster,min = 0,max = 1),blue = runif(n =ncluster,min = 0,max = 1))}
@@ -46,13 +47,25 @@ if(bands=="all"){BANDS=1:dim(im)[3]}
 
 imm=im@.Data[,,BANDS]
 
-imb=linearize_image(imm)[,-c(1,2)]
+imb=ima=linearize_image(imm)[,-c(1,2)]
+if(!is.null(mask)){
+id=linearize_image(im =as_image(mask))[,3]!=0
+imb=imb[id,]
+}
+
+
 x=stats::kmeans(imb, ncluster)
 x2=x3=x$cluster
 
 nm=names(sort(table(x2)))
 for(i in 1:length(nm)){
 x3[x2==nm[i]]=i
+}
+
+if(!is.null(mask)){
+  ima[id,]=x3
+  ima[!id,]=NA
+  x3=ima[,3]
 }
 
 m=matrix(x3,nrow=dim(im)[1])
@@ -69,5 +82,5 @@ if(plot==TRUE){
 x=mask_pixels(im,TargetPixels = LIST,col.TargetPixels = COL,plot=TRUE)
 }
 
-return(x3)
+return(m)
 }

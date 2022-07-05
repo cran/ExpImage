@@ -1,3 +1,26 @@
+#'Function to create a color palette for image color calibration (Funcao para criar uma paleta de cores para calibracao das cores de imagens).
+#'
+#' @description This function creates a palette for color calibration of images.(Esta funcao cria uma paleta para calibracao das cores de imagens).
+#' @usage calibration_palette(n=4,px=500,file=NULL,plot=TRUE)
+
+#' @param n    :Number of color tones to be created (n.n.n). Numero de tons de cores que se deseja criar (n.n.n).
+#' @param px    :Number of rows and columns in the image (Numero de linhas e de colunas na imagem).
+#' @param file    :Address of the file to be created (Endereco do arquivo a ser criado).
+#' @param plot    :Plot the image  (Plota a imagem).
+#'
+#' @author Alcinei Mistico Azevedo (Instituto de ciencias agrarias da UFMG)
+
+#' @return Returns an image with a color palette (Retorna um imagem com uma paleta de cores).
+#' @seealso  \code{\link{info_image}} , \code{\link{read_image}}
+
+#' @examples
+#' im=calibration_palette(n=4,px = 500)
+
+#
+#'@export
+#'
+
+
 calibration_palette=function(n=4,px=500,file=NULL,plot=TRUE){
 niveis=seq(0,1,l=n)
 

@@ -106,6 +106,7 @@ nomess=NULL
           idl[(round(lim/2,0)+1):(nl-round(lim/2,0))]=idl[(lim+1):nl]+idl[1:(nl-lim)]
 
           idc=colSums(seg)!=0
+          nl=length(idc)
           idc[(round(lim/2,0)+1):(nl-round(lim/2,0))]=idc[(lim+1):nl]+idc[1:(nl-lim)]
           imsep2=imsep
           imsep2@.Data=imsep@.Data[idl!=0,idc!=0,]

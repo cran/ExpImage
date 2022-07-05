@@ -1,7 +1,7 @@
 Package: ExpImage
 Type: Package
 Title: Tool For Analysis of Images in Experiments
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: 
     person(given = "Alcinei Mistico",
            family = "Azevedo",
@@ -16,14 +16,14 @@ Imports: rstudioapi,progress,ggplot2,crayon, doParallel,parallel,
 URL: https://www.youtube.com/channel/UCDGyvLCJnv9RtTY1YMBMVNQ
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Language: pt-BR
 Suggests: BiocManager, EBImage, knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-01-23 01:10:22 UTC; AlcineiAzevedo
+Packaged: 2022-07-05 14:23:25 UTC; Alcinei
 Author: Alcinei Mistico Azevedo [aut, cre]
     (<https://orcid.org/0000-0001-5196-0851>)
 Maintainer: Alcinei Mistico Azevedo <alcineimistico@hotmail.com>
 Repository: CRAN
-Date/Publication: 2022-01-23 03:22:40 UTC
+Date/Publication: 2022-07-05 14:50:02 UTC

@@ -4,7 +4,7 @@
 \alias{resize_image}
 \title{Function to change image size (Funcao para mudar o tamanho da imagem)}
 \usage{
-resize_image(im, w, h,plot=FALSE)
+resize_image(im, w=NULL, h=NULL,percentage=NULL,plot=FALSE)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem no formato do EBImage ou na
@@ -17,6 +17,8 @@ proporcionalidade.}
 \item{h}{: e o numero de colunas que pretende-se obter na imagem de
 saida.Se houver o valor de w este valor e dispensavel, caso queira manter a
 proporcionalidade.}
+
+\item{percentage}{: Desired percentage for image reduction (Porcentagem desejada para a reducao da imagem).}
 
 \item{plot}{:Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem editada}
@@ -39,7 +41,7 @@ plot_image(im)
 
 ##Diminuir a resolucao (tamanho da imagem)
 im2=resize_image(im,w=1000,plot=TRUE)
-
+im2b=resize_image(im,percentage = 10,plot=TRUE)
 ##Cortar Imagem
 im3=crop_image(im2,w =200:750,h=100:650,plot = TRUE)
 

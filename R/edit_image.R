@@ -70,6 +70,8 @@ edit_image=function(im,brightness=0,contrast=1,gamma =1,plot=T){
     im@.Data=im@.Data+brightness
     im@.Data=im@.Data*contrast
     im@.Data=im@.Data^gamma
+
+    im=EBImage::normalize(im,ft=c(0,1))
     if(plot==T){plot_image(im)}
   }
 
@@ -77,6 +79,8 @@ edit_image=function(im,brightness=0,contrast=1,gamma =1,plot=T){
     im=im+brightness
     im=im*contrast
     im=im^gamma
+
+    im=EBImage::normalize(im,ft=c(0,1))
     if(plot==T){plot_image( EBImage::as.Image(im))}
   }
 

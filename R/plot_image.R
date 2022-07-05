@@ -42,7 +42,7 @@
 #'#library(EBImage)
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(2),plot=TRUE)
-#'im=resize_image(im,w =300,plot = FALSE)
+#' im=resize_image(im,w = 300,plot = FALSE)
 #'plot_image(im)
 #'
 #'#Representado imagens em escalas de cinza

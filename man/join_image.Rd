@@ -4,7 +4,8 @@
 \alias{join_image}
 \title{Join images(Juntar imagens)}
 \usage{
-join_image(im1=NULL,im2=NULL,im3=NULL,im4=NULL,im5=NULL,bk=c(1,1,1), ncol=NULL,plot=TRUE)
+join_image(im1=NULL,im2=NULL,im3=NULL,im4=NULL,im5=NULL,bk=c(1,1,1),
+ncol=NULL,normalize=FALSE,plot=TRUE)
 }
 \arguments{
 \item{im1}{:Object containing an array, image in EBImage format or list of images
@@ -27,7 +28,10 @@ que serao considerados no background)}
 
 \item{ncol}{:Number of columns where images will appear in the chart (Numero de colunas em que as imagens aparecerao no grafico)}
 
-\item{plot}{:Indicates whether the image will be displayed (TRUE) or not
+\item{normalize}{:Logical value indicating whether the image needs to be normalized
+(Valor logico indicando se a imagem precisa ser nomalizada)}
+
+\item{plot}{:Logical value. Indicates whether the image will be displayed (TRUE) or not
 (FALSE) (default) (Indica se sera apresentada (TRUE) ou nao (FALSE)
 (default) a imagem segmentada).}
 }

@@ -6,7 +6,7 @@
 background ou foreground)}
 \usage{
 mask_pixels(im,TargetPixels,TargetPixels2=NULL,col.TargetPixels="rand",
-Contour=FALSE,plot=FALSE)
+Contour=FALSE, r = 1, g = 2, b = 3, norma = 1,plot=FALSE)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem no formato do EBImage.}
@@ -23,8 +23,16 @@ foreground)).}
 Pode tambem ser um vetor contendo os nomes das cores. Neste caso, o tamanho de vetor deve ser igual
 ao numero de matrizes.}
 
-\item{Contour}{Valor logico. Se for FALSE (default) sera a parte de interesse sera preenchida.
+\item{Contour}{: Valor logico. Se for FALSE (default) sera a parte de interesse sera preenchida.
 Se for TRUE a area de interesse sera contornada.}
+
+\item{r}{: Camada correspondente a banda de vermelho.}
+
+\item{g}{: Camada correspondente a banda de verde}
+
+\item{b}{= Camada correspondente a banda de azul}
+
+\item{norma}{= Valor a ser dividido em cada pixel para se ter valor entre 0 e 1.}
 
 \item{plot}{:Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
 imagem segmentada.}

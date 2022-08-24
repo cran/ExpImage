@@ -84,7 +84,6 @@
 #'
 #'
 #'#ativar pacote
-#' library(EBImage)
 #' library(ExpImage)
 #' #Abrir imagem
 #'im=read_image(example_image(3))
@@ -167,7 +166,7 @@
 measure_image=function(img,noise=0,id=NULL,length= NULL,
                        width =NULL,splitConnected=FALSE,tolerance=1, ext=1,
                        plot=TRUE){
-  ebimage()
+  #ebimage()
   doParalell=FALSE
   NumberCores=3
   MatrizSegentada2=img
@@ -180,7 +179,7 @@ measure_image=function(img,noise=0,id=NULL,length= NULL,
   }
 
   if(isFALSE(splitConnected)){
-    MatrizSegentada4=EBImage::watershed(MatrizSegentada3)
+    MatrizSegentada4=MatrizSegentada3
   }
 
 

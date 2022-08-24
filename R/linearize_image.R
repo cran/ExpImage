@@ -12,15 +12,17 @@
 #' @return Return images size (Retorna o tamanho das imagens).
 #' @seealso  \code{\link{gray_scale}} , \code{\link{read_image}}
 #' @examples
+#'\donttest{
 #' im1=read_image(example_image(2),plot=TRUE)
 #' B=gray_scale(im = im1,method = "b",plot=TRUE)
 #' plot_image(B,col=3)
+#' plot_image(B,col=2,axis = TRUE)
 #' m=segmentation(B,treshold =0.38,selectHigher = FALSE,fillHull =TRUE,plot = TRUE )
 #'
 #' Lin1=linearize_image(im =im1)
 #' head(Lin1)
 #' info_image(Lin1)
-#'
+
 #' Lin2=linearize_image(im=m)
 #' head(Lin2)
 #' info_image(Lin2)
@@ -28,6 +30,7 @@
 #' Lin3=linearize_image(im=m,exclude = TRUE)
 #' head(Lin3)
 #' info_image(Lin3)
+#' }
 
 #' @export
 

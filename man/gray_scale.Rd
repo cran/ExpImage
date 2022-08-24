@@ -5,7 +5,7 @@
 \title{Function to get a grayscale image from a color image (Funcao para a obtencao
 de uma imagem em escala de cinza a partir de uma imagem colorida)}
 \usage{
-gray_scale(im,method="r",plot=FALSE)
+gray_scale(im,method="r",normalize=TRUE,plot=FALSE)
 }
 \arguments{
 \item{im}{:This object must contain an image in EBImage format (Este
@@ -42,6 +42,9 @@ objeto indica o metodo para a obtencao da escala de cinza).:\cr
  "RGVBI"=(g-(br))/(g^2(br))\cr
  "ExG"=(2*g-r-b)\cr
  "VEG"=(g/(g^0.66667*b^0.66667))\cr}
+
+\item{normalize}{Logic value, if true, the pixel values will be corrected to vary between 0 and 1
+(Valor logico, se for verdadeiro os valores dos pixels sera corrigido para variar entre 0 e 1).}
 
 \item{plot}{:This object must contain an image in EBImage format (Indica
 se sera apresentada (TRUE) ou nao (FALSE) (default) a imagem segmentada).}

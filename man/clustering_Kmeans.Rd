@@ -4,7 +4,8 @@
 \alias{clustering_Kmeans}
 \title{Image segmentation by clustering using the Kmeans method (Segmentacao de imagens pela clusterização pelo metodo Kmeans).}
 \usage{
-clustering_Kmeans(im,bands="all",ncluster=2,mask=NULL,col="rand",plot=TRUE)
+clustering_Kmeans(im,bands="all",ncluster=2,iter.max=10,
+          nstart=1,mask=NULL,col="rand",raster=FALSE,seed=NULL,norma=1,plot=TRUE)
 }
 \arguments{
 \item{im}{:Image that will be segmented (Imagem que sera segmentada).}
@@ -14,10 +15,22 @@ clustering_Kmeans(im,bands="all",ncluster=2,mask=NULL,col="rand",plot=TRUE)
 
 \item{ncluster}{: Desired number of classes (Numero de classes desejado).}
 
+\item{iter.max}{:     The maximum number of iterations allowed (número maximo de iteracoes permitido).}
+
+\item{nstart}{: If centers is a number, how many random sets should be chosen?}
+
 \item{mask}{: Mask obtained by the segmentation process, default=NULL (Mascara obtida pelo processo de segmentacao).}
 
 \item{col}{: Vector with the desired colors in the segmentation. If it's "rand" it will be random colors
 (Vetor com as cores desejadas na segmentacao. Se for "rand" serao cores aleatorias).}
+
+\item{raster}{Caso a imagem seja do tipo TIF pode-se deve-se considerar `raster=TRUE`
+(If the image is of type TIF, you can consider `raster=TRUE`)}
+
+\item{seed}{is an integer vector, containing the random number generator (RNG) state for random number generation in R
+(E um vetor com numero inteiros para a geração de valores aleatorios)}
+
+\item{norma}{Number by which pixel values should be divided to vary between 0 and 1 (Numero pelo qual os valores dos pixels deverao ser divididos para variar entre 0 e 1)}
 
 \item{plot}{: Logical value, if TRUE, the image will be displayed
 (Valor logico, se for TRUE a imagem sera apresentada).}

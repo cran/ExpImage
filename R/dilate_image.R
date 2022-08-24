@@ -17,6 +17,8 @@
 #' b=gray_scale(im,method = "b",plot=TRUE)
 #' raiz=segmentation(b,threshold = 0.7,selectHigher = TRUE,plot=TRUE)
 #' raiz2=dilate_image(raiz,n = 4,plot = TRUE)
+#' raiz3=dilate_image(raiz,n = 8,plot = TRUE)
+#'
 #'
 #'@export
 #'

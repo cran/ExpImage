@@ -26,9 +26,14 @@ cada exemplo sao):
  tomateiro ("TomateDoenca.jpg")
  \item 10 = Imagem de uma plantula ("Plantula.jpg")
  \item 11 = Imagem aerea de um rebanho (https://www.istockphoto.com/) ("gado.jpg")
- \item 11 = Imagem aerea com plantio de alface ("alface.jpg")
- \item 13 = Imagem de sementes de Amburana tratadas com tetrazolio. ("Tetrazolio.jpg")
- }}
+ \item 12 = Imagem aerea com plantio de alface ("alface.jpg")
+ \item 13 = Imagem de sementes de Amburana tratadas com tetrazolio ("Tetrazolio.jpg")
+ \item 14 = Imagem de satelite - Banda de azul ("satelite1_Blue.tif")
+ \item 15 = Imagem de satelite - Banda de verde ("satelite2_Green.tif")
+ \item 16 = Imagem de satelite - Banda de vermelho ("satelite3_Red.tif")
+ \item 17 = Imagem de satelite - Banda de IR("satelite4_NIR.tif")
+ \item 18 = Imagem de satelite - Banda de SWIR("satelite5_SWIR.tif")
+         }}
 }
 \value{
 Returns the address of the example images (Retorna o endereco das

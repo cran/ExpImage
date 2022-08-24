@@ -1,7 +1,7 @@
 Package: ExpImage
 Type: Package
 Title: Tool For Analysis of Images in Experiments
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: 
     person(given = "Alcinei Mistico",
            family = "Azevedo",
@@ -12,18 +12,18 @@ Description: Tools created for image analysis in researches. There are functions
 biocViews:
 Depends: raster
 Imports: rstudioapi,progress,ggplot2,crayon, doParallel,parallel,
-        foreach
+        foreach,schemr
 URL: https://www.youtube.com/channel/UCDGyvLCJnv9RtTY1YMBMVNQ
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 Language: pt-BR
-Suggests: BiocManager, EBImage, knitr, rmarkdown
+Suggests: BiocManager, rgdal, EBImage, knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-07-05 14:23:25 UTC; Alcinei
+Packaged: 2022-08-24 12:24:58 UTC; Alcinei
 Author: Alcinei Mistico Azevedo [aut, cre]
     (<https://orcid.org/0000-0001-5196-0851>)
 Maintainer: Alcinei Mistico Azevedo <alcineimistico@hotmail.com>
 Repository: CRAN
-Date/Publication: 2022-07-05 14:50:02 UTC
+Date/Publication: 2022-08-24 13:22:34 UTC

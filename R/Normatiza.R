@@ -56,8 +56,8 @@ Normatiza=function(DadosEntrada, DadosBase=NULL, LimiteInferior=0, LimiteSuperio
   if(is.null(DadosBase)){DadosBase=DadosEntrada}
   #DadosBase=as.matrix(DadosBase)
   if(Metodo==1){
-  valMax = apply(DadosBase,2,max)
-  valMin = apply(DadosBase,2,min)
+  valMax = apply(DadosBase,2,max,na.omit=T)
+  valMin = apply(DadosBase,2,min,na.omit=T)
   valMax2=DadosEntrada
   valMin2=DadosEntrada
   Normatizado=DadosEntrada
@@ -72,10 +72,10 @@ Normatiza=function(DadosEntrada, DadosBase=NULL, LimiteInferior=0, LimiteSuperio
   }
 
   if(Metodo==2){
-    valMax = max(c(DadosBase))
-    valMin = min(c(DadosBase))
-    valMax2=max(c(DadosEntrada))
-    valMin2=min(c(DadosEntrada))
+    valMax = max(c(DadosBase),na.rm=T)
+    valMin = min(c(DadosBase),na.rm=T)
+    valMax2=max(c(DadosEntrada),na.rm=T)
+    valMin2=min(c(DadosEntrada),na.rm=T)
 
     Normatizado=(LimiteSuperior - LimiteInferior)*(DadosEntrada- valMax2)/(valMax2- valMin2)
     Normatiza=Normatizado+LimiteSuperior

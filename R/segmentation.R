@@ -117,6 +117,7 @@ segmentation=function(img.band,threshold="otsu",selectHigher=TRUE,fillHull=FALSE
 
 
 
-  if(plot==T){plot_image(EBImage::as.Image((MatrizSegentada)))}
+#  if(plot==T){plot_image(EBImage::as.Image((MatrizSegentada)))}
+  if(plot==T){plot(EBImage::as.Image((MatrizSegentada)))}
   return(MatrizSegentada)
 }

@@ -15,8 +15,10 @@
 # \donttest{
 #'#Carregar imagem de exemplo
 #'im=read_image(example_image(1),plot=TRUE)
+#'info_image(im)
 #}
 #'@export
+#' @exportS3Method print info_image
 
 info_image=function(im){
 Class=c(class(im))
@@ -24,10 +26,19 @@ Length=dim(im)
 Pixels=prod(Length)
 MegaPixels=Pixels/1000000
 Mode=mode(im)
-Size=c(utils::object.size(im)/1024^2)
+Size=round(c(utils::object.size(im)/1024^2),5)
 names(Size)="MB"
 #print("----------------------------------------------")
+res=list(Class=Class,Length=Length,MegaPixels=MegaPixels,Mode=Mode,SizeMemory=Size)
+class(res)="info_image"
+return(res)
+}
 
-list(Class=Class,Length=Length,MegaPixels=MegaPixels,Mode=Mode,SizeMemory=Size)
+print.info_image=function(x, ...){
+  res=x
+  RES=data.frame(unlist(res),nrow=length(unlist(res)))
+  RES[,2]=NULL
+  colnames(RES)=NULL
+  print(RES)
 }
 

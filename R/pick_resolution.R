@@ -42,6 +42,7 @@ pick_resolution=function(im,inches=NULL,centimeters=NULL,several=TRUE,col="red")
   stop=F
   a=0
 
+  print("Click on the edges of objects (Clique sobre as extremidades dos objetos)")
 
   coordinates=NULL
   while(isFALSE(stop)){

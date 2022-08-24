@@ -16,9 +16,13 @@ Returns an object of type image (Retorna um objeto do tipo imagem).
 This function transform matrix into image  (Esta funcao transforma matriz em imagem).
 }
 \examples{
-im1=read_image(example_image(2),plot=TRUE)
-r=gray_scale(im = im1,method = "r")
-R=as_image(r)
+m=matrix(sort(runif(10000)),ncol=100,nrow=100)
+m
+info_image(m)
+im=as_image(m)
+im
+info_image(im)
+plot_image(m)
 }
 \seealso{
 \code{\link{info_image}} , \code{\link{read_image}}

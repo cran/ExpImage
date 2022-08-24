@@ -1,3 +1,30 @@
+# ExpImage 0.6.0
+## New functions
+* New function `convert_color()`
+* New function `classify_image()`  -
+* New function `exclude_object()`  
+* New function `normalize_image()`
+* New function `tif_info()`  
+* New function `raster2image()`  -
+* New function `mask_raster()`    -
+* New function `pick_segmentation()`
+ 
+
+## Minor improvements
+* The `crop_image()` functions was improved.
+* The `edit_image()` functions was improved.
+* The `edit_imageGUI()` functions was improved.
+* The `example_image()` functions was improved.
+* The `histogram_image()` functions was improved.
+* The `index_bands()` functions was improved.   
+* The `join_bands()` functions was improved.   
+* The `plot_image()` functions was improved.   
+* The `resize_image()` functions was improved.
+* The `read_image()` functions was improved.
+* The `tif_info()` functions was improved. 
+* The `mask_pixels()` functions was improved.-colocar em ingles
+* The `segmentation_logitGUI` functions was improved.
+
 # ExpImage 0.5.0
 ## New functions
 * New function `calibration_palette()`

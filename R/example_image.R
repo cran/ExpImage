@@ -23,9 +23,15 @@
 #'  tomateiro ("TomateDoenca.jpg")
 #'  \item 10 = Imagem de uma plantula ("Plantula.jpg")
 #'  \item 11 = Imagem aerea de um rebanho (https://www.istockphoto.com/) ("gado.jpg")
-#'  \item 11 = Imagem aerea com plantio de alface ("alface.jpg")
-#'  \item 13 = Imagem de sementes de Amburana tratadas com tetrazolio. ("Tetrazolio.jpg")
-#'  }
+#'  \item 12 = Imagem aerea com plantio de alface ("alface.jpg")
+#'  \item 13 = Imagem de sementes de Amburana tratadas com tetrazolio ("Tetrazolio.jpg")
+#'  \item 14 = Imagem de satelite - Banda de azul ("satelite1_Blue.tif")
+#'  \item 15 = Imagem de satelite - Banda de verde ("satelite2_Green.tif")
+#'  \item 16 = Imagem de satelite - Banda de vermelho ("satelite3_Red.tif")
+#'  \item 17 = Imagem de satelite - Banda de IR("satelite4_NIR.tif")
+#'  \item 18 = Imagem de satelite - Banda de SWIR("satelite5_SWIR.tif")
+
+#'          }
 
 #' @return Returns the address of the example images (Retorna o endereco das
 #'   imagens de exemplo).
@@ -37,12 +43,46 @@
 #}
 #'@export
 example_image=function(ex) {
-  if((ex<1)|(ex>13)){stop("Image not available for this number", call. = FALSE)}
-  Imagens=c("Feijao.jpg","Ovos1.jpg","imagem.jpg","fundo.jpg","folhas.jpg","Referencia.jpg",
-            "FolhaTomate.jpg","TomateFolha.jpg","TomateDoenca.jpg","Plantula.jpg","gado.jpg","alface.jpg","Tetrazolio.jpg")
+  if((ex<1)|(ex>18)){stop("Image not available for this number", call. = FALSE)}
+  Imagens=c("Feijao.jpg", #1
+            "Ovos1.jpg",  #2
+            "imagem.jpg",#3
+            "fundo.jpg",#4
+            "folhas.jpg",#5
+            "Referencia.jpg",#6
+            "FolhaTomate.jpg",#7
+            "TomateFolha.jpg",#8
+            "TomateDoenca.jpg",#9
+            "Plantula.jpg",#10
+            "gado.jpg",#11
+            "alface.jpg",#12
+            "Tetrazolio.jpg" ) #13
+#            "satelite1_Blue.tif", #14
+ #           "satelite2_Green.tif",#15
+  #          "satelite3_Red.tif", #16
+   #         "satelite4_NIR.tif", #17
+    #        "satelite5_SWIR.tif"    #18
+     #       )
 
   #system.file(paste0("images/", Imagens[ex]), package = "ExpImage")
-  system.file("images",Imagens[ex],package="ExpImage")
+ if(ex<14){
+   return(system.file("images",Imagens[ex],package="ExpImage"))
+   }
+
+  github=c(
+    "https://github.com/AlcineiAzevedo/Files_ExpImage/raw/main/satelite1_Blue.tif",
+    "https://github.com/AlcineiAzevedo/Files_ExpImage/raw/main/satelite2_Green.tif",
+    "https://github.com/AlcineiAzevedo/Files_ExpImage/raw/main/satelite3_Red.tif",
+    "https://github.com/AlcineiAzevedo/Files_ExpImage/raw/main/satelite4_NIR.tif",
+    "https://github.com/AlcineiAzevedo/Files_ExpImage/raw/main/satelite5_SWIR.tif"
+  )
+
+  if(ex>13){
+    Imagens=c(Imagens,github)
+    return(Imagens[ex])
+  }
+
+
 }
 
 

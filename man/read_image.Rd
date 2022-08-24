@@ -26,7 +26,9 @@ Esta funcao importa uma imagem.
 }
 \examples{
 #Carregar imagem de exemplo
-im=read_image(example_image(1),plot=TRUE)
+End=example_image(1)
+im=read_image(End,plot=TRUE)
+
 }
 \seealso{
 \code{\link{crop_image}} , \code{\link{edit_image}}

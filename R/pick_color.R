@@ -38,6 +38,7 @@ plot_image(im)
 a=0
 D=matrix
 c0=1
+nn=0
 while(is.null(c0)==FALSE){
 
 
@@ -45,7 +46,9 @@ while(is.null(c0)==FALSE){
 
   c0=locator(type = "p", n = 2, col = "red", pch = 16)
   #print(c0)
+
  if(is.null(c0)==FALSE){
+
   c= cbind(c0$x,c0$y)
 if(sum(c[1,]==c[2,])<2){
  c1=c[1,]
@@ -63,13 +66,14 @@ if(sum(c[1,]==c[2,])<2){
     h=round(min(c[,2]),0):round(max(c[,2]),0)
 
     im2=crop_image(im,w=w,h=h,plot=F)
-    D=rbind(D,cbind(c(im2@.Data[,,1]),c(im2@.Data[,,2]),c(im2@.Data[,,3])))
+    nn=nn+1
+    D=rbind(D,cbind(R=c(im2@.Data[,,1]),G=c(im2@.Data[,,2]),B=c(im2@.Data[,,3]),Obj=nn))
 
 }
 
 if(sum(c[1,]==c[2,])==2){
-
-  D=rbind(D,cbind(c(im@.Data[c[1,1],c[1,2],1]),c(im@.Data[c[1,1],c[1,2],2]),c(im@.Data[c[1,1],c[1,2],3])))
+  nn=nn+1
+  D=rbind(D,cbind(R=c(im@.Data[c[1,1],c[1,2],1]),G=c(im@.Data[c[1,1],c[1,2],2]),B=c(im@.Data[c[1,1],c[1,2],3]),Obj=nn))
 
 }
 
@@ -80,6 +84,10 @@ if(sum(c[1,]==c[2,])==2){
 
  }
 }
+colnames(D)=c("R","G","B","Obj")
 #class(D)="pick_color"
-return(D)
+
+cor=aggregate(D[,-4],by=list(D[,4]),mean)
+
+return(list(Colors=convert_color(cor[,-1]),RGB=D))
 }

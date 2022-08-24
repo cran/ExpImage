@@ -15,6 +15,7 @@
 
 #' @examples
 #' im=calibration_palette(n=4,px = 500)
+#' im=calibration_palette(n=3,px = 100)
 
 #
 #'@export
@@ -22,6 +23,7 @@
 
 
 calibration_palette=function(n=4,px=500,file=NULL,plot=TRUE){
+  if((n<2)|(n>7))stop("The n value must be between 2 and 7 (O valor de n deve ser entre 2 e 7)")
 niveis=seq(0,1,l=n)
 
 grid=expand.grid(R=niveis,G=niveis,B=niveis)

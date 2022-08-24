@@ -87,8 +87,7 @@ Function to exclude pixels from the background or foreground in
   folha,sample = 2000,fillHull = TRUE,TargetPixels =MatrizSegentada2==1
   ,plot=TRUE)
 
-  im3=mask_pixels(im2,TargetPixels=DoencaSeg==1)
-   plot_image(im3)
+  im3=mask_pixels(im=im2,TargetPixels=DoencaSeg==1,col="red",plot=TRUE)
 
   ii=join_image(im,im3,plot=TRUE)
 

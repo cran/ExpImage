@@ -29,48 +29,10 @@
 #'@author Alcinei Mistico Azevedo (Instituto de Ciencias Agrarias da UFMG)
 #'@export
 #' @examples
-#'\donttest{
-#'
-#' #################################################################
-#' #Estimar a area foliar usando um objeto de referencia.
-#' ##################################################################
-#'   #ativar pacote
-#'   #library(EBImage)
-#'   #library(ExpImage)
-#'   #######################################################
-#'   #Abrir imagem das folhas
-#'   im=read_image(example_image(3))
-#'   plot_image(im)
-#'   #Abrir paleta de cores do fundo
-#'   fundo=read_image(example_image(4))
-#'   plot_image(fundo)
-#'   #Abrir paleta de cores das folhas
-#'   folhas=read_image(example_image(5))
-#'   plot_image(folhas)
-#'   #Abrir paleta de cores referencia
-#'   ref=read_image(example_image(6))
-#'   #Ver a imagem
-#'   plot_image(ref)
-#'
-#'   #################################################################
-#'   #Segmentacao para separar as folhas do restante
-#'   folhas.seg=segmentation_logit(im,foreground=folhas,
-#'   background=list(fundo,ref),sample=2000,fillHull=TRUE,plot=TRUE)
-#'
-#'   #Segmentacao para separar o objeto de referencia do restante
-#'   ref.seg=segmentation_logit(im,foreground=ref,
-#'   background=list(fundo,folhas),sample=2000,fillHull=TRUE,plot=TRUE)
-#'
-#'   #Identificar area de cada folha
-#'
-#'   medidas=measure_image(folhas.seg,noise = 1000)
-#'   #numero de objetos e medias
-#'   medidas
-#'
-#'   #Plotar resultados das areas em pixel e salvar em imagem jpg
-#'   plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
-#'   text=round(medidas$measures[,3],1),col="blue",cex = 0.9,pathSave ="none" ,plot=TRUE)
-#'   }
+#'\dontrun{
+#'im=read_image(example_image(7),plot=TRUE)
+#'segmentation_logitGUI(im)
+#'}
 
 
 
@@ -99,7 +61,7 @@ while((bk=="y")|(FG=="y")){
   #Select background
 
 if(bk=="y"){
-print("Selecione o background")
+print("Select the background (Selecione o background)")
   c0=locator(type = "p", n = 2, col = "red", pch = 16)
 
      c= cbind(c0$x,c0$y)
@@ -132,7 +94,7 @@ print("Selecione o background")
 
 ##################################################################
 if(FG=="y"){
-     print("Selecione o foreground")
+     print("Select the foreground (Selecione o foreground)")
     c0=locator(type = "p", n = 2, col = "blue", pch = 16)
      c= cbind(c0$x,c0$y)
      if(sum(c[1,]==c[2,])<2){
@@ -205,23 +167,22 @@ plot_image((im))
 fgh=mask_pixels(im,TargetPixels =ImagemSeg==1,col.TargetPixels = "red")
 plot_image(fgh)
 par(mfrow=c(1,1))
-bk=readline(prompt = "Deseja selecionar mais background (y/n)? ")
+bk=readline(prompt = "Do you want to select more background (Deseja selecionar mais background)? (y/n) ")
 if(sum((bk!="y"),(bk!="n"))==2){
   while(sum((bk!="y"),(bk!="n"))==2){
     message("A resposta deve ser 'y' ou 'n'")
-    bk=readline(prompt = "Deseja selecionar mais background (y/n)? ")
+    bk=readline(prompt = "Do you want to select more background (Deseja selecionar mais background)? (y/n) ")
 
   }
 
 }
 
 
-FG=readline(prompt = "Deseja selecionar mais foreground (y/n)? ")
+FG=readline(prompt = "Do you want to select more foreground (Deseja selecionar mais foreground)? (y/n) ")
 if(sum((FG!="y"),(FG!="n"))==2){
   while(sum((FG!="y"),(FG!="n"))==2){
-    message("A resposta deve ser 'y' ou 'n'")
-    FG=readline(prompt = "Deseja selecionar mais foreground (y/n)? ")
-
+    message("The answer must be 'y' or 'n' (A resposta deve ser 'y' ou 'n')")
+    FG=readline(prompt = "Do you want to select more foreground (Deseja selecionar mais foreground)? (y/n) ")
   }
 
 }

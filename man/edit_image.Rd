@@ -68,6 +68,8 @@ imb=edit_image(im3,brightness = 0.1,contrast = 1.7,gamma  = 1.2)
 #Mostrando ambas as imagens simultaneamente.
 im4=join_image(im3,imb)
 }
+
+
 }
 \seealso{
 \code{\link{edit_imageGUI}}

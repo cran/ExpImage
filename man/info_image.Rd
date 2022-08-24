@@ -19,6 +19,7 @@ This function returns information about the image
 \examples{
 #Carregar imagem de exemplo
 im=read_image(example_image(1),plot=TRUE)
+info_image(im)
 }
 \seealso{
 \code{\link{crop_image}} , \code{\link{edit_image}}

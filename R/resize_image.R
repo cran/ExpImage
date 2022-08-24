@@ -66,8 +66,12 @@ resize_image=function(im, w=NULL, h=NULL,percentage=NULL,plot=FALSE){
 
 
   if(is.null(percentage)){
-    if(is.null(w)){im2=EBImage::resize(im,h)}
-    if(is.null(h)){im2=EBImage::resize(im,w)}
+    if(!is.null(w)|!is.null(h)){
+    if(is.null(w)){im2=EBImage::resize(im,h=h)}
+    if(is.null(h)){im2=EBImage::resize(im,w=w)}
+    }
+
+    if(!is.null(w)&!is.null(h)){im2=EBImage::resize(im,w =w,h =h)}
   }
 
   if(plot==T){plot_image(im2)}

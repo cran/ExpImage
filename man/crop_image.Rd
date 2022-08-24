@@ -5,7 +5,8 @@
 \title{Esta funcao corta a imagem retirando as laterais nao desejadas. (This function
 removes unwanted sides from the images.)}
 \usage{
-crop_image(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,verbose=FALSE)
+crop_image(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,
+   extent=NULL,verbose=FALSE)
 }
 \arguments{
 \item{im}{Este objeto deve conter uma imagem no formato do EBImage (This
@@ -26,6 +27,11 @@ remain in the image ).}
 imagem segmentada (Indicates whether the segmented image will be
 displayed (TRUE) or not (FALSE) (default)).}
 
+\item{extent}{Caso a imagem seja do tipo TIF este objeto devera ter um vetor com quatro valores
+de coordenadas que delimitam a area a ser cortada. Neste caso o argumento raster deve ser TRUE
+(If the image is of type TIF, this object must have a vector with four coordinate values that
+delimit the area to be cut. In this case the raster argument must be TRUE).}
+
 \item{verbose}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) os
 pontos de corte (Indicates whether the segmented image will be
  displayed (TRUE) or not (FALSE) (default) the points crop).}
@@ -43,15 +49,21 @@ Esta funcao permite cortar a imagem (This function allows you to
 #Carregar imagem de exemplo
 im=read_image(example_image(2),plot=TRUE)
 
-
 ##Cortar Imagem
-
 im3=crop_image(im,w =286:421,h=242:332,plot = TRUE)
+
+#Exemplo utilizando mascara
+imb=read_image(example_image(2),plot=TRUE)
+m=gray_scale(imb,"g/rgb",plot=TRUE)
+mask=segmentation(m,threshold="otsu",plot=TRUE)
+imc=crop_image(imb,segmentation=mask,plot=TRUE)
 
 # intefacie grafica
 \dontrun{
+im=read_image(example_image(2),plot=TRUE)
 im2=crop_image(im)
 }
+
 
 }
 \seealso{

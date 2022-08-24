@@ -28,7 +28,7 @@ erode_image=function(im,n=1,plot=TRUE){
     m2=EBImage::erode(m2)
   }
 
-  if(isTRUE(plot)){plot_image(m2)}
+  if(isTRUE(plot)){plot_image(m2,col=0)}
   return(m2)
 }
 

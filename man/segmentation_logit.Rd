@@ -51,9 +51,47 @@ Esta funcao possibilita a segmentacao de imagens por meio de do
  ajuste de um modelo linear generalizado com a funcao logit de ligacao.
 }
 \examples{
-\dontrun{
-im=read_image(example_image(7),plot=TRUE)
-segmentation_logitGUI(im)  }
+\donttest{
+
+#################################################################
+#Estimar a area foliar usando um objeto de referencia.
+##################################################################
+  #ativar pacote
+  #library(ExpImage)
+  #######################################################
+  #Abrir imagem das folhas
+  im=read_image(example_image(3))
+  plot_image(im)
+  #Abrir paleta de cores do fundo
+  fundo=read_image(example_image(4))
+  plot_image(fundo)
+  #Abrir paleta de cores das folhas
+  folhas=read_image(example_image(5))
+  plot_image(folhas)
+  #Abrir paleta de cores referencia
+  ref=read_image(example_image(6))
+  #Ver a imagem
+  plot_image(ref)
+
+  #################################################################
+  #Segmentacao para separar as folhas do restante
+  folhas.seg=segmentation_logit(im,foreground=folhas,
+  background=list(fundo,ref),sample=2000,fillHull=TRUE,plot=TRUE)
+
+  #Segmentacao para separar o objeto de referencia do restante
+  ref.seg=segmentation_logit(im,foreground=ref,
+  background=list(fundo,folhas),sample=2000,fillHull=TRUE,plot=TRUE)
+
+  #Identificar area de cada folha
+
+  medidas=measure_image(folhas.seg,noise = 1000)
+  #numero de objetos e medias
+  medidas
+
+  #Plotar resultados das areas em pixel e salvar em imagem jpg
+  plot_meansures(im,medidas$measures[,1],coordy=medidas$measures[,2],
+  text=round(medidas$measures[,3],1),col="blue",cex = 0.9,pathSave ="none" ,plot=TRUE)
+  }
 }
 \seealso{
 \code{\link{glm}} ,\code{\link{segmentation}}

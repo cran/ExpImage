@@ -63,7 +63,6 @@ Esta funcao permite dividir a imagem e obter medidas dos objetos
 \donttest{
 #remove(list=ls())
 #require(ExpImage)
-#require(EBImage)
 im=read_image(example_image(3))
 ##mostrar imagem
 plot(im)

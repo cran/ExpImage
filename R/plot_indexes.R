@@ -17,7 +17,7 @@
 #' @examples
 #' \donttest{
 #'#Carregar imagem de exemplo
-#'im=read_image(example_image(2))
+#'im=read_image(example_image(2),plot=TRUE)
 #'plot_indexes(im,NumberCores=2)
 #'}
 

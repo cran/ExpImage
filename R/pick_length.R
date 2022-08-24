@@ -31,7 +31,7 @@ pick_length=function(im,dpi=NULL,NumPoints=2,col="red"){
   plot_image(im)
   stop=F
   a=0
-
+print("Click on the edges of objects (Clique sobre as extremidades dos objetos)")
   if(NumPoints==2){
     coordinates=NULL
     while(isFALSE(stop)){

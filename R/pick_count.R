@@ -26,6 +26,7 @@ pick_count=function(im,cex=1,col="red"){
   stop=F
   a=0
   coordinates=NULL
+  print("click on objects (Clique sobre os objetos)")
   while(isFALSE(stop)){
     a=a+1
     if(a>1){

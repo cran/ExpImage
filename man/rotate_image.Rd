@@ -28,13 +28,16 @@ rotate the image).
 }
 \examples{
 #library(ExpImage)
-#library(EBImage)
 #Carregar imagem de exemplo
 im=read_image(example_image(2),plot=TRUE)
 
 ##rotacionar a imagem
 im2=rotate_image(im,angle=80)
-im2=rotate_image(im,angle=80,BGcolor=c(1,1,1))
+im2=rotate_image(im,angle=60,BGcolor=c(1,1,1))
+\dontrun{
+im2=rotate_image(im)
+
+}
 }
 \seealso{
 \code{\link{edit_image}}

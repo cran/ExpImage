@@ -23,6 +23,7 @@ This function creates a palette for color calibration of images.(Esta funcao cri
 }
 \examples{
 im=calibration_palette(n=4,px = 500)
+im=calibration_palette(n=3,px = 100)
 }
 \seealso{
 \code{\link{info_image}} , \code{\link{read_image}}

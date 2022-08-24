@@ -98,7 +98,6 @@ im3=mask_pixels(im,MatrizSegmentada2==1,plot=TRUE)
 
 
 #ativar pacote
-library(EBImage)
 library(ExpImage)
 #Abrir imagem
 im=read_image(example_image(3))

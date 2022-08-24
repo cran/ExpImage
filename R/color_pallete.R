@@ -64,7 +64,12 @@ color_pallete=function(im,number=8,mask=NULL,proportional=FALSE,plot=TRUE){
   }
 
   ck=clustering_Kmeans(im,ncluster=number,mask = mask,plot = F)
-
+  camadas=length(ck)
+  ck2=1*ck[[1]]
+  for(i in 2:camadas){
+    ck2=ck2+i*ck[[i]]
+  }
+ck=ck2
 
 # if(is.matrix(id)){
 #   im@.Data[,,1][id==1]=NA

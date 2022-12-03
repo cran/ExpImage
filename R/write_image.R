@@ -32,6 +32,10 @@ write_image=function(x, files, type, quality = 100, bits.per.sample, compression
 
   im3=EBImage::writeImage(x, files, type, quality, bits.per.sample, compression = "none")
 
+
+
+
+
   }
 
 

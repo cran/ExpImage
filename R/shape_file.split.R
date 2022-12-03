@@ -24,6 +24,9 @@
 
 shape_file.split= function(im,shapefile,namesFile="test",path=getwd(),type="jpg"){
 
+  #  shapefile=sh;namesFile="test";path=getwd();type="jpg"
+  # info=shapefile$info
+  #shapefile=shapefile$Mat
   pbbb = txtProgressBar(min = 0, max = length(unique(shapefile[,1])), initial = 0)
 Nomes=NULL
 print("Progress:")

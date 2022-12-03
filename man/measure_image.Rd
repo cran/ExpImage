@@ -6,7 +6,7 @@
 (Funcao para obter medidas associadas aos objetos em imagens binarias).}
 \usage{
 measure_image(img,noise=0,id=NULL,length= NULL,width =NULL, splitConnected=FALSE,
-tolerance = 1, ext = 1,  plot= TRUE)
+tolerance = 1, ext = 1,imOut=FALSE,  plot= TRUE)
 }
 \arguments{
 \item{img}{:Este objeto deve ser obrigatoriamente uma matriz binaria,
@@ -39,11 +39,15 @@ x. Default value is 1, which is a reasonable value if x comes from distmap.}
 \item{ext}{Radius of the neighborhood in pixels for the detection of
 neighboring objects. Higher value smoothes out small objects.}
 
-\item{plot}{Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
-imagem segmentada}
+\item{imOut}{Logical variable, if TRUE, the segmentation image will be exported in the results.
+(Variavel logica, se for TRUE sera exportada a imagem da segmentacao nos resultados).}
+
+\item{plot}{Indicates whether the segmented image will be displayed (TRUE) or not (FALSE) (default)
+(Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
+  imagem segmentada)}
 }
 \value{
-Retorna as cordendas de cada objeto, sua area, perimetro, ...
+Returns the coordinates of each object, its area, perimeter, ...(Retorna as cordendas de cada objeto, sua area, perimetro, ...)
 }
 \description{
 Esta funcao possibilita a obtencao de medidas associadas aos
@@ -175,5 +179,5 @@ text=round(medidas3$measures[,3],2),cex = 0.9,col="blue",plot=TRUE)
 }
 }
 \seealso{
-\code{\link{segmentation_logit}}
+\code{\link{segmentation_logit} , \link{segmentation}}
 }

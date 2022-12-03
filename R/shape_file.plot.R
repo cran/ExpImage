@@ -22,9 +22,15 @@
 
 
 shape_file.plot=function(im,ShapeFile,colorLines="red",colorNames="red"){
+  A=ShapeFile
   col2=colorLines
-  plot_image(im)
-
+  im2=resize_image(im,w=400)
+  plot_image(im2)
+  info1=info_image(im)$Length
+  info2=info_image(im2)$Length
+  A[,3]=info2[1]*A[,3]/info1[1]
+  A[,4]=info2[2]*A[,4]/info1[2]
+  ShapeFile=A
   for(i in unique(ShapeFile[,1])){
 
 

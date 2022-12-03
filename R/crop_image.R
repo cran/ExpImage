@@ -70,6 +70,7 @@ crop_image=function(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,extent=NULL,ver
  }
 
   if(raster==FALSE){
+
   n=1
   nr=dim(im)[1]
   nc=dim(im)[2]
@@ -86,6 +87,10 @@ crop_image=function(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,extent=NULL,ver
    }
 
    if(is.null(w)&is.null(h)){
+
+     im0=im
+     im=resize_image(im,w=400)
+
      print("Clique em dois vertices opostos para cortar (Click on two opposite vertices to crop)")
      if(EBImage::is.Image(im)){plot_image(im)}
      if(is.matrix(im)){plot_image(EBImage::as.Image((im)))}
@@ -99,6 +104,9 @@ crop_image=function(im,w=NULL,h=NULL,segmentation=NULL,plot=TRUE,extent=NULL,ver
        }
      }
      print(c)
+     c[,1]=ncol(im0@.Data[,,1])*c[,1]/ncol(im@.Data[,,1])
+     c[,2]=nrow(im0@.Data[,,1])*c[,2]/nrow(im@.Data[,,1])
+     im=im0
        w=round(min(c[,1]),0):round(max(c[,1]),0)
        h=round(min(c[,2]),0):round(max(c[,2]),0)
 

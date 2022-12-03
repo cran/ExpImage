@@ -9,9 +9,9 @@ mask_pixels(im,TargetPixels,TargetPixels2=NULL,col.TargetPixels="rand",
 Contour=FALSE, r = 1, g = 2, b = 3, norma = 1,plot=FALSE)
 }
 \arguments{
-\item{im}{:Este objeto deve conter uma imagem no formato do EBImage.}
+\item{im}{:This object must contain an image in EBImage format (Este objeto deve conter uma imagem no formato do EBImage).}
 
-\item{TargetPixels}{: Este objeto deve ser  uma matriz
+\item{TargetPixels}{: (Este objeto deve ser  uma matriz
 binaria ou uma lista com varias matrizes. Em cada matriz deve conter os valores 0 (pixels do background) ou 1 (pixels do
 foreground)).}
 
@@ -41,8 +41,9 @@ imagem segmentada.}
 Retorna uma imagem com uma mascara sobre os  pixels selecionados.
 }
 \description{
-Esta funcao permite criar mascara sobre os pixels
-  correspondentes ao background ou foreground
+This function superimposes a mask over the pixels corresponding to
+the background or foreground.(Esta funcao permite criar mascara sobre os pixels
+  correspondentes ao background ou foreground)
 }
 \examples{
 ###########################################################################

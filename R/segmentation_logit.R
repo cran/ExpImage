@@ -85,7 +85,7 @@
 
 
 
-segmentation_logit=function(im,foreground,background,return="image", sample=2000,fillHull=TRUE,
+segmentation_logit=function(im=NULL,foreground,background,return="image", sample=2000,fillHull=TRUE,
                             TargetPixels="all",plot=TRUE){
 
 
@@ -144,7 +144,7 @@ segmentation_logit=function(im,foreground,background,return="image", sample=2000
   colnames(back_fore)=c("R","G","B","Y")
   modelo1 <- suppressWarnings(glm(Y ~ R + G + B, family = binomial("logit"),
                                   data = back_fore))
-
+if(!is.null(im)){
 #print(modelo1)
   if(isFALSE(is.matrix(TargetPixels))){
     imagem=data.frame(R=c(im@.Data[,,1]),G=c(im@.Data[,,2]),B=c(im@.Data[,,3]))
@@ -154,6 +154,7 @@ segmentation_logit=function(im,foreground,background,return="image", sample=2000
     ImagemSeg <- matrix(pred1, ncol = ncol(im@.Data[,,1]))
   }
 
+  if(!is.null(im)){
   if(isTRUE(is.matrix(TargetPixels))){
     imagem=data.frame(R=c(im@.Data[,,1][TargetPixels]),G=c(im@.Data[,,2][TargetPixels]),B=c(im@.Data[,,3][TargetPixels]))
     pred1 <- round(predict(modelo1, newdata = imagem, type = "response"), 0)
@@ -167,10 +168,10 @@ segmentation_logit=function(im,foreground,background,return="image", sample=2000
 
 
   ImagemSeg=EBImage::as.Image((ImagemSeg>0)*1)
+}
 
 
-
-  if(plot==T){
+  if((plot==T)&(!is.null(im))){
     iim=mask_pixels(im = im,TargetPixels = ImagemSeg,
                     Contour =T,
                     col.TargetPixels = "red",plot = F)
@@ -178,7 +179,8 @@ segmentation_logit=function(im,foreground,background,return="image", sample=2000
    # print(m)
     ImagemSeg2=IM3(m)
     a=join_image(list(im,ImagemSeg2),plot=T)
-    }
+  }
+  }
  if(return=="image") {return(ImagemSeg)}
   if(return=="model") {return(modelo1)}
 }

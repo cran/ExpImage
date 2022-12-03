@@ -4,7 +4,7 @@
 #' @description Esta funcao possibilita a obtencao de medidas associadas aos
 #'   objetos em imagens binarias.
 #' @usage measure_image(img,noise=0,id=NULL,length= NULL,width =NULL, splitConnected=FALSE,
-#' tolerance = 1, ext = 1,  plot= TRUE)
+#' tolerance = 1, ext = 1,imOut=FALSE,  plot= TRUE)
 #' @param img    :Este objeto deve ser obrigatoriamente uma matriz binaria,
 #'   contendo os valores 0 (pixels do background) e 1 (pixels do foreground)).
 #' @param noise    : E o numero de pixeis a partir do qual a funcao nao
@@ -27,10 +27,13 @@
 #'   x. Default value is 1, which is a reasonable value if x comes from distmap.
 #' @param ext Radius of the neighborhood in pixels for the detection of
 #'   neighboring objects. Higher value smoothes out small objects.
-#' @param  plot Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
-#'   imagem segmentada
-#' @return Retorna as cordendas de cada objeto, sua area, perimetro, ...
-#' @seealso  \code{\link{segmentation_logit}}
+#' @param imOut Logical variable, if TRUE, the segmentation image will be exported in the results.
+#' (Variavel logica, se for TRUE sera exportada a imagem da segmentacao nos resultados).
+#' @param  plot Indicates whether the segmented image will be displayed (TRUE) or not (FALSE) (default)
+#' (Indica se sera apresentada (TRUE) ou nao (FALSE) (default) a
+#'   imagem segmentada)
+#' @return Returns the coordinates of each object, its area, perimeter, ...(Retorna as cordendas de cada objeto, sua area, perimetro, ...)
+#' @seealso  \code{\link{segmentation_logit} , \link{segmentation}}
 
 #' @examples
 #'\donttest{
@@ -165,6 +168,7 @@
 
 measure_image=function(img,noise=0,id=NULL,length= NULL,
                        width =NULL,splitConnected=FALSE,tolerance=1, ext=1,
+                       imOut=FALSE,
                        plot=TRUE){
   #ebimage()
   doParalell=FALSE
@@ -191,7 +195,7 @@ measure_image=function(img,noise=0,id=NULL,length= NULL,
   iddd=(0:M)[Ta>=noise]
   `%ni%` <- Negate(`%in%`)
   MatrizSegentada4[MatrizSegentada4 %ni% iddd]=0
-
+  Output22=MatrizSegentada4
 
 
 
@@ -375,7 +379,8 @@ RES[,4:9]= RES[,4:9]*((length+width)*2 )/ ((nrow(MatrizSegentada2)+ncol(MatrizSe
 
   #Verificando numero de objetos
   ObjectNumber=nrow(RES)
-LIST=list(ObjectNumber=ObjectNumber,measures=RES)
+  if(imOut==TRUE){ LIST=list(ObjectNumber=ObjectNumber,measures=RES,imOut=Output22)}
+  if(imOut==FALSE){ LIST=list(ObjectNumber=ObjectNumber,measures=RES)}
 class(LIST)="measurements"
   return(LIST)
 

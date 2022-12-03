@@ -1,3 +1,16 @@
+# ExpImage 0.7.0
+## Minor improvements
+* The `crop_image()` functions was improved.
+* The `shape_file.create()` functions was improved.
+* The `shape_file.file.BorderExtract()` functions was improved.
+* The `shape_file.plot()` functions was improved.
+* The `shape_file.split()` functions was improved.
+
+## New functions
+* New function `summary_color()`
+* New function `create_png()`
+
+
 # ExpImage 0.6.0
 ## New functions
 * New function `convert_color()`

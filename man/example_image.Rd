@@ -33,6 +33,7 @@ cada exemplo sao):
  \item 16 = Imagem de satelite - Banda de vermelho ("satelite3_Red.tif")
  \item 17 = Imagem de satelite - Banda de IR("satelite4_NIR.tif")
  \item 18 = Imagem de satelite - Banda de SWIR("satelite5_SWIR.tif")
+ \item 19 = Imagem de uma placa de petri("PlacaPetri.jpg")
          }}
 }
 \value{

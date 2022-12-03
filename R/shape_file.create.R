@@ -40,15 +40,24 @@ shape_file.create=function(im,rows=10,
                      ColPlot="red",
                      ColNumber="red",
                      SelectSeveral=FALSE,
+
                      Matrix=NULL){
+  # rows=6;cols=10;rectangular=TRUE;colLines="white";ColPlot="red";ColNumber="red";SelectSeveral=FALSE;Matrix=NULL
   col1=colLines
   col2=ColPlot
 
 
   stop=FALSE
+ im0=im
+ im=resize_image(im,w=400)
+
  p= plot_image(im)
 
+
   if(isFALSE(is.null(Matrix))){
+  #  Matrix[,3]=nrow(im@.Data[,,1])*Matrix[,3]/nrow(im0@.Data[,,1])
+  #  Matrix[,4]=ncol(im@.Data[,,1])*Matrix[,4]/ncol(im0@.Data[,,1])
+
     points(Matrix[,3],Matrix[,4],col=col2)
 
   }
@@ -256,6 +265,13 @@ colnames(MAT2)[3:4]=c("x","y")
 
   MAT3=aggregate(MAT2,list(as.factor(MAT2[,1])),mean)
 text(MAT3[,4],MAT3[,5],MAT3[,1],col=ColNumber)
+
+MAT2[,3]=nrow(im0@.Data[,,1])*MAT2[,3]/nrow(im@.Data[,,1])
+MAT2[,4]=ncol(im0@.Data[,,1])*MAT2[,4]/ncol(im@.Data[,,1])
+info=info_image(im)
+
+#res=list(length=info$Length,Mat=MAT2)
+
 
   return(MAT2)
 }

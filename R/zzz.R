@@ -23,6 +23,7 @@ if(interactive()) {
 
 #Instala o EBImage, caso nao esteja instalado.
 
+
 ebimage <- function(){
   if(!requireNamespace("EBImage", quietly = TRUE)) {
 

@@ -28,7 +28,7 @@
 
 
 read_image=function(file,plot=FALSE,norm=1){
-#  ebimage()
+  ebimage()
   raster=FALSE
   n=unlist(strsplit(file, "[.]"))
   if((n[length(n)]=="tif")|(n[length(n)]=="TIF")){raster=TRUE}

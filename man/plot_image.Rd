@@ -28,7 +28,7 @@ blue color for images with the extension '.tif'. The default is 3.)}
 \item{band}{Indica a banda que se deseja plotar. Neste caso nao se precisa
 considerar as bandas de R, G e B simultaneamente.}
 
-\item{col}{Pode ser um valor numerico variando entre 0 e 6 ou uma paleta de cores
+\item{col}{Pode ser um valor numerico variando entre 0 e 8 ou uma paleta de cores
 obtida pela funcao `colorRampPalette`. Se for 0 sera considerada a representacao
 da imagem monocromatica em escala de cinza. Valores entre 1 e 6 indicam outras
 paletas de cores para a representacao. (It can be a numerical value ranging from

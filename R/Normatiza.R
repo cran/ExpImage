@@ -48,9 +48,11 @@
 
 
 
-Normatiza=function(DadosEntrada, DadosBase=NULL, LimiteInferior=0, LimiteSuperior=1,Metodo=1){
+Normatiza=function(DadosEntrada, DadosBase=NULL,
+                   LimiteInferior=0, LimiteSuperior=1,Metodo=1){
   if(suppressWarnings(class(DadosEntrada)[1]=="Distancia")){DadosEntrada=DadosEntrada$Distancia}
   if(suppressWarnings(class(DadosBase)[1]=="Distancia")){DadosBase=DadosBase$Distancia}
+  DadosEntrada[is.nan(DadosEntrada)]=NA
 
   #DadosEntrada=as.matrix(DadosEntrada)
   if(is.null(DadosBase)){DadosBase=DadosEntrada}
@@ -72,10 +74,15 @@ Normatiza=function(DadosEntrada, DadosBase=NULL, LimiteInferior=0, LimiteSuperio
   }
 
   if(Metodo==2){
-    valMax = max(c(DadosBase),na.rm=T)
-    valMin = min(c(DadosBase),na.rm=T)
-    valMax2=max(c(DadosEntrada),na.rm=T)
-    valMin2=min(c(DadosEntrada),na.rm=T)
+    dbase=c(DadosBase)
+    dentrada=c(DadosEntrada)
+    dbase[is.infinite(dbase)]=NA
+    dentrada[is.infinite(dentrada)]=NA
+
+    valMax = max(dbase,na.rm=T)
+    valMin = min(dbase,na.rm=T)
+    valMax2=max(dentrada,na.rm=T)
+    valMin2=min(dentrada,na.rm=T)
 
     Normatizado=(LimiteSuperior - LimiteInferior)*(DadosEntrada- valMax2)/(valMax2- valMin2)
     Normatiza=Normatizado+LimiteSuperior

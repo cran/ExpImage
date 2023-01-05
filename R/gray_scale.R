@@ -70,8 +70,8 @@ gray_scale=function(im,method="r",normalize=TRUE,plot=FALSE){
 
 
   normatizar=function(MAT){
-    MAT=MAT-min(c(MAT))
-    id=1/max(c(MAT))
+    MAT=MAT-min(c(MAT),na.rm=T)
+    id=1/max(c(MAT),na.rm=T)
     MAT=MAT*id
     return(MAT)
   }
@@ -119,8 +119,8 @@ gray_scale=function(im,method="r",normalize=TRUE,plot=FALSE){
 
 #  if(plot==T){plot_image(EBImage::as.Image( EBImage::normalize(imm)),)}
   if(normalize==TRUE){
-  if(plot==T){plot(EBImage::as.Image( EBImage::normalize(imm)),)}
-  return(EBImage::normalize(imm))
+  if(plot==T){plot_image(normalize_image(as_image(imm)))}
+  return(normalize_image(as_image(imm)))
   }
 
   if(normalize==FALSE){

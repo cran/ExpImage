@@ -1,3 +1,8 @@
+# ExpImage 0.8.0
+## New functions
+* New function `segmentation_RF()`
+* New function `predict_RF()`
+
 # ExpImage 0.7.0
 ## Minor improvements
 * The `crop_image()` functions was improved.

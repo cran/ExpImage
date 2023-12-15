@@ -5,7 +5,7 @@
 \title{Create a histogram from image bands
 (Criar um histrograma a partir das bandas das imagens)}
 \usage{
-histogram_image(im,layout=2,lim=1000)
+histogram_image(im,layout=2,lim=1000,BandNames=NULL)
 }
 \arguments{
 \item{im}{:Este objeto deve conter uma imagem (This object must contain an image ).}
@@ -16,6 +16,8 @@ histogram_image(im,layout=2,lim=1000)
 \item{lim}{: Refere-se ao numero maximo de pixels que se deseja considerar para
 obter o histograma. Se for NULL todos os pixels serao considerados (refers to the maximum number
  of pixels considered to obtain the histogram. If NULL all pixels will be considered).}
+
+\item{BandNames}{:Refere-se ao nome das bandas (Refers to the bands names)}
 }
 \value{
 Retorna histogramas a partir das bandas (Return histograms from the bands of the images).
@@ -25,15 +27,17 @@ This function allows you to create histograms from the bands of the images
 (Esta funcao permite criar histogramas a partir das bandas das imagens).
 }
 \examples{
+\donttest{
 end=example_image(6)
 im=read_image(end,plot=TRUE)
 histogram_image(im,layout = 1)
 histogram_image(im,layout = 2)
 histogram_image(im,layout = 3)
+histogram_image(im,BandNames = c("Azul","Verde",
+"Vermelho","IR","SWIR"))
 
 
 
-\donttest{
 ########################################################
 ###' Abrindo o endereco de bandas de imagens de satelite
 ########################################################

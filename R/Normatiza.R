@@ -17,7 +17,7 @@
 #'  }
 #'
 #' @return Retorna a matriz normatizada.
-#' @seealso /code{/link{gray_scale}/}
+#' @seealso \code{\link{gray_scale}}
 #' @references
 #' PlayList "Curso de Analise Multivariada":
 #'  https://www.youtube.com/playlist?list=PLvth1ZcREyK72M3lFl7kBaHiVh5W53mlR

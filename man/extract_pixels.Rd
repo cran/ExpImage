@@ -44,6 +44,7 @@ Function to exclude pixels from the background or foreground in
  correspondente ao background ou foreground).
 }
 \examples{
+\donttest{
 ###########################################################################
 #Estimar a area atacada por doenca no tomateiro
 ###########################################################################
@@ -95,6 +96,7 @@ Function to exclude pixels from the background or foreground in
   #Porcentagem da area lesionada.
 
   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
+}
 }
 \seealso{
 \code{\link{segmentation_logit}}

@@ -38,11 +38,11 @@ info_image(im)
 
 im2=create_png(im,seg)
 info_image(im2)
-plot_image(im2)
+#write_image(im2,files = "imagem.png")
 
 im2=create_png(im,seg,crop=TRUE)
 info_image(im2)
-plot_image(im2)
+#write_image(im2,files = "imagem.png")
 }
 }
 \seealso{

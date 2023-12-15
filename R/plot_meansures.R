@@ -115,8 +115,8 @@ plot_meansures=function(img,
 
 if(!is.null(measurements)){
    class(measurements)="measurements"
-  coordx=measurements$measures[,1]
-  coordy=measurements$measures[,2]
+  coordx=matrix(measurements$measures,ncol=11)[,1]
+  coordy=matrix(measurements$measures,ncol=11)[,2]
   if(!is.null(variable)){
   if(variable!="id"){text2=measurements$measures[,variable]}
   if(variable=="id"){text2=rownames(measurements$measures)}

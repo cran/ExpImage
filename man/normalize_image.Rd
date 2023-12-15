@@ -23,6 +23,7 @@ Retorna histogramas a partir das bandas (Return histograms from the bands of the
 This function allows you to create histograms from the bands of the images (Esta funcao permite criar histogramas a partir das bandas das imagens).
 }
 \examples{
+\donttest{
 end=example_image(6)
 im=read_image(end,plot=TRUE)
 histogram_image(im,layout = 1)
@@ -32,6 +33,7 @@ histogram_image(im,layout = 3)
 im2=normalize_image(im)
 plot_image(im2)
 histogram_image(im2,layout = 3)
+}
 }
 \seealso{
 \code{\link{segmentation_logit}}

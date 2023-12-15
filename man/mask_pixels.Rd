@@ -39,6 +39,7 @@ imagem segmentada.}
 }
 \value{
 Retorna uma imagem com uma mascara sobre os  pixels selecionados.
+ @seealso  \code{\link{segmentation_logit}}
 }
 \description{
 This function superimposes a mask over the pixels corresponding to
@@ -46,6 +47,7 @@ the background or foreground.(Esta funcao permite criar mascara sobre os pixels
   correspondentes ao background ou foreground)
 }
 \examples{
+\donttest{
 ###########################################################################
 #Estimar a area atacada por doenca no tomateiro
 ###########################################################################
@@ -98,4 +100,5 @@ the background or foreground.(Esta funcao permite criar mascara sobre os pixels
   #Porcentagem da area lesionada.
 
   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
+}
 }

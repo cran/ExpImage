@@ -3,7 +3,7 @@
 #'
 #' @description This function allows you to create histograms from the bands of the images
 #' (Esta funcao permite criar histogramas a partir das bandas das imagens).
-#' @usage histogram_image(im,layout=2,lim=1000)
+#' @usage histogram_image(im,layout=2,lim=1000,BandNames=NULL)
 
 #' @param im    :Este objeto deve conter uma imagem (This object must contain an image ).
 #' @param layout    : Valor numerico variando entre 1 e 3 para se ter diferentes layouts
@@ -11,21 +11,23 @@
 #' @param lim    : Refere-se ao numero maximo de pixels que se deseja considerar para
 #' obter o histograma. Se for NULL todos os pixels serao considerados (refers to the maximum number
 #'  of pixels considered to obtain the histogram. If NULL all pixels will be considered).
-
+#' @param BandNames  :Refere-se ao nome das bandas (Refers to the bands names)
 #' @return Retorna histogramas a partir das bandas (Return histograms from the bands of the images).
 #' @seealso  \code{\link{segmentation_logit}}
 
 #' @examples
-
+#' \donttest{
 #' end=example_image(6)
 #' im=read_image(end,plot=TRUE)
 #' histogram_image(im,layout = 1)
 #' histogram_image(im,layout = 2)
 #' histogram_image(im,layout = 3)
+#' histogram_image(im,BandNames = c("Azul","Verde",
+#' "Vermelho","IR","SWIR"))
 #'
 #'
 #'
-#' \donttest{
+
 #' ########################################################
 #' ###' Abrindo o endereco de bandas de imagens de satelite
 #' ########################################################
@@ -53,7 +55,7 @@
 #'}
 #' @export
 
-histogram_image=function(im,layout=2,lim=1000){
+histogram_image=function(im,layout=2,lim=1000,BandNames=NULL){
 
   if((c(class(im))=="RasterStack")|(c(class(im))=="RasterLayer")|(c(class(im))=="RasterBrick")){
     im=raster2image(im)
@@ -89,10 +91,14 @@ if(length(dim(im))>3){
 
   DIM=dim(arr)
 
+  if (is.null(BandNames)){
+    BandNames=paste("Band",1:DIM[3])
+  }
+
 
   arr2=NULL
   for(i in 1:DIM[3]){
-    arr2=rbind(arr2,cbind(paste("Band",i),linearize_image(arr[,,i])))
+    arr2=rbind(arr2,cbind(BandNames[i],linearize_image(arr[,,i])))
   }
   arr2=arr2[!is.na(arr2[,4]),]
   colnames(arr2)=c("Bands","Row","Col","Value")

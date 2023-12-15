@@ -1,3 +1,10 @@
+# ExpImage 0.9.0
+## Minor improvements
+* The `mask_pixels()` function was improved.
+* The `Normatiza()` function was improved.
+* The `histogram_image()` function was improved.
+
+
 # ExpImage 0.8.0
 ## New functions
 * New function `segmentation_RF()`

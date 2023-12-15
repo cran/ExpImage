@@ -34,7 +34,7 @@
 
 
 #' @examples
-#\donttest{
+#' \donttest{
 #'###########################################################################
 #'#Estimar a area atacada por doenca no tomateiro
 #'###########################################################################
@@ -87,7 +87,7 @@
 #'   #Porcentagem da area lesionada.
 #'
 #'   100*(sum(DoencaSeg)/sum(MatrizSegentada2))
-#}
+#' }
 #'@export
 #' @exportS3Method print extract_pixels
 
